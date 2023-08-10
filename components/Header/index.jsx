@@ -10,13 +10,13 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-[#151414] h-20">
-      <nav className="h-full block my-auto">
-        <div className="h-full max-w-7xl mx-auto flex justify-between items-center ">
-          <div>
-            <Link href="/" className="">
+    <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-50">
+      <nav className="h-full">
+        <div className="h-full max-w-7xl mx-auto flex justify-between items-center">
+          <div className="">
+            <Link href="/" className="flex items-center justify-center">
               <Image
-                className="rounded-full bg-red-300 "
+                className="bg-red-300"
                 src="/favicon.ico"
                 width={55}
                 height={55}
@@ -25,21 +25,21 @@ export default function Header() {
             </Link>
           </div>
 
-          <div className="h-full mx-4 flex-1 text-white ">
+          <div className="mx-4 flex-1 text-white ">
             <ul className="flex justify-center items-center ">
-              <li className=" inline-block ">
+              <li className="inline-block ">
                 <Link
                   href="/"
-                  className="px-2 py-2 mx-2 block text-base font-semibold cursor-pointer"
+                  className="px-5 py-5 mx-2 block text-base font-semibold cursor-pointer"
                 >
                   Home
                 </Link>
               </li>
 
-              <li className="inline-block relative group hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+              <li className="inline-block relative group">
                 <Link
-                  href="/category"
-                  className="px-2 py-2 mx-2 block text-base font-semibold cursor-pointer"
+                  href="#"
+                  className="px-5 py-5 mx-2 block text-base font-semibold cursor-pointer"
                 >
                   Category
                   <span className="ml-1.5">
@@ -47,10 +47,57 @@ export default function Header() {
                   </span>
                 </Link>
 
-                <ul className="absolute top-0 left-0 hidden mt-2 bg-white text-gray-700 border border-gray-300 rounded-md group-hover:block">
-                  <li className="py-2 px-4 hover:bg-gray-100">Item 1</li>
-                  <li className="py-2 px-4 hover:bg-gray-100">Item 2</li>
-                  <li className="py-2 px-4 hover:bg-gray-100">Item 3</li>
+                <ul className="absolute top-14 left-0 max-w-lg w-full hidden bg-white text-gray-700 border border-gray-300 rounded-md group-hover:block">
+                  <li className="py-2.5 px-5 hover:bg-gray-100 w-4/12">
+                    <a href="" className="block w-full">
+                      Item 1
+                    </a>
+                  </li>
+                  <li className="py-2.5 px-5 hover:bg-gray-100 w-4/12">
+                    <a href="" className="block w-full">
+                      Item 2
+                    </a>
+                  </li>
+                  <li className="py-2.5 px-5 hover:bg-gray-100 w-4/12">
+                    <a href="" className="block w-full">
+                      Item 3
+                    </a>
+                  </li>
+                  <li className="py-2.5 px-5 hover:bg-gray-100 w-4/12">
+                    <a href="" className="block w-full">
+                      Item 4
+                    </a>
+                  </li>
+                  <li className="py-2.5 px-5 hover:bg-gray-100 w-4/12">
+                    <a href="" className="block w-full">
+                      Item 5
+                    </a>
+                  </li>
+                  <li className="py-2.5 px-5 hover:bg-gray-100 w-4/12">
+                    <a href="" className="block w-full">
+                      Item 6
+                    </a>
+                  </li>
+                  <li className="py-2.5 px-5 hover:bg-gray-100 w-4/12">
+                    <a href="" className="block w-full">
+                      Item 7
+                    </a>
+                  </li>
+                  <li className="py-2.5 px-5 hover:bg-gray-100 w-4/12">
+                    <a href="" className="block w-full">
+                      Item 8
+                    </a>
+                  </li>
+                  <li className="py-2.5 px-5 hover:bg-gray-100 w-4/12">
+                    <a href="" className="block w-full">
+                      Item 9
+                    </a>
+                  </li>
+                  <li className="py-2.5 px-5 hover:bg-gray-100 w-4/12">
+                    <a href="" className="block w-full">
+                      Item 9
+                    </a>
+                  </li>
                 </ul>
               </li>
             </ul>
