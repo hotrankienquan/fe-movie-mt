@@ -143,7 +143,7 @@ const SliderLastetFilm = () => {
               <div className="absolute bottom-0 left-0 right-0 text-center p-2 bg-black bg-opacity-70">
                 <span className=" block text-white">
                   <h3 className="whitespace-nowrap text-ellipsis overflow-hidden">
-                    <Link href="/cc">
+                    <Link href="/cc" title="film">
                       OpenHeimmerccccccccccccccccccccccccccccccccc
                     </Link>
                   </h3>
