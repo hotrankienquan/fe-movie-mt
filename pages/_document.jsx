@@ -12,7 +12,6 @@ export default function Document() {
           referrerpolicy="no-referrer"
         />
       </Head>
-
       <body>
         <Main />
         <NextScript />
