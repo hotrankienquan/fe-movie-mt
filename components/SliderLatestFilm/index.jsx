@@ -21,6 +21,7 @@ function SampleNextArrow(props) {
         display: "absolute",
         top: "50%",
         right: 0,
+        
       }}
       onClick={onClick}
     ></div>
@@ -109,28 +110,18 @@ const SliderLastetFilm = () => {
             <div className="relative mx-2.5 overflow-hidden group">
               <Link
                 href="#"
-                // className="flex items-center justify-center z-50 group-hover:bg-gradient-to-r from-cyan-500 to-blue-500"
                 className="flex items-center justify-center z-50"
               >
-                <img
-                  src={item}
-                  alt="user profile avatar"
-                  className="max-h-[290px] h-full block w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
-                />
-                {/* <Image
-                    className="block w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
-
+                <Image
                     src={
                       item ||
                       "/vercel.svg"
                     }
                     alt="error"
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    layout="responsive"
+                    width={200}
+                    height={290}
                     loading="lazy"
-                  /> */}
+                  />
                 {/* <i className="fa-solid fa-circle-play text-5xl absolute text-white"></i> */}
               </Link>
 
