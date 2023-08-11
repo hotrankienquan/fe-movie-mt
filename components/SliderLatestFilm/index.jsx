@@ -10,7 +10,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import Image from 'next/legacy/image'
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -115,8 +115,22 @@ const SliderLastetFilm = () => {
                 <img
                   src={item}
                   alt="user profile avatar"
-                  className="block w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
+                  className="max-h-[290px] h-full block w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
                 />
+                {/* <Image
+                    className="block w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
+
+                    src={
+                      item ||
+                      "/vercel.svg"
+                    }
+                    alt="error"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    layout="responsive"
+                    loading="lazy"
+                  /> */}
                 {/* <i className="fa-solid fa-circle-play text-5xl absolute text-white"></i> */}
               </Link>
 
