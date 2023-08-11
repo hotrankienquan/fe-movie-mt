@@ -8,8 +8,8 @@ const LayoutRoot = ({ children }) => {
   return (
     <>
       <Header />
-      {/* <div className="sm:w-11/12 md:w-[1170px] mx-auto my-2">{children}</div> */}
-      {/* <Footer /> */}
+      <div className="sm:w-11/12 md:w-[1200px] mx-auto my-24">{children}</div>
+      <Footer />
     </>
   );
 };

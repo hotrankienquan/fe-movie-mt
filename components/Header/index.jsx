@@ -1,6 +1,7 @@
-"use client";
+// "use client";
 import Image from "next/image";
 import Link from "next/link";
+import Tooltip from "@mui/material/Tooltip";
 import { useState } from "react";
 
 export default function Header() {
@@ -23,12 +24,14 @@ export default function Header() {
     const { name, value } = e.target;
     setSearchInput(value);
   };
-  const handleSubmitSearchInput = (e) => {};
+  const handleSubmitSearchInput = (e) => {
+    e.preventDefault();
+  };
 
   return (
-    <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-50">
-      <nav className="h-full">
-        <div className="h-full max-w-7xl mx-auto flex justify-between items-center">
+    <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-50 ">
+      <nav className="h-full mx-auto max-w-[1200px]">
+        <div className="h-full flex justify-between items-center">
           <div className="">
             <Link href="/" className="flex items-center justify-center">
               <Image
@@ -69,7 +72,7 @@ export default function Header() {
                       key={i}
                       className="block py-2.5 px-3.5 hover:bg-gray-100"
                     >
-                      <a href="" className="block w-full">
+                      <a href="" className="block w-full text-sm">
                         <span className="mr-2">
                           <i className="fa-solid fa-caret-right"></i>
                         </span>
@@ -95,22 +98,26 @@ export default function Header() {
                     placeholder="Tìm kiếm..."
                   />
 
-                  <button
-                    className="rounded-full bg-white text-black h-11 w-11"
-                    onClick={handleSubmitSearchInput}
-                  >
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                  </button>
+                  <Tooltip title="Search" arrow>
+                    <button
+                      className="rounded-full bg-white text-black h-11 w-11"
+                      onClick={handleSubmitSearchInput}
+                    >
+                      <i className="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                  </Tooltip>
                 </form>
               </li>
 
               <li>
-                <Link
-                  className="flex justify-center items-center rounded-full bg-white text-black h-11 w-11"
-                  href="/login"
-                >
-                  <i className="fa-solid fa-user"></i>
-                </Link>
+                <Tooltip title="Login / Register" arrow>
+                  <Link
+                    className="flex justify-center items-center rounded-full bg-white text-black h-11 w-11"
+                    href="/login"
+                  >
+                    <i className="fa-solid fa-user"></i>
+                  </Link>
+                </Tooltip>
               </li>
             </ul>
           </div>
