@@ -35,7 +35,10 @@ body {
   /* height: 10000px; */
   background-color: #424040;
 }
-
+.slick-prev::before,
+.slick-next::before {
+  font-size: 30px !important;
+}
 /* slider_latest_film */
 .slider_latest_film {
   height: 340px;

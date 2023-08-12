@@ -2,10 +2,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
+import { createAxios } from "../../utils/createInstance";
+import { logOutSuccess } from "../../store/authSlice";
+import { logOut } from "../../store/apiRequest";
+import { useRouter } from "next/router";
 export default function Header() {
+  const router = useRouter();
+  const user = useSelector((state) => state.auth.login.currentUser);
+  const accessToken = user?.accessToken;
+  const id = user?._id;
+  const dispatch = useDispatch();
+  let axiosJWT = createAxios(user, dispatch, logOutSuccess);
   const [searchInput, setSearchInput] = useState("");
-  console.log(searchInput);
 
   const arrNameCategory = [
     "Phim chiếu rạp",
@@ -26,7 +35,9 @@ export default function Header() {
   const handleSubmitSearchInput = (e) => {
     e.preventDefault();
   };
-
+  const handleLogout = () => {
+    logOut(dispatch, id, router, accessToken, axiosJWT);
+  };
   return (
     <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-50">
       <nav className="h-full mx-auto max-w-[1200px]">
@@ -160,6 +171,27 @@ export default function Header() {
                   Login / Register
                   <div className="tooltip-arrow" data-popper-arrow></div>
                 </div>
+              </li>
+              {!user ? (
+                <>
+                  <li>
+                    <Link href="/register" className="text-white ml-2">
+                      Đăng ký
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/login" className="text-white ml-2">
+                      Đăng nhập
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <span className="text-white ml-2">{user.email}</span>
+              )}
+              <li>
+                <span className="text-white ml-2" onClick={handleLogout}>
+                  Đăng xuất
+                </span>
               </li>
             </ul>
           </div>

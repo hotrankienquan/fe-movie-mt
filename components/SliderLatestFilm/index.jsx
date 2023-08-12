@@ -106,28 +106,26 @@ const SliderLastetFilm = () => {
       </div>
       <Slider {...settings}>
         {arrImg.map((item, i) => (
-          <div key={i} className="h-full ">
-            <div className="relative h-full mx-2.5 overflow-hidden group">
+          <div key={i} className="h-full">
+            <div className="relative mx-2.5 overflow-hidden group">
               <Link
                 href="#"
                 // className="flex items-center justify-center z-50 group-hover:bg-gradient-to-r from-cyan-500 to-blue-500"
-                className="flex h-full items-center justify-center z-50"
+                className="flex items-center justify-center z-50"
               >
-                <img
+                {/* <img
                   src={item}
                   alt="user profile avatar"
-                  className="h-full block w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
-                />
-                {/* <Image
                   className="max-h-[290px] h-full block w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
+                /> */}
+                <Image
                   src={item || "/vercel.svg"}
                   alt="error"
-                  width={500}
-                  height={500}
-                  // sizes="100vw"
-                  layout="responsive"
+                  width={200}
+                  height={290}
+                  sizes="100vw"
                   loading="lazy"
-                /> */}
+                />
                 {/* <i className="fa-solid fa-circle-play text-5xl absolute text-white"></i> */}
               </Link>
 
