@@ -1,7 +1,6 @@
 // "use client";
 import Image from "next/image";
 import Link from "next/link";
-import Tooltip from "@mui/material/Tooltip";
 import { useState } from "react";
 
 export default function Header() {
@@ -29,7 +28,7 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-50 ">
+    <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-50">
       <nav className="h-full mx-auto max-w-[1200px]">
         <div className="h-full flex justify-between items-center">
           <div className="">
@@ -82,6 +81,33 @@ export default function Header() {
                   ))}
                 </ul>
               </li>
+
+              <li className="inline-block ">
+                <Link
+                  href="#"
+                  className="px-5 py-5 mx-2 block text-base font-semibold cursor-pointer"
+                >
+                  Oscar Film
+                </Link>
+              </li>
+
+              <li className="inline-block ">
+                <Link
+                  href="#"
+                  className="px-5 py-5 mx-2 block text-base font-semibold cursor-pointer"
+                >
+                  Top IMDB
+                </Link>
+              </li>
+
+              <li className="inline-block ">
+                <Link
+                  href="#"
+                  className="px-5 py-5 mx-2 block text-base font-semibold cursor-pointer"
+                >
+                  Quốc gia
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -90,7 +116,7 @@ export default function Header() {
               <li className="mr-3.5 relative flex">
                 <form className="z-50 bg-[#2D2D2D] ">
                   <input
-                    className="bg-[#2D2D2D] outline-0 px-3.5 text-white"
+                    className="bg-[#2D2D2D] focus:outline-0 focus:outline-none px-3.5 text-white"
                     type="text"
                     name="searchInput"
                     value={searchInput}
@@ -98,26 +124,42 @@ export default function Header() {
                     placeholder="Tìm kiếm..."
                   />
 
-                  <Tooltip title="Search" arrow>
-                    <button
-                      className="rounded-full bg-white text-black h-11 w-11"
-                      onClick={handleSubmitSearchInput}
-                    >
-                      <i className="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                  </Tooltip>
+                  <button
+                    data-tooltip-target="search-tooltip-bottom"
+                    data-tooltip-placement="bottom"
+                    className="rounded-full bg-white text-black h-11 w-11"
+                    onClick={handleSubmitSearchInput}
+                  >
+                    <i className="fa-solid fa-magnifying-glass"></i>
+                  </button>
+                  <div
+                    id="search-tooltip-bottom"
+                    role="tooltip"
+                    className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+                  >
+                    Search
+                    <div className="tooltip-arrow" data-popper-arrow></div>
+                  </div>
                 </form>
               </li>
 
               <li>
-                <Tooltip title="Login / Register" arrow>
-                  <Link
-                    className="flex justify-center items-center rounded-full bg-white text-black h-11 w-11"
-                    href="/login"
-                  >
-                    <i className="fa-solid fa-user"></i>
-                  </Link>
-                </Tooltip>
+                <Link
+                  data-tooltip-target="auth-tooltip-bottom"
+                  data-tooltip-placement="bottom"
+                  className="flex justify-center items-center rounded-full bg-white text-black h-11 w-11"
+                  href="/login"
+                >
+                  <i className="fa-solid fa-user"></i>
+                </Link>
+                <div
+                  id="auth-tooltip-bottom"
+                  role="tooltip"
+                  className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+                >
+                  Login / Register
+                  <div className="tooltip-arrow" data-popper-arrow></div>
+                </div>
               </li>
             </ul>
           </div>

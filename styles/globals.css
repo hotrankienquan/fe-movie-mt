@@ -33,6 +33,34 @@ body {
   background-color: #424040;
 }
 
+.slider_latest_film {
+  height: 340px;
+}
+.slider_latest_film .slick-list {
+  height: 100%;
+}
+.slider_latest_film .slick-list .slick-track {
+  height: 100%;
+}
+
+.slider_latest_film .slick-list .slick-track .slick-slide > div {
+  height: 100%;
+}
+
+.list_slider_film {
+  height: 220px;
+}
+.list_slider_film .slick-list {
+  height: 100%;
+}
+.list_slider_film .slick-list .slick-track {
+  height: 100%;
+}
+
+.list_slider_film .slick-list .slick-track .slick-slide > div {
+  height: 100%;
+}
+
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

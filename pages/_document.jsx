@@ -11,10 +11,17 @@ export default function Document() {
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
+        {/* <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css"
+          rel="stylesheet"
+          crossOrigin="anonymous"
+          referrerPolicy="no-re"
+        /> */}
       </Head>
       <body>
         <Main />
         <NextScript />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
       </body>
     </Html>
   );

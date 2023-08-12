@@ -10,12 +10,13 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Image from 'next/legacy/image'
+import Image from "next/legacy/image";
+
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
     <div
-      className={`${className} z-50`}
+      className={`${className} z-10`}
       style={{
         ...style,
         display: "absolute",
@@ -31,7 +32,7 @@ function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
   return (
     <div
-      className={`${className} z-50 `}
+      className={`${className} z-10`}
       style={{
         ...style,
         display: "absolute",
@@ -97,47 +98,43 @@ const SliderLastetFilm = () => {
   };
 
   return (
-    <>
+    <div className="mt-20 mb-8 -mx-2.5">
       <div className="px-2.5 mb-4">
         <h2 className="text-[#da966e] text-3xl font-normal border-l-4 pl-2.5">
-          Phim Hot
+          Phim Mới Nhất
         </h2>
       </div>
       <Slider {...settings}>
         {arrImg.map((item, i) => (
-          <div key={i} className="h-full">
-            <div className="relative mx-2.5 overflow-hidden group">
+          <div key={i} className="h-full ">
+            <div className="relative h-full mx-2.5 overflow-hidden group">
               <Link
                 href="#"
                 // className="flex items-center justify-center z-50 group-hover:bg-gradient-to-r from-cyan-500 to-blue-500"
-                className="flex items-center justify-center z-50"
+                className="flex h-full items-center justify-center z-50"
               >
                 <img
                   src={item}
                   alt="user profile avatar"
-                  className="max-h-[290px] h-full block w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
+                  className="h-full block w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
                 />
                 {/* <Image
-                    className="block w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
-
-                    src={
-                      item ||
-                      "/vercel.svg"
-                    }
-                    alt="error"
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    layout="responsive"
-                    loading="lazy"
-                  /> */}
+                  className="max-h-[290px] h-full block w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
+                  src={item || "/vercel.svg"}
+                  alt="error"
+                  width={500}
+                  height={500}
+                  // sizes="100vw"
+                  layout="responsive"
+                  loading="lazy"
+                /> */}
                 {/* <i className="fa-solid fa-circle-play text-5xl absolute text-white"></i> */}
               </Link>
 
               <div className="h-full flex items-center justify-center">
                 <Link
                   href="#"
-                  className="h-full absolute -top-2/4 group-hover:top-[45%] block scale-150 opacity-0 text-white group-hover:scale-100 group-hover:opacity-80 duration-500 ease-in-out"
+                  className="h-full absolute -top-2/4 group-hover:top-[40%] block scale-150 opacity-0 text-white group-hover:scale-100 group-hover:opacity-80 duration-500 ease-in-out"
                 >
                   <i className="fa-solid fa-circle-play text-5xl"></i>
                 </Link>
@@ -167,7 +164,7 @@ const SliderLastetFilm = () => {
           </div>
         ))}
       </Slider>
-    </>
+    </div>
   );
 };
 
