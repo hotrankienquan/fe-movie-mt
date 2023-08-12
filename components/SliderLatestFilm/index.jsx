@@ -110,23 +110,16 @@ const SliderLastetFilm = () => {
             <div className="relative mx-2.5 overflow-hidden group">
               <Link
                 href="#"
-                // className="flex items-center justify-center z-50 group-hover:bg-gradient-to-r from-cyan-500 to-blue-500"
-                className="flex items-center justify-center z-50"
+                className="flex h-full items-center justify-center z-50"
               >
-                {/* <img
-                  src={item}
-                  alt="user profile avatar"
-                  className="max-h-[290px] h-full block w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
-                /> */}
                 <Image
+                  className="h-full block w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50"
                   src={item || "/vercel.svg"}
                   alt="error"
                   width={200}
-                  height={290}
-                  sizes="100vw"
+                  height={340}
                   loading="lazy"
                 />
-                {/* <i className="fa-solid fa-circle-play text-5xl absolute text-white"></i> */}
               </Link>
 
               <div className="h-full flex items-center justify-center">
@@ -137,17 +130,6 @@ const SliderLastetFilm = () => {
                   <i className="fa-solid fa-circle-play text-5xl"></i>
                 </Link>
               </div>
-
-              {/* <div className="absolute inset-y-0 inset-x-0 group-hover:block group-hover:bg-black group-hover:bg-opacity-50 transition-all duration-500 ease-in-out">
-                <div className="h-full flex items-center justify-center">
-                  <Link
-                    href="#"
-                    className="h-full absolute -top-2/4 group-hover:top-[45%] block scale-150 opacity-0 text-white group-hover:scale-100 group-hover:opacity-80 duration-500 ease-in-out"
-                  >
-                    <i className="fa-solid fa-circle-play text-5xl"></i>
-                  </Link>
-                </div>
-              </div> */}
 
               <div className="absolute bottom-0 left-0 right-0 text-center p-2 bg-black bg-opacity-70">
                 <span className=" block text-white">

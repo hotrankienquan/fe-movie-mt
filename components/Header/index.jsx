@@ -172,19 +172,9 @@ export default function Header() {
                   <div className="tooltip-arrow" data-popper-arrow></div>
                 </div>
               </li>
+
               {!user ? (
-                <>
-                  <li>
-                    <Link href="/register" className="text-white ml-2">
-                      Đăng ký
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/login" className="text-white ml-2">
-                      Đăng nhập
-                    </Link>
-                  </li>
-                </>
+                <></>
               ) : (
                 <span className="text-white ml-2">{user.email}</span>
               )}

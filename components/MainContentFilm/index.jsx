@@ -112,7 +112,9 @@ const MainContentFilm = () => {
                           <Link href="/cc" title="film">
                             OpenHeimmerccccccccccccccccccccccccccccccccc
                           </Link>
-                          <p>OpenHeimmerccccccccccccccccccccccccccccccccc</p>
+                          <p className="text-sm opacity-50 whitespace-nowrap text-ellipsis overflow-hidden">
+                            OpenHeimmerccccccccccccccccccccccccccccccccc
+                          </p>
                         </h3>
                       </span>
                     </div>
