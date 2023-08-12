@@ -25,26 +25,7 @@ const LoginPage = () => {
     resolver: yupResolver(schema),
   });
   const onSubmit = async (data) => {
-    login(data, dispatch, router)
-
-    // const base_url = process.env.NEXT_PUBLIC_URL;
-    // await axios
-    //   .post(`${base_url}/api/v1/auth/login`, data)
-    //   .then((response) => {
-    //     return response.data;
-    //   })
-    //   .then((data) => {
-    //     if (data.code == 200) {
-    //       console.log("ok");
-    //       //push data code info vafo redux
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     let { code, mes } = error.response.data;
-    //     if (code == 404) {
-    //       toast(mes);
-    //     }
-    //   });
+    login(data, dispatch, router);
   };
 
   return (

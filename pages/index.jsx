@@ -8,7 +8,6 @@ const inter = Inter({ subsets: ["latin"] });
 
 const Home = (props) => {
   const user = useSelector((state) => state.auth.login?.currentUser);
-  console.log("user in index", user);
   useEffect(() => {
     if (!user) {
       // navigate("/login");

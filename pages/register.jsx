@@ -24,12 +24,6 @@ const Register = () => {
   });
   const onSubmit = async (data) => {
     const base_url = process.env.NEXT_PUBLIC_URL;
-    // let res = await axios.post(`${base_url}/api/v1/auth/register`, data);
-    // if (res.data.code == 200) {
-    //   console.log("success");
-    //   // xử lí redux toolkit sau
-    //   router.push("/login");
-    // }
     await axios
       .post(`${base_url}/api/v1/auth/register`, data)
       .then((response) => {
@@ -37,14 +31,10 @@ const Register = () => {
       })
       .then((data) => {
         if (data.code == 200) {
-          console.log("ok");
-          //push data code info vafo redux
           router.push("/login");
         }
-        console.log(data);
       })
       .catch((error) => {
-        console.log(error.response.data, "line 45");
         if (error?.response?.data?.code == 404) {
           toast(error?.response?.data?.mes);
         }

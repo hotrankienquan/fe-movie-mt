@@ -13,9 +13,8 @@ export const login = async (user, dispatch, router) => {
   dispatch(loginStart());
   try {
     const res = await axios.post(`${base_url}/api/v1/auth/login`, user);
-    console.log(res, "line 16");
     if (res.data.code == 200) {
-      dispatch(loginSuccess(res.data.code.data));
+      dispatch(loginSuccess(res.data.data));
       router.push("/");
     }
   } catch {
@@ -48,10 +47,8 @@ export const getAllUsers = async (token, dispatch, axiosJWT) => {
 };
 
 export const deleteUser = async (id, dispatch, token) => {
-  console.log("delete");
   dispatch(deleteUsersStart());
   try {
-    console.log(id);
     const res = await axios.delete("/v1/user/" + id, {
       headers: { token: `Bearer ${token}` },
     });
@@ -74,16 +71,3 @@ export const logOut = async (dispatch, id, router, accessToken, axiosJWT) => {
     dispatch(logOutFailed());
   }
 };
-
-// export const logOut = async (dispatch, id, router, accessToken, axiosJWT) => {
-//   dispatch(logOutStart());
-//   try {
-//     await axiosJWT.post("/v1/auth/logout", id, {
-//       headers: { token: `Bearer ${accessToken}` },
-//     });
-//     dispatch(logOutSuccess());
-//     router.push("/login");
-//   } catch (err) {
-//     dispatch(logOutFailed());
-//   }
-// };

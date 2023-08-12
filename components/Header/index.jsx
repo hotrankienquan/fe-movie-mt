@@ -11,7 +11,6 @@ import { useRouter } from "next/router";
 export default function Header() {
   const router = useRouter();
   const user = useSelector((state) => state.auth.login.currentUser);
-  console.log("check user logged in redux store", user);
   const accessToken = user?.accessToken;
   const id = user?._id;
   const dispatch = useDispatch();
@@ -38,7 +37,7 @@ export default function Header() {
     e.preventDefault();
   };
   const handleLogout = () => {
-    logOut(dispatch, id, router, accessToken,axiosJWT);
+    logOut(dispatch, id, router, accessToken, axiosJWT);
   };
   return (
     <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-50 ">
