@@ -4,7 +4,7 @@ const ArrowGotoUp = () => {
   const [showArrowTop, setShowArrowTop] = useState(false);
   const arrowRef = useRef();
 
-  const arrowClass = `text-2xl fixed right-4 bottom-4 z-50 border border-black rounded-full bg-white h-14 w-14 flex items-center justify-center shadow-md transition-all duration-500 ${
+  const arrowClass = `cursor-pointer text-2xl fixed right-4 bottom-4 z-50 border border-black rounded-full bg-white h-14 w-14 flex items-center justify-center shadow-md transition-all duration-500 ${
     showArrowTop ? "opacity-100 visible" : "opacity-0 invisible"
   }`;
 

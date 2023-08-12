@@ -7,9 +7,9 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="bg-[#0F0F0FE6]">
-        <div className="max-w-[1170px] text-white mx-auto">
-          <section className="border-b-[1px] border-gray-500 grid md:grid-cols-5 md:gap-4 pb-4 pt-4">
+      <footer className="bg-[#0F0F0FE6] border-t border-gray-500">
+        <div className="sm:w-full max-w-[1200px] px-10 text-white mx-auto">
+          <section className="border-b border-gray-500 grid md:grid-cols-5 md:gap-4 pb-4 pt-4">
             <div className="md:col-span-2">
               <div>logo</div>
               <div className="mt-6">

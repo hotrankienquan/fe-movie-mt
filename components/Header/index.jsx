@@ -65,18 +65,18 @@ export default function Header() {
                   </span>
                 </Link>
 
-                <ul className="absolute z-50 top-14 left-0 w-[500px] hidden bg-white text-gray-700 border border-gray-300 rounded-md group-hover:grid grid-cols-3 ">
+                <ul className="overflow-hidden absolute z-50 top-14 left-0 w-[500px] hidden bg-white text-gray-700 border border-gray-300 rounded-md group-hover:grid grid-cols-3 ">
                   {arrNameCategory.map((item, i) => (
-                    <li
-                      key={i}
-                      className="block py-2.5 px-3.5 hover:bg-gray-100"
-                    >
-                      <a href="" className="block w-full text-sm">
+                    <li key={i} className="block hover:bg-gray-100">
+                      <Link
+                        href="#"
+                        className="py-2.5 px-3.5 block w-full text-sm"
+                      >
                         <span className="mr-2">
                           <i className="fa-solid fa-caret-right"></i>
                         </span>
                         {item}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>

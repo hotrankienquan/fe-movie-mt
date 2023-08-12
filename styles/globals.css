@@ -10,11 +10,13 @@
 
 /* SCROLLBAR */
 
-body::-webkit-scrollbar {
+body::-webkit-scrollbar,
+.list_top_trend_film::-webkit-scrollbar {
   width: 8px;
 }
 
-body::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb,
+.list_top_trend_film::-webkit-scrollbar-thumb {
   /*thanh scroll*/
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 50px;
@@ -22,7 +24,8 @@ body::-webkit-scrollbar-thumb {
   height: 200px;
 }
 
-body::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track,
+.list_top_trend_film::-webkit-scrollbar-track {
   /*thanh contain scroll*/
   background-color: #ccc;
   border-radius: 50px;
@@ -33,6 +36,7 @@ body {
   background-color: #424040;
 }
 
+/* slider_latest_film */
 .slider_latest_film {
   height: 340px;
 }
@@ -42,13 +46,14 @@ body {
 .slider_latest_film .slick-list .slick-track {
   height: 100%;
 }
-
 .slider_latest_film .slick-list .slick-track .slick-slide > div {
   height: 100%;
 }
+/* ///////////////////////////////////////////////////////// */
 
+/* list_slider_film */
 .list_slider_film {
-  height: 220px;
+  /* height: 270px; */
 }
 .list_slider_film .slick-list {
   height: 100%;
@@ -56,10 +61,16 @@ body {
 .list_slider_film .slick-list .slick-track {
   height: 100%;
 }
-
+.list_slider_film .slick-list .slick-track .slick-slide {
+  /* width: 160px; */
+}
 .list_slider_film .slick-list .slick-track .slick-slide > div {
   height: 100%;
+  /* margin-left: 10px;
+  margin-right: 10px; */
+  /* width: 160px; */
 }
+/* ///////////////////////////////////////////////////////// */
 
 /* :root {
   --foreground-rgb: 0, 0, 0;
