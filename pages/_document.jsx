@@ -19,6 +19,16 @@ export default function Document() {
         /> */}
       </Head>
       <body>
+        <div id="fb-root"></div>
+        <script
+          async
+          defer
+          crossorigin="anonymous"
+          src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"
+          nonce="AlGrtWNO"
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        ></script>
         <Main />
         <NextScript />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
