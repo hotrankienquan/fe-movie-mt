@@ -32,8 +32,18 @@ const Home = (props) => {
           content="Web site created using create-react-app"
         />
         <meta property="og:title" content="My page title" key="title" />
+
+        <script
+          async
+          defer
+          crossorigin="anonymous"
+          src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v17.0&appId=285996387018931&autoLogAppEvents=1"
+          nonce="eRCeEIuo"
+        ></script>
       </Head>
       <LayoutRoot>
+        <div id="fb-root"></div>
+
         <Dashboard />
       </LayoutRoot>
     </>

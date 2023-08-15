@@ -1,7 +1,6 @@
 // "use client";
 import Image from "next/image";
 import Link from "next/link";
-import Tooltip from "@mui/material/Tooltip";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createAxios } from "../../utils/createInstance";
@@ -109,26 +108,22 @@ export default function Header() {
                     placeholder="Tìm kiếm..."
                   />
 
-                  <Tooltip title="Search" arrow>
-                    <button
-                      className="rounded-full bg-white text-black h-11 w-11"
-                      onClick={handleSubmitSearchInput}
-                    >
-                      <i className="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                  </Tooltip>
+                  <button
+                    className="rounded-full bg-white text-black h-11 w-11"
+                    onClick={handleSubmitSearchInput}
+                  >
+                    <i className="fa-solid fa-magnifying-glass"></i>
+                  </button>
                 </form>
               </li>
 
               <li>
-                <Tooltip title="Login / Register" arrow>
-                  <Link
-                    className="flex justify-center items-center rounded-full bg-white text-black h-11 w-11"
-                    href="/login"
-                  >
-                    <i className="fa-solid fa-user"></i>
-                  </Link>
-                </Tooltip>
+                <Link
+                  className="flex justify-center items-center rounded-full bg-white text-black h-11 w-11"
+                  href="/login"
+                >
+                  <i className="fa-solid fa-user"></i>
+                </Link>
               </li>
               {!user ? (
                 <>
