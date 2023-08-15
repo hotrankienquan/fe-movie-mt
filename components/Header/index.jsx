@@ -136,13 +136,16 @@ export default function Header() {
                   />
 
                   <button
+
                     data-tooltip-target="search-tooltip-bottom"
                     data-tooltip-placement="bottom"
+
                     className="rounded-full bg-white text-black h-11 w-11"
                     onClick={handleSubmitSearchInput}
                   >
                     <i className="fa-solid fa-magnifying-glass"></i>
                   </button>
+
                   <div
                     id="search-tooltip-bottom"
                     role="tooltip"
@@ -151,18 +154,22 @@ export default function Header() {
                     Search
                     <div className="tooltip-arrow" data-popper-arrow></div>
                   </div>
+
                 </form>
               </li>
 
               <li>
                 <Link
+
                   data-tooltip-target="auth-tooltip-bottom"
                   data-tooltip-placement="bottom"
+
                   className="flex justify-center items-center rounded-full bg-white text-black h-11 w-11"
                   href="/login"
                 >
                   <i className="fa-solid fa-user"></i>
                 </Link>
+
                 <div
                   id="auth-tooltip-bottom"
                   role="tooltip"
@@ -171,6 +178,7 @@ export default function Header() {
                   Login / Register
                   <div className="tooltip-arrow" data-popper-arrow></div>
                 </div>
+
               </li>
 
               {!user ? (
