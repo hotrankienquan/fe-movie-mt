@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
 const Register = () => {
   const router = useRouter();
   const schema = yup.object().shape({
@@ -127,18 +128,18 @@ const Register = () => {
               </div>
               <button
                 type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                className="w-full text-white bg-black hover:opacity-70 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Đăng ký
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Bạn đã có tài khoản?{" "}
-                <a
-                  href="#"
+                <Link
+                  href="/login"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Đăng nhập
-                </a>
+                </Link>
               </p>
             </form>
           </div>

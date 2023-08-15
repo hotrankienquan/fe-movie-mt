@@ -39,7 +39,7 @@ export default function Header() {
     logOut(dispatch, id, router, accessToken, axiosJWT);
   };
   return (
-    <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-50 ">
+    <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-50">
       <nav className="h-full mx-auto max-w-[1200px]">
         <div className="h-full flex justify-between items-center">
           <div className="">
@@ -76,21 +76,48 @@ export default function Header() {
                   </span>
                 </Link>
 
-                <ul className="absolute z-50 top-14 left-0 w-[500px] hidden bg-white text-gray-700 border border-gray-300 rounded-md group-hover:grid grid-cols-3 ">
+                <ul className="overflow-hidden absolute z-50 top-14 left-0 w-[500px] hidden bg-white text-gray-700 border border-gray-300 rounded-md group-hover:grid grid-cols-3 ">
                   {arrNameCategory.map((item, i) => (
-                    <li
-                      key={i}
-                      className="block py-2.5 px-3.5 hover:bg-gray-100"
-                    >
-                      <a href="" className="block w-full text-sm">
+                    <li key={i} className="block hover:bg-gray-100">
+                      <Link
+                        href="#"
+                        className="py-2.5 px-3.5 block w-full text-sm"
+                      >
                         <span className="mr-2">
                           <i className="fa-solid fa-caret-right"></i>
                         </span>
                         {item}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
+              </li>
+
+              <li className="inline-block ">
+                <Link
+                  href="#"
+                  className="px-5 py-5 mx-2 block text-base font-semibold cursor-pointer"
+                >
+                  Oscar Film
+                </Link>
+              </li>
+
+              <li className="inline-block ">
+                <Link
+                  href="#"
+                  className="px-5 py-5 mx-2 block text-base font-semibold cursor-pointer"
+                >
+                  Top IMDB
+                </Link>
+              </li>
+
+              <li className="inline-block ">
+                <Link
+                  href="#"
+                  className="px-5 py-5 mx-2 block text-base font-semibold cursor-pointer"
+                >
+                  Quốc gia
+                </Link>
               </li>
             </ul>
           </div>
@@ -100,7 +127,7 @@ export default function Header() {
               <li className="mr-3.5 relative flex">
                 <form className="z-50 bg-[#2D2D2D] ">
                   <input
-                    className="bg-[#2D2D2D] outline-0 px-3.5 text-white"
+                    className="bg-[#2D2D2D] focus:outline-0 focus:outline-none px-3.5 text-white"
                     type="text"
                     name="searchInput"
                     value={searchInput}
@@ -109,35 +136,53 @@ export default function Header() {
                   />
 
                   <button
+
+                    data-tooltip-target="search-tooltip-bottom"
+                    data-tooltip-placement="bottom"
+
                     className="rounded-full bg-white text-black h-11 w-11"
                     onClick={handleSubmitSearchInput}
                   >
                     <i className="fa-solid fa-magnifying-glass"></i>
                   </button>
+
+                  <div
+                    id="search-tooltip-bottom"
+                    role="tooltip"
+                    className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+                  >
+                    Search
+                    <div className="tooltip-arrow" data-popper-arrow></div>
+                  </div>
+
                 </form>
               </li>
 
               <li>
                 <Link
+
+                  data-tooltip-target="auth-tooltip-bottom"
+                  data-tooltip-placement="bottom"
+
                   className="flex justify-center items-center rounded-full bg-white text-black h-11 w-11"
                   href="/login"
                 >
                   <i className="fa-solid fa-user"></i>
                 </Link>
+
+                <div
+                  id="auth-tooltip-bottom"
+                  role="tooltip"
+                  className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+                >
+                  Login / Register
+                  <div className="tooltip-arrow" data-popper-arrow></div>
+                </div>
+
               </li>
+
               {!user ? (
-                <>
-                  <li>
-                    <Link href="/register" className="text-white ml-2">
-                      Đăng ký
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/login" className="text-white ml-2">
-                      Đăng nhập
-                    </Link>
-                  </li>
-                </>
+                <></>
               ) : (
                 <span className="text-white ml-2">{user.email}</span>
               )}
