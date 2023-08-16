@@ -44,6 +44,10 @@
       "description": "",
       "sources": [
         {
+          "file": "https://firebasestorage.googleapis.com/v0/b/movie-the-stone.appspot.com/o/files%2Fneu-anh-mat-em-reddy-official-lyrics-video-1.m3u8%20%20%20%20%20%20%202023-8-15%2018%3A54%3A1?alt=media&token=2558d0e2-defd-4ae4-87ef-c79d5678e373",
+          "type": "application/x-mpegurl"
+        },
+        {
           "file": "https://firebasestorage.googleapis.com/v0/b/movie-the-stone.appspot.com/o/files%2FN%E1%BA%BFu%20%C4%90%C3%A1nh%20M%E1%BA%A5t%20Em%20-%20Reddy%20-%20Official%20Lyrics%20Video%20(1).mp4%20%20%20%20%20%20%202023-8-11%2017_54_34%20%20%20%20%20%20%202023-8-15%2016%3A56%3A35?alt=media&token=d1bbab11-8331-408e-8662-940da36149b1",
           "type": "video/mp4",
           "height": 1080,
