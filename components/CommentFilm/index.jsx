@@ -38,7 +38,7 @@ const CommentFilm = () => {
         if (d.getElementById(id)) return;
         js = d.createElement(s);
         js.id = id;
-        js.src = `//connect.facebook.net/en_US/sdk.js`;
+        js.src = `//connect.facebook.net/vi_VN/sdk.js`;
         fjs.parentNode.insertBefore(js, fjs);
       })(document, "script", "facebook-jssdk");
     };
@@ -49,10 +49,12 @@ const CommentFilm = () => {
   return (
     <div className="mt-[30px] p-6 bg-white">
       <div
-        className="fb-comments h-[500px] w-full"
+        className="fb-comments h-[700px] w-full overflow-y-auto"
         data-href="https://developers.facebook.com/docs/plugins/comments#configurator"
         data-width="100%"
         data-numposts="5"
+        data-order-by="reverse_time"
+        data-lazy="true"
       ></div>
       {/* <div className="flex items-center h-[50px] mb-5">
         <div className="h-full w-[50px] mr-2.5 border-[2px] border-[#444] flex items-center justify-center">

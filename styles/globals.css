@@ -96,6 +96,22 @@ body {
 }
 /* ///////////////////////////////////////////////////////// */
 
+/* ReactJWPlayer */
+.jw-video-container {
+  width: 100%;
+  height: 100%;
+}
+.jw-video-container > div {
+  height: 100% !important;
+}
+.jw-video-container .jwplayer {
+  height: 100% !important;
+}
+.jw-video {
+  /* object-fit: cover !important; */
+}
+/* ///////////////////////////////////////////////////////// */
+
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

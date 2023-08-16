@@ -26,6 +26,7 @@ const LoginPage = () => {
     resolver: yupResolver(schema),
   });
   const onSubmit = async (data) => {
+    console.log(">>> Data LOGIN <<<", data);
     login(data, dispatch, router);
   };
 

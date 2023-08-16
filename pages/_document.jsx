@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
+import Script from "next/script";
 
 export default function Document() {
   return (
@@ -20,17 +21,13 @@ export default function Document() {
       </Head>
       <body>
         <div id="fb-root"></div>
-        <script
-          async
-          defer
-          crossorigin="anonymous"
-          src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"
-          nonce="AlGrtWNO"
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        ></script>
+        <Script src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v17.0&appId=285996387018931&autoLogAppEvents=1" />
+        {/* <div className="fixed inset-x-0 inset-y-0 bg-slate-500 opacity-50 z-50">
+          <div className="absolute top-[50%] left-[50%] -translate-x-2/4 -translate-y-2/4 bg-red-400 opacity-100 z-[500] h-[500px] w-[500px]"></div>
+        </div> */}
         <Main />
         <NextScript />
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
       </body>
     </Html>

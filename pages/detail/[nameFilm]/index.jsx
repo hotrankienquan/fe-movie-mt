@@ -235,9 +235,6 @@ const detailFilmPage = ({ nameFilm }) => {
               {/* SECTION COMMENT */}
               <CommentFilm />
             </div>
-
-            {/* SECTION RELATED FILM? */}
-            <SliderRelatedFilm />
           </div>
 
           {/* RIGHT */}
@@ -245,6 +242,9 @@ const detailFilmPage = ({ nameFilm }) => {
             <SidebarContentFilm />
           </div>
         </div>
+
+        {/* SECTION RELATED FILM? */}
+        <SliderRelatedFilm />
       </div>
     </LayoutRoot>
   );

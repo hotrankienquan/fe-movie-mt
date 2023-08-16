@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 export default function Header() {
   const router = useRouter();
   const user = useSelector((state) => state.auth.login.currentUser);
+  console.log(">>> Header <<<", user);
   const accessToken = user?.accessToken;
   const id = user?._id;
   const dispatch = useDispatch();
@@ -38,8 +39,9 @@ export default function Header() {
   const handleLogout = () => {
     logOut(dispatch, id, router, accessToken, axiosJWT);
   };
+
   return (
-    <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-50">
+    <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-40">
       <nav className="h-full mx-auto max-w-[1200px]">
         <div className="h-full flex justify-between items-center">
           <div className="">
@@ -80,7 +82,7 @@ export default function Header() {
                   {arrNameCategory.map((item, i) => (
                     <li key={i} className="block hover:bg-gray-100">
                       <Link
-                        href="#"
+                        href={`/category/${item.replace(/\s+/g, "-")}`}
                         className="py-2.5 px-3.5 block w-full text-sm"
                       >
                         <span className="mr-2">
@@ -136,10 +138,8 @@ export default function Header() {
                   />
 
                   <button
-
                     data-tooltip-target="search-tooltip-bottom"
                     data-tooltip-placement="bottom"
-
                     className="rounded-full bg-white text-black h-11 w-11"
                     onClick={handleSubmitSearchInput}
                   >
@@ -154,43 +154,47 @@ export default function Header() {
                     Search
                     <div className="tooltip-arrow" data-popper-arrow></div>
                   </div>
-
                 </form>
               </li>
 
-              <li>
-                <Link
-
-                  data-tooltip-target="auth-tooltip-bottom"
-                  data-tooltip-placement="bottom"
-
-                  className="flex justify-center items-center rounded-full bg-white text-black h-11 w-11"
-                  href="/login"
-                >
-                  <i className="fa-solid fa-user"></i>
-                </Link>
-
-                <div
-                  id="auth-tooltip-bottom"
-                  role="tooltip"
-                  className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
-                >
-                  Login / Register
-                  <div className="tooltip-arrow" data-popper-arrow></div>
-                </div>
-
-              </li>
-
               {!user ? (
-                <></>
+                <>
+                  <li>
+                    <Link
+                      data-tooltip-target="auth-tooltip-bottom"
+                      data-tooltip-placement="bottom"
+                      className="flex justify-center items-center rounded-full bg-white text-black h-11 w-11"
+                      href="/login"
+                    >
+                      <i className="fa-solid fa-user"></i>
+                    </Link>
+
+                    <div
+                      id="auth-tooltip-bottom"
+                      role="tooltip"
+                      className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+                    >
+                      Login / Register
+                      <div className="tooltip-arrow" data-popper-arrow></div>
+                    </div>
+                  </li>
+                </>
               ) : (
-                <span className="text-white ml-2">{user.email}</span>
+                <>
+                  <li className="flex flex-col cursor-pointer ">
+                    <Link href="/" className="text-white hover:underline">
+                      {user.username}
+                    </Link>
+                    <Link
+                      href="/"
+                      className="text-white hover:underline"
+                      onClick={handleLogout}
+                    >
+                      Đăng xuất
+                    </Link>
+                  </li>
+                </>
               )}
-              <li>
-                <span className="text-white ml-2" onClick={handleLogout}>
-                  Đăng xuất
-                </span>
-              </li>
             </ul>
           </div>
         </div>

@@ -7,7 +7,7 @@ import Image from "next/legacy/image";
 
 const SliderRelatedFilm = () => {
   return (
-    <div className="mt-16 mb-8 -mx-2.5">
+    <div className="mt-10 mb-8 -mx-2.5">
       <div className="px-2.5 mb-4">
         <h2 className="text-[#da966e] text-3xl font-normal border-l-4 pl-2.5">
           Phim Liên Quan
@@ -18,8 +18,8 @@ const SliderRelatedFilm = () => {
           <div key={item.id} className="h-full overflow-hidden">
             <div className="relative h-full mx-2 overflow-hidden group">
               <Link
-                href={`/playFilm/${item.title.replace(/\s+/g, "-")}`}
-                className="h-full w-full group overflow-hidden"
+                href={`/detail/${item.title.replace(/\s+/g, "-")}`}
+                className="absolute h-full w-full group overflow-hidden"
               >
                 <Image
                   className="h-full block w-full object-cover group-hover:opacity-70 transition-all duration-500"

@@ -23,11 +23,13 @@ const Register = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
   const onSubmit = async (data) => {
     const base_url = process.env.NEXT_PUBLIC_URL;
     await axios
       .post(`${base_url}/api/v1/auth/register`, data)
       .then((response) => {
+        console.log(">>> Response REGISTER <<<", response);
         return response.data;
       })
       .then((data) => {
@@ -113,7 +115,7 @@ const Register = () => {
                 </div>
                 <div className="ml-3 text-sm">
                   <label
-                    for="terms"
+                    htmlFor="terms"
                     className="font-light text-gray-500 dark:text-gray-300"
                   >
                     Tôi đồng ý{" "}
