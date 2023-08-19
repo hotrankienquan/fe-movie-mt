@@ -8,7 +8,7 @@ import Movie from './components/Movie'
 
 const SliderLastetFilm = () => {
   function getAll(data){
-    console.log("data get all item",data)
+    // console.log("data get all item",data)
   }
 
   return (
