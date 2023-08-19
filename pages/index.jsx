@@ -33,16 +33,16 @@ const Home = (props) => {
         />
         <meta property="og:title" content="My page title" key="title" />
 
-        <script
+        {/* <script
           async
           defer
           crossorigin="anonymous"
           src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v17.0&appId=285996387018931&autoLogAppEvents=1"
           nonce="eRCeEIuo"
-        ></script>
+        ></script> */}
       </Head>
       <LayoutRoot>
-        <div id="fb-root"></div>
+        {/* <div id="fb-root"></div> */}
 
         <Dashboard />
       </LayoutRoot>

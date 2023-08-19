@@ -6,6 +6,7 @@ import Image from "next/legacy/image";
 import CommentFilm from "../../../components/CommentFilm";
 import SliderLastetFilm from "../../../components/SliderLatestFilm";
 import SliderRelatedFilm from "../../../components/SliderRelatedFilm";
+import ReactJWPlayer from "react-jw-player";
 
 export async function getServerSideProps({ params }) {
   const nameFilm = params.nameFilm;
@@ -21,6 +22,25 @@ const detailFilmPage = ({ nameFilm }) => {
   // const searchParams = useSearchParams();
   // const userName = searchParams.get("test");
   // console.log(userName);
+
+  const playlist = [
+    {
+      file: "https://firebasestorage.googleapis.com/v0/b/movie-the-stone.appspot.com/o/files%2FN%E1%BA%BFu%20%C4%90%C3%A1nh%20M%E1%BA%A5t%20Em%20-%20Reddy%20-%20Official%20Lyrics%20Video%20(1).mp4%20%20%20%20%20%20%202023-8-11%2017%3A54%3A34?alt=media&token=e595d5ee-2a75-4160-904c-f25dda4e4583",
+      image: "https://link-to-my-poster.jpg",
+      tracks: [
+        {
+          file: "https://link-to-subtitles.vtt",
+          label: "English",
+          kind: "captions",
+          default: true,
+        },
+      ],
+    },
+    {
+      file: "https://firebasestorage.googleapis.com/v0/b/movie-the-stone.appspot.com/o/files%2FN%E1%BA%BFu%20%C4%90%C3%A1nh%20M%E1%BA%A5t%20Em%20-%20Reddy%20-%20Official%20Lyrics%20Video%20(1).mp4%20%20%20%20%20%20%202023-8-11%2017%3A54%3A34?alt=media&token=e595d5ee-2a75-4160-904c-f25dda4e4583",
+      image: "https://link-to-my-other-poster.jpg",
+    },
+  ];
 
   return (
     <LayoutRoot>
@@ -101,8 +121,8 @@ const detailFilmPage = ({ nameFilm }) => {
           <div className="col-span-5">
             <div className="p-2.5 bg-[#2D2D2D]">
               {/* SECTION INFO FILM */}
-              <div className="flex overflow-hidden">
-                <div className="relative mr-2.5 max-w-[45%] w-full ">
+              <div className="overflow-hidden">
+                {/* <div className="relative mr-2.5 max-w-[45%] w-full ">
                   <Link
                     href={`/playFilm/${nameFilm.replace(/\s+/g, "-")}`}
                     className="absolute h-full w-full group"
@@ -127,9 +147,9 @@ const detailFilmPage = ({ nameFilm }) => {
                       Xem phim
                     </span>
                   </Link>
-                </div>
+                </div> */}
 
-                <div className="max-w-[55%] w-full ">
+                {/* <div className="max-w-[55%] w-full ">
                   <h1 className="text-3xl font-bold text-[#ff9658] mb-[5px] uppercase">
                     {nameFilm.replace(/-/g, " ")}
                   </h1>
@@ -189,15 +209,35 @@ const detailFilmPage = ({ nameFilm }) => {
                   </div>
 
                   <div className="bg-[#222222] h-[90px] text-white text-center">
-                    {/* window + . => icon */}
+                    window + . => icon
                     <p>Donate cho mình qua NH nhé ❤</p>
                     <p>Chu TK: Tran Quoc Tuan</p>
                     <p>1018844306 VCB</p>
                   </div>
+                </div> */}
+
+                {/* SECTION VIDEO FILM */}
+                <div className="player-loaded overflow-hidden ">
+                  <div
+                    className="jw-video-container"
+                    data-mediaid="TAITbudl"
+                    style={{ height: "100%", width: "100%" }}
+                  >
+                    <ReactJWPlayer
+                      className=""
+                      playerId="TAITbudl"
+                      playerScript="https://content.jwplatform.com/libraries/j9BLvpMc.js"
+                      // playlist="https://cdn.jwplayer.com/v2/media/TAITbudl"
+                      file="/neudanhmatem.mp4"
+                      // playlist={playlist}
+                      // onReady={onReady}
+                      aspectRatio="16:9"
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div className="mt-[30px] p-2.5 bg-[#222222]">
+              {/* <div className="mt-[30px] p-2.5 bg-[#222222]">
                 <h3 className="mb-2 text-[#da966e] text-xl font-medium">
                   Nội dung chi tiết
                 </h3>
@@ -213,10 +253,10 @@ const detailFilmPage = ({ nameFilm }) => {
                     và học được ý nghĩa thật sự của “ngông nghênh”.
                   </p>
                 </div>
-              </div>
+              </div> */}
 
               {/* SECTION TRAILER */}
-              <div className="mt-[30px]">
+              {/* <div className="mt-[30px]">
                 <div className="mb-2">
                   <h2 className="text-[#da966e] text-xl font-medium">
                     Official Trailer:
@@ -230,7 +270,7 @@ const detailFilmPage = ({ nameFilm }) => {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                 ></iframe>
-              </div>
+              </div> */}
 
               {/* SECTION COMMENT */}
               <CommentFilm />

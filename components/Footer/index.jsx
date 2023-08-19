@@ -15,8 +15,8 @@ export default function Footer() {
               <div className="mt-6">
                 <p className="text-justify text-sm max-w-[350px] w-full">
                   <Link href="#" className="font-bold text-[#408BEA]">
-                    Phimmoi
-                  </Link>
+                    TheMovie
+                  </Link>{" "}
                   - Trang xem phim Online với giao diện mới được bố trí và thiết
                   kế thân thiện với người dùng. Nguồn phim được tổng hợp từ các
                   website lớn với đa dạng các đầu phim và thể loại vô cùng phong
@@ -80,7 +80,7 @@ export default function Footer() {
             </div>
           </section>
           <section className="flex justify-between items-center py-6">
-            <div>Phimmoi</div>
+            <div>TheStone</div>
             <div>
               <i className="fab fa-facebook-f p-4 border-r-[1px] border-gray-500"></i>
               <i className="fab fa-twitter p-4 border-r-[1px] border-gray-500"></i>

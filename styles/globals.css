@@ -16,13 +16,15 @@ html {
 
 body::-webkit-scrollbar,
 .list_top_trend_film::-webkit-scrollbar,
-.detail_film_info::-webkit-scrollbar {
+.detail_film_info::-webkit-scrollbar,
+.sidebar_manage_info::-webkit-scrollbar {
   width: 8px;
 }
 
 body::-webkit-scrollbar-thumb,
 .list_top_trend_film::-webkit-scrollbar-thumb,
-.detail_film_info::-webkit-scrollbar-thumb {
+.detail_film_info::-webkit-scrollbar-thumb,
+.sidebar_manage_info::-webkit-scrollbar-thumb {
   /*thanh scroll*/
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 50px;
@@ -32,7 +34,8 @@ body::-webkit-scrollbar-thumb,
 
 body::-webkit-scrollbar-track,
 .list_top_trend_film::-webkit-scrollbar-track,
-.detail_film_info::-webkit-scrollbar-track {
+.detail_film_info::-webkit-scrollbar-track,
+.sidebar_manage_info::-webkit-scrollbar-track {
   /*thanh contain scroll*/
   background-color: #ccc;
   border-radius: 50px;
@@ -40,7 +43,7 @@ body::-webkit-scrollbar-track,
 
 body {
   /* height: 10000px; */
-  background-color: #424040;
+  /* background-color: #424040; */
 }
 
 /* slider_latest_film */
@@ -81,7 +84,7 @@ body {
 
 /* slider_ralated_film */
 .slider_ralated_film {
-  height: 270px;
+  height: 300px;
 }
 .slider_ralated_film .slick-list {
   height: 100%;

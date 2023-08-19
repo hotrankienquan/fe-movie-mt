@@ -9,8 +9,10 @@ const LayoutRoot = ({ children }) => {
   return (
     <>
       <Header />
-      <div className="sm:w-11/12 md:w-[1200px] mx-auto bg-[#151414] p-7">
-        {children}
+      <div className="bg-[#424040]">
+        <div className="sm:w-11/12 md:w-[1200px] mx-auto bg-[#151414] p-7">
+          {children}
+        </div>
       </div>
       <ArrowGotoUp />
       <Footer />

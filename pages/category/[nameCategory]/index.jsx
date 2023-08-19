@@ -19,7 +19,7 @@ export async function getServerSideProps({ params }) {
 const CategoryPage = ({ nameCategory }) => {
   const searchParams = useSearchParams();
   const pageNumber = searchParams.get("page");
-  console.log(">>> Pagination <<<", pageNumber);
+  // console.log(">>> Pagination <<<", pageNumber);
 
   const [currentPage, setCurrentPage] = useState(parseInt(pageNumber) || 1);
   const [pageSize, setPageSize] = useState(30);
