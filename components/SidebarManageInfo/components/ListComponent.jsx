@@ -1,15 +1,19 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
+import withClickOutside from "../../../utils/withClickOutside";
 
-const ListComponent = (props) => {
-  const { item, index } = props;
+const ListComponent = forwardRef((props, ref) => {
   const [show, setShow] = useState(false);
   function handleSelectSub(item) {
     console.log(">>> Sub <<<", item);
   }
 
   return (
-    <li className="group" onClick={() => setShow(!show)}>
+    <li
+      className={`group ${props.open && "bg-slate-50"}`}
+      onClick={() => props.setOpen(!props.open)}
+      ref={ref}
+    >
       <Link
         href="#"
         className={`flex items-center p-2 text-[#8699ad] rounded-lg group-hover:bg-gray-100 ${
@@ -39,9 +43,11 @@ const ListComponent = (props) => {
         )}
       </Link>
 
-      {item.subMenu != null && (
-        <ul className={`py-2 space-y-2 bg-white z-10 ${!show && "hidden"}`}>
-          {item.subMenu.map((item, i) => (
+      {props.item.subMenu != null && (
+        <ul
+          className={`py-2 space-y-2 bg-white z-10 ${!props.open && "hidden"}`}
+        >
+          {props.item.subMenu.map((item, i) => (
             <li key={item.id}>
               <Link
                 href="#"
@@ -56,6 +62,6 @@ const ListComponent = (props) => {
       )}
     </li>
   );
-};
+});
 
-export default ListComponent;
+export default withClickOutside(ListComponent);
