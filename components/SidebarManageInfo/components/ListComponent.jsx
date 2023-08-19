@@ -22,7 +22,7 @@ const ListComponent = forwardRef((props, ref) => {
       >
         <i
           className={`${
-            item.icon
+            props.item.icon
           } flex-shrink-0 w-5 my-auto transition duration-75 group-hover:text-gray-900 ${
             show ? "text-gray-900" : ""
           }`}
@@ -32,9 +32,9 @@ const ListComponent = forwardRef((props, ref) => {
             show ? "text-gray-900" : ""
           }`}
         >
-          {item.name}
+          {props.item.name}
         </span>
-        {item.subMenu && (
+        {props.item.subMenu && (
           <i
             className={`fa-solid fa-caret-down w-3 h-3 group-hover:text-gray-900 ${
               show ? "text-gray-900" : ""
