@@ -24,7 +24,7 @@ export default function Footer() {
                 </p>
               </div>
             </div>
-            <div className="mx-auto">
+            {/* <div className="mx-auto">
               <h3>Phim mới</h3>
               <ul className="text-[#408BEA] text-sm">
                 <li className="m-2 ml-0">
@@ -57,7 +57,7 @@ export default function Footer() {
                   <Link href="#">Phim Nhật Bản</Link>
                 </li>
               </ul>
-            </div>
+            </div> */}
             <div className="mx-auto">
               <h3>Thông tin</h3>
               <ul className="text-[#408BEA] text-sm">

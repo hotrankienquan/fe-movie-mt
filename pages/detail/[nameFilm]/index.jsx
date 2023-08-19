@@ -116,7 +116,7 @@ const detailFilmPage = ({ nameFilm }) => {
           </nav>
         </div>
 
-        <div className="grid grid-cols-7 gap-6">
+        <div className="grid grid-cols-7 gap-4">
           {/* LEFT */}
           <div className="col-span-5">
             <div className="p-2.5 bg-[#2D2D2D]">
