@@ -1,16 +1,17 @@
 import Link from "next/link";
 import React, { forwardRef, useState } from "react";
 import withClickOutside from "../../../utils/withClickOutside";
+import SubChild from "./SubChild";
 
 const ListComponent = forwardRef((props, ref) => {
-  const [show, setShow] = useState(false);
-  function handleSelectSub(item) {
-    console.log(item);
+  const [activeItem, setActiveItem] = useState(null);
+  function handleOpen(e) {
+    props.setOpen(!props.open);
   }
   return (
     <li
       className={`group ${props.open && "bg-slate-50"}`}
-      onClick={() => props.setOpen(!props.open)}
+      onClick={(e) => handleOpen(e)}
       ref={ref}
     >
       <Link
@@ -34,15 +35,12 @@ const ListComponent = forwardRef((props, ref) => {
           className={`py-2 space-y-2 bg-white z-10 ${!props.open && "hidden"}`}
         >
           {props.item.subMenu.map((item, i) => (
-            <li key={item.id}>
-              <Link
-                href="#"
-                className={`flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 hover:bg-gray-100 `}
-                onClick={() => handleSelectSub(item.name)}
-              >
-                {item.name}
-              </Link>
-            </li>
+            <SubChild
+              item={item}
+              key={item.id}
+              setActiveItem={setActiveItem}
+              activeItem={activeItem}
+            />
           ))}
         </ul>
       )}
