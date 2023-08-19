@@ -1,22 +1,23 @@
 import Image from "next/legacy/image";
 import Link from "next/link";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
-const Movie = ({item, getAll}) => {
-    let {title, views, updated, image} = item;
-    const [active,setActive] = useState(false)
-    const [activeBookmark,setActiveBookmark] = useState(false)
-    function handleLove(e){
-        e.preventDefault()
-        setActive(!active)
-    }
-    function handleBookmark(e){
-        e.preventDefault()
-        setActiveBookmark(!activeBookmark)
-    }
-    useEffect(()=>{
-        getAll({...item, active,activeBookmark})
-    }, [active, activeBookmark])
+const Movie = ({ item, getAll }) => {
+  let { title, views, updated, image } = item;
+  const [active, setActive] = useState(false);
+  const [activeBookmark, setActiveBookmark] = useState(false);
+  function handleLove(e) {
+    e.preventDefault();
+    setActive(!active);
+  }
+  function handleBookmark(e) {
+    e.preventDefault();
+    setActiveBookmark(!activeBookmark);
+  }
+  useEffect(() => {
+    getAll({ ...item, active, activeBookmark });
+  }, [active, activeBookmark]);
+
   return (
     <div className="h-full">
       <div className="relative overflow-hidden h-full mx-2.5 group">
@@ -38,21 +39,22 @@ const Movie = ({item, getAll}) => {
 
         <div className="absolute top-[45%] inset-x-0 bg-black">
           <span className="absolute -left-[15%] group-hover:left-[20%] duration-500 ease-in-out">
-            <button
-              className="text-white z-50"
-              onClick={handleLove}
-            >
-              {active ? <i className="fa-solid fa-heart text-2xl"></i> :<i className="fa-regular fa-heart text-2xl"></i> }
+            <button className="text-white z-50" onClick={handleLove}>
+              {active ? (
+                <i className="fa-solid fa-heart text-2xl"></i>
+              ) : (
+                <i className="fa-regular fa-heart text-2xl"></i>
+              )}
             </button>
           </span>
 
           <span className="absolute -right-[15%] group-hover:right-[20%] duration-500 ease-in-out">
-            <button
-              className="text-white z-50"
-              onClick={handleBookmark}
-            >
-              {activeBookmark ?  <i className="fa-solid fa-bookmark text-2xl"></i> : <i className="fa-regular fa-bookmark text-2xl"></i>}
-           
+            <button className="text-white z-50" onClick={handleBookmark}>
+              {activeBookmark ? (
+                <i className="fa-solid fa-bookmark text-2xl"></i>
+              ) : (
+                <i className="fa-regular fa-bookmark text-2xl"></i>
+              )}
             </button>
           </span>
         </div>
@@ -70,4 +72,4 @@ const Movie = ({item, getAll}) => {
     </div>
   );
 };
-export default Movie
+export default Movie;

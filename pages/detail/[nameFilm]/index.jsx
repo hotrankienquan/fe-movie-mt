@@ -7,6 +7,9 @@ import CommentFilm from "../../../components/CommentFilm";
 import SliderLastetFilm from "../../../components/SliderLatestFilm";
 import SliderRelatedFilm from "../../../components/SliderRelatedFilm";
 import ReactJWPlayer from "react-jw-player";
+import JWPlayer from "@jwplayer/jwplayer-react";
+import { arrDetailInfoFilm } from "../../../components/SidebarContentFilm/constSidebarContentFilm";
+import React from "react";
 
 export async function getServerSideProps({ params }) {
   const nameFilm = params.nameFilm;
@@ -41,11 +44,25 @@ const detailFilmPage = ({ nameFilm }) => {
       image: "https://link-to-my-other-poster.jpg",
     },
   ];
+  const playlistt = [
+    {
+      file: "neudanhmatem.mp4",
+      tracks: [
+        {
+          file: "test.vtt",
+          label: "English",
+          kind: "captions",
+          default: true,
+        },
+      ],
+    },
+  ];
 
   return (
     <LayoutRoot>
       <div className="mt-16 ">
         <div className=" mb-8 bg-white">
+          {/* Breadcrumb */}
           <nav className="flex p-2.5" aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
               <li className="inline-flex items-center">
@@ -217,7 +234,7 @@ const detailFilmPage = ({ nameFilm }) => {
                 </div> */}
 
                 {/* SECTION VIDEO FILM */}
-                <div className="player-loaded overflow-hidden ">
+                {/* <div className="player-loaded overflow-hidden ">
                   <div
                     className="jw-video-container"
                     data-mediaid="TAITbudl"
@@ -234,6 +251,14 @@ const detailFilmPage = ({ nameFilm }) => {
                       aspectRatio="16:9"
                     />
                   </div>
+                </div> */}
+
+                <div className="players-container">
+                  <JWPlayer
+                    library="https://content.jwplatform.com/libraries/j9BLvpMc.js"
+                    //   playlist='https://cdn.jwplayer.com/v2/playlists/B8FTSH9D'
+                    playlist={playlistt}
+                  />
                 </div>
               </div>
 
@@ -279,7 +304,100 @@ const detailFilmPage = ({ nameFilm }) => {
 
           {/* RIGHT */}
           <div className="col-span-2">
-            <SidebarContentFilm />
+            <div className=" py-[15px] rounded-md bg-[#1b2d58]">
+              <div className="h-full px-[15px]">
+                <span className="block w-full">
+                  <img
+                    className="block w-full h-full"
+                    src="https://static.bunnycdn.ru/i/cache/images/f/fa/fad20ae6e3418f3367ae8d023d9855c2.jpg"
+                    alt=""
+                    // width={55}
+                    // height={55}
+                    // layout="fill"
+                    // priority
+                  />
+                </span>
+              </div>
+
+              <div>
+                <h1 className="mx-[15px] mt-[22.5px] text-lg font-semibold text-white">
+                  Elemental
+                </h1>
+                <div className="flex items-center pt-[7.5px] pb-[15px] px-[15px] mb-[15px] border-[1px] border-[#21376c]">
+                  <span className="min-w-[20px] px-[3px] bg-[#c7d2ee] text-xs font-medium text-black border-[1px] border-[#c7d2ee]">
+                    HD
+                  </span>
+                  <span className="ml-[6px] px-[3px] text-[#c7d2ee] text-xs font-medium border-[1px] border-[#c7d2ee]">
+                    PG
+                  </span>
+                  <span className="ml-[6px] text-base text-white">109 min</span>
+                </div>
+                <div className="px-[15px] pb-[15px] border-b-[1px] border-[#21376c]">
+                  <p className="text-[15px] text-white">
+                    Follows Ember and Wade, in a city where fire-, water-, land-
+                    and air-residents live together.
+                  </p>
+                </div>
+                <div className="m-[15px] text-[#c7d2ee]">
+                  {arrDetailInfoFilm.map((item, index) => (
+                    <div
+                      key={item.id}
+                      className={`flex text-[14px] font-normal ${
+                        index >= 1 ? "mt-[5px]" : ""
+                      }`}
+                    >
+                      <div className="min-w-[90px]">{item.name}:</div>
+                      <span className="flex-1">
+                        {Array.isArray(item.text) ? (
+                          item.text.map((subText, i) => (
+                            <React.Fragment key={i}>
+                              <Link
+                                href="#"
+                                className="text-[#f1ffff] hover:text-[#e94a68] transition-all duration-150 ease-in-out"
+                              >
+                                {subText}
+                              </Link>
+                              {i !== item.text.length - 1 && ", "}
+                            </React.Fragment>
+                          ))
+                        ) : (
+                          <p className="">{item.text}</p>
+                        )}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <div className="bg-[#e94a68] py-[9px] px-[15px] mx-[15px] rounded-[4px] text-center">
+                  <span className="flex justify-center items-center">
+                    <span className="inline-block w-[27px] h-[27px] text-[rgba(0,0,0,.4)] cursor-pointer">
+                      <i className="fa-regular fa-star text-xl"></i>
+                      <i className="fa-solid fa-star hidden"></i>
+                    </span>
+                    <span className="inline-block w-[27px] h-[27px] text-[rgba(0,0,0,.4)] cursor-pointer">
+                      <i className="fa-regular fa-star text-xl"></i>
+                      <i className="fa-solid fa-star hidden"></i>
+                    </span>
+                    <span className="inline-block w-[27px] h-[27px] text-[rgba(0,0,0,.4)] cursor-pointer">
+                      <i className="fa-regular fa-star text-xl"></i>
+                      <i className="fa-solid fa-star hidden"></i>
+                    </span>
+                    <span className="inline-block w-[27px] h-[27px] text-[rgba(0,0,0,.4)] cursor-pointer">
+                      <i className="fa-regular fa-star text-xl"></i>
+                      <i className="fa-solid fa-star hidden"></i>
+                    </span>
+                    <span className="inline-block w-[27px] h-[27px] text-[rgba(0,0,0,.4)] cursor-pointer">
+                      <i className="fa-regular fa-star text-xl"></i>
+                      <i className="fa-solid fa-star hidden"></i>
+                    </span>
+                  </span>
+                  <div>
+                    <span>
+                      <b>7.82</b> of <b>10</b> (<span>2754</span> 2,754 reviews)
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

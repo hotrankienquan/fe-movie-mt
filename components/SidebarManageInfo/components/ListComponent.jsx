@@ -2,31 +2,46 @@ import Link from "next/link";
 import React, { useState } from "react";
 
 const ListComponent = (props) => {
+  const { item, index } = props;
   const [show, setShow] = useState(false);
   function handleSelectSub(item) {
-    console.log(item);
+    console.log(">>> Sub <<<", item);
   }
+
   return (
     <li className="group" onClick={() => setShow(!show)}>
       <Link
         href="#"
-        className={`flex items-center p-2 text-[#8699ad] rounded-lg group-hover:bg-gray-100`}
+        className={`flex items-center p-2 text-[#8699ad] rounded-lg group-hover:bg-gray-100 ${
+          show ? "bg-gray-100" : ""
+        }`}
       >
         <i
-          className={` flex-shrink-0 w-5 my-auto transition duration-75 group-hover:text-gray-900`}
+          className={`${
+            item.icon
+          } flex-shrink-0 w-5 my-auto transition duration-75 group-hover:text-gray-900 ${
+            show ? "text-gray-900" : ""
+          }`}
         ></i>
-
-        <span className={`flex-1 ml-3 group-hover:text-gray-900 `}>
-          {props.item.name}
+        <span
+          className={`flex-1 ml-3 group-hover:text-gray-900 ${
+            show ? "text-gray-900" : ""
+          }`}
+        >
+          {item.name}
         </span>
-        <i
-          className={`fa-solid fa-caret-down w-3 h-3 group-hover:text-gray-900`}
-        ></i>
+        {item.subMenu && (
+          <i
+            className={`fa-solid fa-caret-down w-3 h-3 group-hover:text-gray-900 ${
+              show ? "text-gray-900" : ""
+            }`}
+          ></i>
+        )}
       </Link>
 
-      {props.item.subMenu != null && (
+      {item.subMenu != null && (
         <ul className={`py-2 space-y-2 bg-white z-10 ${!show && "hidden"}`}>
-          {props.item.subMenu.map((item, i) => (
+          {item.subMenu.map((item, i) => (
             <li key={item.id}>
               <Link
                 href="#"
