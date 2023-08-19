@@ -8,7 +8,7 @@ import CommentFilm from "../../../components/CommentFilm";
 import SliderRelatedFilm from "../../../components/SliderRelatedFilm";
 import { useState } from "react";
 import ReactJWPlayer from "react-jw-player";
-
+import ReactPlayer from 'react-player'
 export async function getServerSideProps({ params }) {
   const nameFilm = params.nameFilm;
   return {
@@ -21,7 +21,7 @@ export async function getServerSideProps({ params }) {
 const PlayFilmPage = ({ nameFilm }) => {
   const playlist = [
     {
-      file: "https://firebasestorage.googleapis.com/v0/b/movie-the-stone.appspot.com/o/files%2FN%E1%BA%BFu%20%C4%90%C3%A1nh%20M%E1%BA%A5t%20Em%20-%20Reddy%20-%20Official%20Lyrics%20Video%20(1).mp4%20%20%20%20%20%20%202023-8-11%2017%3A54%3A34?alt=media&token=e595d5ee-2a75-4160-904c-f25dda4e4583",
+      file: "https://firebasestorage.googleapis.com/v0/b/movie-the-stone.appspot.com/o/files%2FB%E1%BA%A3n%20in%20l%E1%BB%97i.mp4%20%20%20%20%20%20%202023-8-16%2022%3A42%3A21?alt=media&token=81e142f3-ab6d-4ea3-a279-12ea4ede3315",
       image: "https://link-to-my-poster.jpg",
       tracks: [
         {
@@ -31,11 +31,7 @@ const PlayFilmPage = ({ nameFilm }) => {
           default: true,
         },
       ],
-    },
-    {
-      file: "https://firebasestorage.googleapis.com/v0/b/movie-the-stone.appspot.com/o/files%2FN%E1%BA%BFu%20%C4%90%C3%A1nh%20M%E1%BA%A5t%20Em%20-%20Reddy%20-%20Official%20Lyrics%20Video%20(1).mp4%20%20%20%20%20%20%202023-8-11%2017%3A54%3A34?alt=media&token=e595d5ee-2a75-4160-904c-f25dda4e4583",
-      image: "https://link-to-my-other-poster.jpg",
-    },
+    }
   ];
   return (
     <LayoutRoot>
@@ -139,24 +135,24 @@ const PlayFilmPage = ({ nameFilm }) => {
 
         {/* SECTION INFO FILM */}
         <div className="player-loaded overflow-hidden ">
-          {/* <h3 className="text-white text-center">react player</h3>
+          <h3 className="text-white text-center">react player</h3>
                 <ReactPlayer controls width="100%" 
-                url='https://firebasestorage.googleapis.com/v0/b/movie-the-stone.appspot.com/o/files%2FN%E1%BA%BFu%20%C4%90%C3%A1nh%20M%E1%BA%A5t%20Em%20-%20Reddy%20-%20Official%20Lyrics%20Video%20(1).mp4%20%20%20%20%20%20%202023-8-11%2017%3A54%3A34?alt=media&token=e595d5ee-2a75-4160-904c-f25dda4e4583' /> */}
+                url='https://firebasestorage.googleapis.com/v0/b/movie-the-stone.appspot.com/o/files%2FB%E1%BA%A3n%20in%20l%E1%BB%97i.mp4%20%20%20%20%20%20%202023-8-16%2022%3A42%3A21?alt=media&token=81e142f3-ab6d-4ea3-a279-12ea4ede3315' />
           <div
             className="jw-video-container"
             data-mediaid="TAITbudl"
             style={{ height: "100%", width: "100%" }}
           >
-            <ReactJWPlayer
+            {/* <ReactJWPlayer
               className=""
               playerId="TAITbudl"
               playerScript="https://content.jwplatform.com/libraries/j9BLvpMc.js"
               // playlist="https://cdn.jwplayer.com/v2/media/TAITbudl"
-              file="/neudanhmatem.mp4"
-              // playlist={playlist}
+              // file="https://firebasestorage.googleapis.com/v0/b/movie-the-stone.appspot.com/o/files%2FB%E1%BA%A3n%20in%20l%E1%BB%97i.mp4%20%20%20%20%20%20%202023-8-16%2022%3A42%3A21?alt=media&token=81e142f3-ab6d-4ea3-a279-12ea4ede3315"
+              playlist={playlist}
               // onReady={onReady}
               aspectRatio="16:9"
-            />
+            /> */}
           </div>
         </div>
 
