@@ -7,10 +7,19 @@ import CommentFilm from "../../../components/CommentFilm";
 import SliderRelatedFilm from "../../../components/SliderRelatedFilm";
 import ReactJWPlayer from "react-jw-player";
 import JWPlayer from "@jwplayer/jwplayer-react";
-import { arrDetailInfoFilm } from "./constant";
+// import { arrDetailInfoFilm } from "./constant";
 import ReactStars from "react-stars";
 import React from "react";
 import { useSelector } from "react-redux";
+
+const arrDetailInfoFilm = [
+  { id: 1, name: "Type", text: ["Movie"] },
+  { id: 2, name: "Genre", text: ["Animation", "Comedy", "Adventure"] },
+  { id: 3, name: "Release", text: "Jun 16, 2023" },
+  { id: 4, name: "Director", text: ["Peter", " John"] },
+  { id: 5, name: "Production", text: ["Disney", "Pixar"] },
+  { id: 6, name: "Cast", text: ["Lewis", "Athie", "Carmen"] },
+];
 
 const playFilmPage = ({ nameFilm }) => {
   const user = useSelector((state) => state.auth.login.currentUser);
