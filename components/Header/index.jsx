@@ -39,7 +39,7 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-40 shadow-xl">
+    <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-[1000] shadow-xl">
       <nav className="h-full mx-auto max-w-[1200px]">
         <div className="h-full flex justify-between items-center">
           <div className="bg-[rgba(255,255,255,.05)] px-[15px] h-full w-[180px] text-center">
@@ -100,24 +100,6 @@ export default function Header() {
                     </li>
                   ))}
                 </ul>
-              </li>
-
-              <li className="inline-block hover:text-[#da966e]">
-                <Link
-                  href="#"
-                  className="px-5 py-5 mx-2 block text-base font-semibold cursor-pointer"
-                >
-                  Top IMDB
-                </Link>
-              </li>
-
-              <li className="inline-block hover:text-[#da966e]">
-                <Link
-                  href="#"
-                  className="px-5 py-5 mx-2 block text-base font-semibold cursor-pointer"
-                >
-                  Quốc gia
-                </Link>
               </li>
             </ul>
           </div>

@@ -21,7 +21,7 @@ function SampleNextArrow(props) {
         viewBox="0 0 24 24"
         strokeWidth="1.5"
         stroke="currentColor"
-        className="w-12 h-12"
+        className="w-8 h-8"
       >
         <path
           strokeLinecap="round"
@@ -46,6 +46,7 @@ function SamplePrevArrow(props) {
     //   }}
     //   onClick={onClick}
     // />
+
     <button
       className="absolute top-[45%] left-0 text-white z-50 hover:bg-white hover:text-black rounded-md transition-all duration-300"
       onClick={onClick}
@@ -56,7 +57,7 @@ function SamplePrevArrow(props) {
         viewBox="0 0 24 24"
         strokeWidth="1.5"
         stroke="currentColor"
-        className="w-12 h-12"
+        className="w-8 h-8"
       >
         <path
           className="text-xl"
@@ -70,17 +71,18 @@ function SamplePrevArrow(props) {
 }
 
 export var settings = {
-  className: "slider_ralated_film",
+  className: "list_slider_film",
   dots: false,
   infinite: true,
   speed: 500,
   slidesToShow: 5,
   slidesToScroll: 1,
   initialSlide: 0,
-  autoplay: true,
+  autoplay: false,
   speed: 1000,
-  autoplaySpeed: 5000,
+  autoplaySpeed: 2000,
   swipeToSlide: true,
+  // arrows: false,
   nextArrow: <SampleNextArrow />,
   prevArrow: <SamplePrevArrow />,
   responsive: [
@@ -111,56 +113,50 @@ export var settings = {
   ],
 };
 
-export const arrSliderRelatedFilm = [
+export const arrSliderCategory = [
   {
     id: 1,
-    title: "Thất nghiệp chuyển sinh",
-    views: "24,123",
-    updated: "2023-08-12",
-    image:
+    title: "Xem gì hôm nay?",
+    image: [
       "https://img.vxdn.net/t-max/w_312/h_468/tulsa-king-season-1-1630854430.webp",
+      "https://phimmoiyyy.net/wp-content/uploads/2023/07/Oppenheimer.jpg",
+      "https://img.vxdn.net/t-max/w_312/h_468/black-panther-wakanda-forever-1630854429.jpg",
+      "https://bluphim.com/Content/Imgs/Movies/thumb-2547.jpg",
+      "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
+      "https://bluphim.com/Content/Imgs/Movies/thumb-2579.jpg?id=d96a445",
+      "https://bluphim.com/Content/Imgs/Movies/thumb-2548.jpg",
+      "https://bluphim.com/Content/Imgs/Movies/thumb-2580.jpg?id=82d87b5",
+    ],
   },
   {
     id: 2,
-    title: "Thế chiến Z",
-    views: "36,723",
-    updated: "2023-07-12",
-    image: "https://phimmoiyyy.net/wp-content/uploads/2023/07/Oppenheimer.jpg",
-  },
-  {
-    id: 3,
-    title: "Cậu bé mất tích",
-    views: "42,863",
-    updated: "2023-06-12",
-    image:
+    title: "Phim mới nhất",
+    image: [
+      "https://img.vxdn.net/t-max/w_312/h_468/tulsa-king-season-1-1630854430.webp",
+      "https://phimmoiyyy.net/wp-content/uploads/2023/07/Oppenheimer.jpg",
       "https://img.vxdn.net/t-max/w_312/h_468/black-panther-wakanda-forever-1630854429.jpg",
-  },
-  {
-    id: 4,
-    title: "Thợ săn quái vật",
-    views: "42,863",
-    updated: "2023-06-12",
-    image: "https://bluphim.com/Content/Imgs/Movies/thumb-2547.jpg",
-  },
-  {
-    id: 5,
-    title: "Thợ săn quái vật",
-    views: "42,863",
-    updated: "2023-06-12",
-    image: "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
-  },
-  {
-    id: 6,
-    title: "Thợ săn quái vật",
-    views: "42,863",
-    updated: "2023-06-12",
-    image: "https://bluphim.com/Content/Imgs/Movies/thumb-2579.jpg?id=d96a445",
-  },
-  {
-    id: 7,
-    title: "Thợ săn quái vật",
-    views: "42,863",
-    updated: "2023-06-12",
-    image: "https://bluphim.com/Content/Imgs/Movies/thumb-2548.jpg",
+      "https://bluphim.com/Content/Imgs/Movies/thumb-2547.jpg",
+      "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
+      "https://bluphim.com/Content/Imgs/Movies/thumb-2579.jpg?id=d96a445",
+      "https://bluphim.com/Content/Imgs/Movies/thumb-2548.jpg",
+      "https://bluphim.com/Content/Imgs/Movies/thumb-2580.jpg?id=82d87b5",
+    ],
   },
 ];
+
+// export const arrSliderWatchFilmToday = [
+//   {
+//     id: 1,
+//     title: "Phim có rating cao nhất tuần",
+//     image: [
+//       "https://img.vxdn.net/t-max/w_312/h_468/tulsa-king-season-1-1630854430.webp",
+//       "https://phimmoiyyy.net/wp-content/uploads/2023/07/Oppenheimer.jpg",
+//       "https://img.vxdn.net/t-max/w_312/h_468/black-panther-wakanda-forever-1630854429.jpg",
+//       "https://bluphim.com/Content/Imgs/Movies/thumb-2547.jpg",
+//       "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
+//       "https://bluphim.com/Content/Imgs/Movies/thumb-2579.jpg?id=d96a445",
+//       "https://bluphim.com/Content/Imgs/Movies/thumb-2548.jpg",
+//       "https://bluphim.com/Content/Imgs/Movies/thumb-2580.jpg?id=82d87b5",
+//     ],
+//   },
+// ];

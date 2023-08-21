@@ -10,7 +10,12 @@ export async function getServerSideProps({ params }) {
 }
 
 const UserManagePage = ({ nameUser }) => {
-  return <LayoutManageInfo>{/* <div>{nameUser}</div> */}</LayoutManageInfo>;
+  return (
+    <LayoutManageInfo>
+      {" "}
+      <div>{nameUser}</div>{" "}
+    </LayoutManageInfo>
+  );
 };
 
 export default UserManagePage;

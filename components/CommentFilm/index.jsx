@@ -47,7 +47,7 @@ const CommentFilm = () => {
   }, []); // Empty dependency array ensures the effect runs once on mount
 
   return (
-    <div className="mt-[30px] p-6 bg-white">
+    <div className="mt-[70px] p-6 bg-white">
       <div
         className="fb-comments h-[700px] w-full overflow-y-auto"
         data-href="https://developers.facebook.com/docs/plugins/comments#configurator"

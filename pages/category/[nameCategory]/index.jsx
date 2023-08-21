@@ -1,11 +1,12 @@
 import LayoutRoot from "@/components/Layout";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import SidebarContentFilm from "../../../components/SidebarContentFilm";
 import Image from "next/legacy/image";
-import { arrFilmCategory } from "./constFilmCategory";
+import { arrFilmCategory } from "./constant";
 import Pagination from "../../../components/Pagination";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import MovieCategory from "./components/Movie";
+import { getAllMovies } from "../../../store/apiRequest";
 
 export async function getServerSideProps({ params }) {
   const nameCategory = params.nameCategory;
@@ -21,6 +22,7 @@ const CategoryPage = ({ nameCategory }) => {
   const pageNumber = searchParams.get("page");
   // console.log(">>> Pagination <<<", pageNumber);
 
+  const [arrMovie, setArrMovie] = useState();
   const [currentPage, setCurrentPage] = useState(parseInt(pageNumber) || 1);
   const [pageSize, setPageSize] = useState(30);
   const [totalPages, setTotalPages] = useState(0);
@@ -29,16 +31,29 @@ const CategoryPage = ({ nameCategory }) => {
   const newUrl = `${window.location.pathname}?page=${currentPage}`;
   window.history.pushState(null, null, newUrl);
 
+  useEffect(() => {
+    const renderCategoryMovies = async () => {
+      try {
+        const res = await getAllMovies();
+        // console.log(">>> Category Film <<<", res.data.data.movie);
+        setArrMovie(res.data.data.movie);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    renderCategoryMovies();
+  }, []);
+
   return (
     <LayoutRoot>
       <div className="mt-16 ">
-        <div className=" mb-8 bg-white">
+        <div className=" mb-8">
           <nav className="flex p-2.5" aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
               <li className="inline-flex items-center">
                 <Link
                   href="/"
-                  className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
+                  className="inline-flex items-center text-sm font-medium text-white hover:text-[#da966e]"
                 >
                   <svg
                     className="w-3 h-3 mr-2.5"
@@ -71,9 +86,9 @@ const CategoryPage = ({ nameCategory }) => {
                   </svg>
                   <Link
                     href="/"
-                    className="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white"
+                    className="ml-1 text-sm font-medium text-white hover:text-[#da966e] md:ml-2"
                   >
-                    Projects
+                    Thể loại
                   </Link>
                 </div>
               </li>
@@ -94,7 +109,7 @@ const CategoryPage = ({ nameCategory }) => {
                       d="m1 9 4-4-4-4"
                     />
                   </svg>
-                  <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">
+                  <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2">
                     Xem phim {nameCategory.replace(/-/g, " ")}
                   </span>
                 </div>
@@ -111,7 +126,7 @@ const CategoryPage = ({ nameCategory }) => {
           </div>
 
           <div className="grid grid-cols-5 gap-x-3.5 gap-y-[20px]">
-            {arrFilmCategory.map((item, i) => (
+            {/* {arrFilmCategory.map((item, i) => (
               <div key={item.id} className="h-[300px] overflow-hidden">
                 <div className="relative h-full overflow-hidden group">
                   <Link
@@ -129,8 +144,31 @@ const CategoryPage = ({ nameCategory }) => {
                       priority
                     />
 
-                    <span className="opacity-0 group-hover:opacity-100 absolute top-[45%] inset-x-0 text-white text-center transition-all duration-500">
+                    <span className="opacity-0 group-hover:opacity-100 absolute top-[40%] inset-x-0 text-white text-center transition-all duration-500">
                       <i className="fa-regular fa-circle-play text-4xl"></i>
+                    </span>
+
+                    <span className="absolute top-[40%] left-[25%] opacity-0 group-hover:opacity-100 duration-500 ease-in-out z-50">
+                      <button className="text-white z-50" onClick={handleLove}>
+                        {activeFavorite ? (
+                          <i className="fa-solid fa-heart text-2xl"></i>
+                        ) : (
+                          <i className="fa-regular fa-heart text-2xl"></i>
+                        )}
+                      </button>
+                    </span>
+
+                    <span className="absolute top-[40%] right-[25%] opacity-0 group-hover:opacity-100 duration-500 ease-in-out z-50">
+                      <button
+                        className="text-white z-50"
+                        onClick={handleBookmark}
+                      >
+                        {activeBookmark ? (
+                          <i className="fa-solid fa-bookmark text-2xl"></i>
+                        ) : (
+                          <i className="fa-regular fa-bookmark text-2xl"></i>
+                        )}
+                      </button>
                     </span>
 
                     <span className="p-2 absolute bottom-0 inset-x-0 text-white bg-black bg-opacity-70">
@@ -144,7 +182,11 @@ const CategoryPage = ({ nameCategory }) => {
                   </Link>
                 </div>
               </div>
-            ))}
+            ))} */}
+
+            {arrFilmCategory.map((item, index) => {
+              return <MovieCategory key={index} item={item} />;
+            })}
           </div>
 
           <div className="flex items-center justify-center my-[30px] h-[50px]">

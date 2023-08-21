@@ -18,19 +18,19 @@ const ListComponent = forwardRef((props, ref) => {
       <Link
         href="#"
         className={`flex items-center p-2 text-[#8699ad] rounded-lg group-hover:bg-gray-100 ${
-          show ? "bg-gray-100" : ""
+          props.open ? "bg-gray-100" : ""
         }`}
       >
         <i
           className={`${
             props.item.icon
           } flex-shrink-0 w-5 my-auto transition duration-75 group-hover:text-gray-900 ${
-            show ? "text-gray-900" : ""
+            props.open ? "text-gray-900" : ""
           }`}
         ></i>
         <span
           className={`flex-1 ml-3 group-hover:text-gray-900 ${
-            show ? "text-gray-900" : ""
+            props.open ? "text-gray-900" : ""
           }`}
         >
           {props.item.name}
@@ -38,7 +38,7 @@ const ListComponent = forwardRef((props, ref) => {
         {props.item.subMenu && (
           <i
             className={`fa-solid fa-caret-down w-3 h-3 group-hover:text-gray-900 ${
-              show ? "text-gray-900" : ""
+              props.open ? "text-gray-900" : ""
             }`}
           ></i>
         )}
