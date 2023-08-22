@@ -39,9 +39,7 @@ export const logOut = async (dispatch, id, router, accessToken, axiosJWT) => {
   const base_url = process.env.NEXT_PUBLIC_URL;
   dispatch(logOutStart());
   try {
-    await axiosJWT.post(`${base_url}/api/v1/auth/logout`, id, {
-      headers: { token: `Bearer ${accessToken}` },
-    });
+    await axios.post(`${base_url}/api/v1/auth/logout`, id);
     dispatch(logOutSuccess());
     router.push("/");
   } catch (err) {
@@ -53,13 +51,42 @@ export const logOut = async (dispatch, id, router, accessToken, axiosJWT) => {
 export const getAllUsers = async (token, dispatch, axiosJWT) => {
   // dispatch(getUsersStart());
   const base_url = process.env.NEXT_PUBLIC_URL;
-
   try {
     const res = await axiosJWT.get(`${base_url}/api/v1/user/`, {
       headers: { token: `Bearer ${token}` },
     });
     // dispatch(getUsersSuccess(res.data));
     // console.log(res);
+    return res;
+  } catch (err) {
+    // dispatch(getUsersFailed());
+    console.log(err);
+    throw new Error(err);
+  }
+};
+
+export const updateInfoUser = async (
+  formData,
+  token,
+  refreshToken,
+  dispatch,
+  axiosJWT
+) => {
+  // dispatch(getUsersStart());
+  const base_url = process.env.NEXT_PUBLIC_URL;
+  try {
+    const res = await axiosJWT.put(
+      `${base_url}/api/v1/user/update-info-user`,
+      formData,
+      {
+        headers: { token: `Bearer ${token}` },
+      }
+    );
+    const newData = { ...res.data.data, accessToken: token, refreshToken };
+    // console.log(res);
+    if (res.status == 200) {
+      dispatch(loginSuccess(newData));
+    }
     return res;
   } catch (err) {
     // dispatch(getUsersFailed());
@@ -85,7 +112,7 @@ export const getAllMovies = async () => {
   const base_url = process.env.NEXT_PUBLIC_URL;
   // dispatch(getUsersStart());
   try {
-    const res = await axios.get(`${base_url}/api/v1/movie/`);
+    const res = await axios.get(`${base_url}/api/v1/movie`);
     // console.log(res);
     return res;
     // dispatch(getUsersSuccess(res.data));
@@ -96,7 +123,46 @@ export const getAllMovies = async () => {
   }
 };
 
-export const toggleLoveMovie = async (userId, movieId, isLove) => {
+export const getFavoriteMovies = async (token, dispatch, axiosJWT) => {
+  // dispatch(getUsersStart());
+  const base_url = process.env.NEXT_PUBLIC_URL;
+
+  try {
+    const res = await axiosJWT.get(`${base_url}/api/v1/user/get-love-movie`, {
+      headers: { token: `Bearer ${token}` },
+    });
+    // dispatch(getUsersSuccess(res.data));
+    // console.log(res);
+    return res;
+  } catch (err) {
+    // dispatch(getUsersFailed());
+    console.log(err);
+    throw new Error(err);
+  }
+};
+
+export const getWatchLaterMovies = async (token, dispatch, axiosJWT) => {
+  // dispatch(getUsersStart());
+  const base_url = process.env.NEXT_PUBLIC_URL;
+
+  try {
+    const res = await axiosJWT.get(
+      `${base_url}/api/v1/user/get-bookmark-movie`,
+      {
+        headers: { token: `Bearer ${token}` },
+      }
+    );
+    // dispatch(getUsersSuccess(res.data));
+    // console.log(res);
+    return res;
+  } catch (err) {
+    // dispatch(getUsersFailed());
+    console.log(err);
+    throw new Error(err);
+  }
+};
+
+export const toggleFavoriteMovie = async (userId, movieId, isLove) => {
   const data = { userId, movieId, isLove };
   const base_url = process.env.NEXT_PUBLIC_URL;
   // dispatch(getUsersStart());

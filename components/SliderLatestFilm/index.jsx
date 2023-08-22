@@ -49,6 +49,14 @@ const SliderLastetFilm = () => {
 
   return (
     <div className="mt-20 mb-8 -mx-2.5">
+      {/* <div>
+        <img
+          className="block w-full"
+          src="https://ax.mpapis.xyz/motchill/uploads/342f50804f3a0bc5d9ff4b9e3b9c9964.gif"
+          alt=""
+        />
+      </div> */}
+
       <div className="px-2.5 mb-4">
         <h2 className="text-[#da966e] text-3xl font-normal border-l-4 pl-2.5">
           Top Trending

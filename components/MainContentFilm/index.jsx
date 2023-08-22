@@ -39,10 +39,17 @@ const MainContentFilm = () => {
               key={item.id}
               className={`${i === arrSliderCategory.length - 1 ? "" : "mb-10"}`}
             >
-              <div className="px-2.5 mb-4">
+              <div className="px-2.5 mb-4 flex justify-between items-center">
                 <h3 className="text-[#da966e] text-2xl font-normal border-l-4 pl-2.5">
                   {item.title.toUpperCase()}
                 </h3>
+
+                <Link
+                  href={`/category/${item.title.replace(/\s+/g, "-")}`}
+                  className="py-[3px] px-[8px] rounded-[3px] bg-[#408BEA] font-light text-[10px] text-white uppercase select-none"
+                >
+                  Xem thêm
+                </Link>
               </div>
               {/* <Slider {...settings}>
                 {item.image.map((item, i) => (

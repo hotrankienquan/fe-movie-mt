@@ -2,7 +2,7 @@ import Link from "next/link";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { arrSliderRelatedFilm, settings } from "./constSliderRelatedFilm";
+import { arrSliderRelatedFilm, settings } from "./constant";
 import Image from "next/legacy/image";
 import MovieRalated from "./components/Movie";
 import { useEffect, useState } from "react";

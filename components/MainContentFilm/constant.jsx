@@ -116,7 +116,7 @@ export var settings = {
 export const arrSliderCategory = [
   {
     id: 1,
-    title: "Xem gì hôm nay?",
+    title: "Xem gì hôm nay",
     image: [
       "https://img.vxdn.net/t-max/w_312/h_468/tulsa-king-season-1-1630854430.webp",
       "https://phimmoiyyy.net/wp-content/uploads/2023/07/Oppenheimer.jpg",

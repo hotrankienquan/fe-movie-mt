@@ -3,6 +3,8 @@ import HeaderManageInfo from "@/components/HeaderManageInfo";
 import ArrowGotoUp from "./ArrowGoToUp";
 import { useState } from "react";
 import SidebarManageInfo from "./SidebarManageInfo";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 // className="sm:w-11/12 md:w-[1200px] mx-auto bg-[#151414] p-7"
@@ -11,13 +13,19 @@ const LayoutManageInfo = ({ children }) => {
 
   return (
     <>
-      <HeaderManageInfo
+      {/* <HeaderManageInfo
         showSideBar={showSideBar}
         setShowSideBar={setShowSideBar}
-      />
-      <div className="">{children}</div>
-      <SidebarManageInfo showSideBar={showSideBar} />
-      {/* <ArrowGotoUp /> */}
+      /> */}
+      <Header />
+      <div className="bg-[#424040]">
+        <div className="sm:w-11/12 md:w-[1200px] mx-auto bg-[#151414] p-7">
+          {children}
+        </div>
+      </div>
+      {/* <SidebarManageInfo showSideBar={showSideBar} /> */}
+      <ArrowGotoUp />
+      <Footer />
     </>
   );
 };

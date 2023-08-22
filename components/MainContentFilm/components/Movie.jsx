@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   toggleBookmarkMovie,
-  toggleLoveMovie,
+  toggleFavoriteMovie,
 } from "../../../store/apiRequest";
 
 const MovieMainContent = ({ item }) => {
@@ -34,7 +34,7 @@ const MovieMainContent = ({ item }) => {
     try {
       setActiveLove(!activeFavorite);
 
-      const res = await toggleLoveMovie(
+      const res = await toggleFavoriteMovie(
         userId,
         "64e30de0e2032779af0a65e7",
         !activeFavorite

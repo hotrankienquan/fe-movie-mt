@@ -7,6 +7,7 @@ import Pagination from "../../../components/Pagination";
 import { useEffect, useState } from "react";
 import MovieCategory from "./components/Movie";
 import { getAllMovies } from "../../../store/apiRequest";
+import { useRouter } from "next/router";
 
 const arrFilmCategory = [
   {
@@ -70,6 +71,8 @@ const arrFilmCategory = [
 ];
 
 const CategoryPage = ({ nameCategory }) => {
+  const router = useRouter();
+  // console.log(router);
   const searchParams = useSearchParams();
   const pageNumber = searchParams.get("page");
   // console.log(">>> Pagination <<<", pageNumber);
@@ -79,9 +82,18 @@ const CategoryPage = ({ nameCategory }) => {
   const [pageSize, setPageSize] = useState(30);
   const [totalPages, setTotalPages] = useState(0);
 
-  // set "page" query string url
-  const newUrl = `${window.location.pathname}?page=${currentPage}`;
-  window.history.pushState(null, null, newUrl);
+  useEffect(() => {
+    router.push(`${nameCategory.replace(/\s+/g, "-")}?page=${currentPage}`);
+  }, [currentPage]);
+
+  // useEffect(() => {
+  //   try {
+  //     // set "page" query string url
+  //     // const newUrl = `${window.location.pathname}?page=${currentPage}`;
+  //   } catch (err) {
+  //     throw new Error(err);
+  //   }
+  // }, [currentPage]);
 
   useEffect(() => {
     const renderCategoryMovies = async () => {
