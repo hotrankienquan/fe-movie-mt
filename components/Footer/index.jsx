@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 export default function Footer() {
   const handleClickToTop = (e) => {
     e.preventDefault();
@@ -10,10 +11,10 @@ export default function Footer() {
       <footer className="bg-[#0F0F0FE6] border-t border-gray-500">
         <div className="sm:w-full max-w-[1200px] px-10 text-white mx-auto">
           <section className="border-b border-gray-500 grid md:grid-cols-5 md:gap-4 pb-4 pt-4">
-            <div className="md:col-span-2">
+            <div className="md:col-span-4">
               <div>logo</div>
               <div className="mt-6">
-                <p className="text-justify text-sm max-w-[350px] w-full">
+                <p className="text-justify text-sm w-full">
                   <Link href="#" className="font-bold text-[#408BEA]">
                     TheMovie
                   </Link>{" "}
@@ -24,7 +25,7 @@ export default function Footer() {
                 </p>
               </div>
             </div>
-            <div className="mx-auto">
+            {/* <div className="mx-auto">
               <h3>Phim mới</h3>
               <ul className="text-[#408BEA] text-sm">
                 <li className="m-2 ml-0">
@@ -57,7 +58,7 @@ export default function Footer() {
                   <Link href="#">Phim Nhật Bản</Link>
                 </li>
               </ul>
-            </div>
+            </div> */}
             <div className="mx-auto">
               <h3>Thông tin</h3>
               <ul className="text-[#408BEA] text-sm">

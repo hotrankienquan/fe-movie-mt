@@ -1,23 +1,31 @@
+import React from "react";
 import JWPlayer from "@jwplayer/jwplayer-react";
 
-const VideoPlayer = () => {
-  const playlist = [
-    // {
-    //   file: "/stream/videos/vut-mat-reddy-cover-_-reply-199x.m3u8", // HLS streaming URL
-    //   // other properties like image, subtitles, etc.
-    // },
-    {
-      file: "/stream/videos/vut-mat-reddy-cover-_-reply-199x.m3u8",
-    },
-  ];
+class PlayerContainer extends React.Component {
+  render() {
+    const playlist = [
+      {
+        file: "neudanhmatem.mp4",
+        tracks: [
+          {
+            file: "test.vtt",
+            label: "English",
+            kind: "captions",
+            default: true,
+          },
+        ],
+      },
+    ];
 
-  return (
-    <JWPlayer
-      playerId="my-player"
-      library="https://content.jwplatform.com/libraries/j9BLvpMc.js"
-      playlist={playlist}
-    />
-  );
-};
-
-export default VideoPlayer;
+    return (
+      <div className="players-container">
+        <JWPlayer
+          library="https://content.jwplatform.com/libraries/j9BLvpMc.js"
+          //   playlist='https://cdn.jwplayer.com/v2/playlists/B8FTSH9D'
+          playlist={playlist}
+        />
+      </div>
+    );
+  }
+}
+export default PlayerContainer;

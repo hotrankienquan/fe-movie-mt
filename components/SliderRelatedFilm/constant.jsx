@@ -1,34 +1,74 @@
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div
-      className={`${className} z-10`}
-      style={{
-        ...style,
-        display: "absolute",
-        top: "50%",
-        right: 0,
-      }}
+    // <div
+    //   className={`${className} z-10`}
+    //   style={{
+    //     ...style,
+    //     display: "absolute",
+    //     top: "50%",
+    //     right: 0,
+    //   }}
+    //   onClick={onClick}
+    // ></div>
+    <button
+      className="absolute top-[45%] right-0 text-white z-50 hover:bg-white hover:text-black rounded-md transition-all duration-300"
       onClick={onClick}
-    ></div>
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth="1.5"
+        stroke="currentColor"
+        className="w-12 h-12"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M8.25 4.5l7.5 7.5-7.5 7.5"
+        />
+      </svg>
+    </button>
   );
 }
 
 function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div
-      className={`${className} z-10`}
-      style={{
-        ...style,
-        display: "absolute",
-        top: "50%",
-        left: 0,
-      }}
+    // <div
+    //   className={`${className} z-10`}
+    //   style={{
+    //     ...style,
+    //     display: "absolute",
+    //     top: "50%",
+    //     left: 0,
+    //   }}
+    //   onClick={onClick}
+    // />
+    <button
+      className="absolute top-[45%] left-0 text-white z-50 hover:bg-white hover:text-black rounded-md transition-all duration-300"
       onClick={onClick}
-    />
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth="1.5"
+        stroke="currentColor"
+        className="w-12 h-12"
+      >
+        <path
+          className="text-xl"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M15.75 19.5L8.25 12l7.5-7.5"
+        />
+      </svg>
+    </button>
   );
 }
+
 export var settings = {
   className: "slider_ralated_film",
   dots: false,

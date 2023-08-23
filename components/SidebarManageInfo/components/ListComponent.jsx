@@ -8,6 +8,7 @@ const ListComponent = forwardRef((props, ref) => {
   function handleOpen(e) {
     props.setOpen(!props.open);
   }
+
   return (
     <li
       className={`group ${props.open && "bg-slate-50"}`}
@@ -16,18 +17,31 @@ const ListComponent = forwardRef((props, ref) => {
     >
       <Link
         href="#"
-        className={`flex items-center p-2 text-[#8699ad] rounded-lg group-hover:bg-gray-100`}
+        className={`flex items-center p-2 text-[#8699ad] rounded-lg group-hover:bg-gray-100 ${
+          props.open ? "bg-gray-100" : ""
+        }`}
       >
         <i
-          className={` flex-shrink-0 w-5 my-auto transition duration-75 group-hover:text-gray-900`}
+          className={`${
+            props.item.icon
+          } flex-shrink-0 w-5 my-auto transition duration-75 group-hover:text-gray-900 ${
+            props.open ? "text-gray-900" : ""
+          }`}
         ></i>
-
-        <span className={`flex-1 ml-3 group-hover:text-gray-900 `}>
+        <span
+          className={`flex-1 ml-3 group-hover:text-gray-900 ${
+            props.open ? "text-gray-900" : ""
+          }`}
+        >
           {props.item.name}
         </span>
-        <i
-          className={`fa-solid fa-caret-down w-3 h-3 group-hover:text-gray-900`}
-        ></i>
+        {props.item.subMenu && (
+          <i
+            className={`fa-solid fa-caret-down w-3 h-3 group-hover:text-gray-900 ${
+              props.open ? "text-gray-900" : ""
+            }`}
+          ></i>
+        )}
       </Link>
 
       {props.item.subMenu != null && (
