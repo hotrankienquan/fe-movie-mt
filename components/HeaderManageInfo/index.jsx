@@ -80,7 +80,7 @@ const HeaderManageInfo = ({ showSideBar, setShowSideBar }) => {
               <div className="max-w-[80%] w-full">
                 <span className="font-bold ">
                   <p className="whitespace-nowrap text-ellipsis overflow-hidden">
-                    {user.username}
+                    {user?.username}
                   </p>
                 </span>
                 <span className="flex items-center text-xs mt-[4px] col-span-1">

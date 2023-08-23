@@ -8,6 +8,7 @@ import { logOutSuccess } from "../../store/authSlice";
 import { logOut } from "../../store/apiRequest";
 import { useRouter } from "next/router";
 import { arrNameCategory } from "./constHeader";
+import Cookies from "js-cookie";
 
 export default function Header() {
   const router = useRouter();
@@ -34,11 +35,12 @@ export default function Header() {
   };
   const handleLogout = (e) => {
     e.preventDefault();
+    Cookies.remove("dataUser");
     logOut(dispatch, id, router, accessToken, axiosJWT);
   };
 
   return (
-    <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-[1000] shadow-xl">
+    <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-[100] shadow-xl">
       <nav className="h-full mx-auto max-w-[1200px]">
         <div className="h-full flex justify-between items-center">
           <div className="bg-[rgba(255,255,255,.05)] px-[15px] h-full w-[180px] text-center">
@@ -155,14 +157,14 @@ export default function Header() {
                 <div className="grid grid-cols-5">
                   <div className="col-span-4">
                     <Link
-                      href={`/user/${user.username
+                      href={`/user/${user?.username
                         .replace(/\s+/g, "")
                         .toLowerCase()}`}
                       className="text-black font-bold whitespace-nowrap text-ellipsis overflow-hidden"
-                      title={user.username}
+                      title={user?.username}
                     >
                       <p className="whitespace-nowrap text-ellipsis overflow-hidden">
-                        {user.username}
+                        {user?.username}
                       </p>
                     </Link>
 
@@ -182,7 +184,7 @@ export default function Header() {
                 <ul className="overflow-hidden absolute z-50 top-[100%] left-0 right-0 hidden bg-white text-gray-700 border border-gray-300 rounded-md group-hover:block">
                   <li className="block hover:bg-gray-100">
                     <Link
-                      href={`/user/${user.username
+                      href={`/user/${user?.username
                         .replace(/\s+/g, "-")
                         .toLowerCase()}`}
                       className="py-2.5 px-3.5 block w-full text-sm"
