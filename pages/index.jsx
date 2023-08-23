@@ -11,16 +11,6 @@ const inter = Inter({ subsets: ["latin"] });
 const Home = (props) => {
   const router = useRouter();
   const user = useSelector((state) => state.auth.login?.currentUser);
-  useEffect(() => {
-    if (!user) {
-      // router.push("/login");
-    }
-    if (user) {
-    }
-    if (user?.accessToken) {
-      // getAllUsers(user?.accessToken, dispatch, axiosJWT);
-    }
-  }, []);
 
   return (
     <>

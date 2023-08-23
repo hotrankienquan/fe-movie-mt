@@ -1,6 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createAxios } from "../../utils/createInstance";
 import { logOutSuccess } from "../../store/authSlice";

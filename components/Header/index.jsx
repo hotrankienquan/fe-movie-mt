@@ -13,7 +13,6 @@ import Cookies from "js-cookie";
 export default function Header() {
   const router = useRouter();
   const user = useSelector((state) => state.auth.login.currentUser);
-  // console.log(">>> Header <<<", user);
   const accessToken = user?.accessToken;
   const id = user?._id;
   const dispatch = useDispatch();

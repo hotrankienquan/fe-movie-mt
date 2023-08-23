@@ -31,7 +31,7 @@ const SliderLastetFilm = () => {
         console.log(err);
       }
     };
-    renderTopTrendingMovies();
+    // renderTopTrendingMovies();
   }, []);
 
   // useEffect(() => {

@@ -105,7 +105,7 @@ const CategoryPage = ({ nameCategory }) => {
         console.log(err);
       }
     };
-    renderCategoryMovies();
+    // renderCategoryMovies();
   }, []);
 
   return (
