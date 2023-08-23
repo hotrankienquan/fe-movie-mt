@@ -53,10 +53,10 @@ export default function Header({ categories }) {
 
     inputRef.current.addEventListener("focus", handleFocus);
     inputRef.current.addEventListener("blur", handleBlur);
-    return () => {
-      inputRef.current.removeEventListener("focus", handleFocus);
-      inputRef.current.removeEventListener("blur", handleBlur);
-    };
+    // return () => {
+    //   inputRef.current.removeEventListener("focus", handleFocus);
+    //   inputRef.current.removeEventListener("blur", handleBlur);
+    // };
   }, []);
 
   return (
