@@ -8,14 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const Home = (props) => {
   const user = useSelector((state) => state.auth.login?.currentUser);
-  useEffect(() => {
-    if (!user) {
-      // navigate("/login");
-    }
-    if (user?.accessToken) {
-      // getAllUsers(user?.accessToken, dispatch, axiosJWT);
-    }
-  }, []);
+
   return (
     <>
       <Head>

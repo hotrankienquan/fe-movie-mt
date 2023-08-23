@@ -20,13 +20,14 @@ const MainContentFilm = () => {
     const renderMainContentMovies = async () => {
       try {
         const res = await getAllMovies();
+        console.log("check res get all movies", res);
         // console.log(">>> Main Content Film <<<", res.data.data.movie);
         setArrMovie(res.data.data.movie);
       } catch (err) {
         console.log(err);
       }
     };
-    renderMainContentMovies();
+    // renderMainContentMovies();
   }, []);
 
   return (

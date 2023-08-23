@@ -53,14 +53,13 @@ const FavoriteMovie = () => {
     const renderFavoriteMovies = async () => {
       try {
         const res = await getFavoriteMovies(accessToken, null, axiosJWT);
-        console.log(">>> Favorite Film <<<", res);
         // console.log(">>> Favorite Film <<<", res.data.loveMovie);
         // setArrMovie(res.data.loveMovie);
       } catch (err) {
         console.log(err);
       }
     };
-    renderFavoriteMovies();
+    // renderFavoriteMovies();
   }, []);
 
   return (

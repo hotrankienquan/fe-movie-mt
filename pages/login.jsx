@@ -19,9 +19,7 @@ const LoginPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });

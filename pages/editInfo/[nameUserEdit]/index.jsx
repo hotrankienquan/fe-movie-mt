@@ -23,7 +23,6 @@ const editInfoUser = ({ nameUserEdit }) => {
     national: "",
     avatar: "",
   });
-  console.log(formValue);
   const { username, givenName, familyName, email, national, avatar } =
     formValue;
 
@@ -38,17 +37,7 @@ const editInfoUser = ({ nameUserEdit }) => {
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-    if (
-      !userId ||
-      !username ||
-      !givenName ||
-      !familyName ||
-      !email ||
-      !national
-    ) {
-      alert("Nhập đầy đủ các trường");
-      return;
-    }
+
     try {
       const formData = { ...formValue, userId };
       console.log("submit", formData);
@@ -60,7 +49,6 @@ const editInfoUser = ({ nameUserEdit }) => {
         dispatch,
         axiosJWT
       );
-      console.log(response);
       setFormValue((prev) => ({
         ...prev,
         username: "",
@@ -70,9 +58,11 @@ const editInfoUser = ({ nameUserEdit }) => {
         national: "",
         avatar: "",
       }));
-      alert("Chỉnh sửa thành công!");
-
-      router.push(`user/${response.data.data.username}`);
+      if (response) {
+        router.push("/user/" + response?.data.data.username);
+      } else {
+        return;
+      }
     } catch (error) {
       console.log(error);
       alert(error || "ADD error");

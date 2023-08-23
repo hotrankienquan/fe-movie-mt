@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const SubChild = ({ item, setActiveItem, activeItem }) => {
   function handleSelectSub(e, name) {

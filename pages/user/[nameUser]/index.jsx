@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import FavoriteMovie from "./components/FavoriteMovie";
 import WatchLaterMovie from "./components/WatchLaterMovie";
+import { useSelector } from "react-redux";
 
 const arrTabs = [
   { id: 1, tabName: "Profile", tabPath: "profile" },
@@ -13,18 +14,19 @@ const arrTabs = [
 
 const UserManagePage = ({ nameUser }) => {
   const router = useRouter();
-  console.log(nameUser);
-  console.log(router.asPath == `/user/${nameUser}`);
-  console.log(router);
+  const user = useSelector((state) => state.auth.login.currentUser);
+  
+
   const [activeTab, setActiveTab] = useState(router?.query?.tab || "profile");
   const handleNavigate = (tabName) => {
     router.push(`/user/${nameUser.replace(/\s+/g, "-")}?tab=${tabName}`);
   };
-
-  // useEffect(() => {
-  //   router.push(`/user/${nameUser.replace(/\s+/g, "-")}?tab=${activeTab}`);
-  // }, [activeTab]);
-
+  useEffect(()=>{
+    if(user == null) {
+      router.push("/")
+    }
+    else return;
+  },[])
   return (
     <LayoutManageInfo>
       <div className="mt-20 mb-8 overflow-hidden">

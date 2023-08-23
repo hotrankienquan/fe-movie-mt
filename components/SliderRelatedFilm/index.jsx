@@ -21,7 +21,7 @@ const SliderRelatedFilm = () => {
         console.log(err);
       }
     };
-    renderTopRatingOfWeekMovies();
+    // renderTopRatingOfWeekMovies();
   }, []);
 
   return (

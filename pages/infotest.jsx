@@ -7,11 +7,6 @@ const InfoTest = () => {
     // router.query.tab = "love";
     router.push("/infotest?tab=" + name);
   }
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos/1")
-      .then((response) => response.json())
-      .then((json) => console.log(json));
-  }, []);
 
   return (
     <div>
