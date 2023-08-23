@@ -7,7 +7,8 @@ import {
   logOutStart,
 } from "./authSlice";
 import axios from "axios";
-
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 ////////////////////******************** AUTH ********************////////////////////////////
 export const login = async (user, dispatch, router) => {
   const base_url = process.env.NEXT_PUBLIC_URL;
@@ -15,8 +16,11 @@ export const login = async (user, dispatch, router) => {
   try {
     const res = await axios.post(`${base_url}/api/v1/auth/login`, user);
     if (res.data.code == 200) {
+      cookies.set("user-server","abc")
       dispatch(loginSuccess(res.data.data));
+
       router.push("/");
+
     }
   } catch {
     dispatch(loginFailed());
