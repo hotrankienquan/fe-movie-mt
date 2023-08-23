@@ -13,7 +13,7 @@ import SliderRelatedFilm from "../SliderRelatedFilm";
 import { useEffect, useRef, useState } from "react";
 import { getAllMovies } from "../../store/apiRequest";
 
-const MainContentFilm = () => {
+const MainContentFilm = ({ movies }) => {
   const [arrMovie, setArrMovie] = useState();
 
   useEffect(() => {
@@ -163,7 +163,7 @@ const MainContentFilm = () => {
 
         {/* RIGHT */}
         <div className="col-span-2 px-2.5 h-full overflow-hidden">
-          <SidebarContentFilm arrMovie={arrMovie} />
+          <SidebarContentFilm movies={movies} />
         </div>
       </div>
 
@@ -244,7 +244,7 @@ const MainContentFilm = () => {
         </div>
       ))} */}
 
-      <SliderRelatedFilm />
+      <SliderRelatedFilm movies={movies} />
     </>
   );
 };

@@ -7,25 +7,30 @@ import {
   logOutStart,
 } from "./authSlice";
 import axios from "axios";
-import Cookies from 'universal-cookie';
-const cookies = new Cookies();
+import Cookies from "js-cookie";
+
+// import Cookies from 'universal-cookie';
+// const cookies = new Cookies();
 ////////////////////******************** AUTH ********************////////////////////////////
-export const login = async (user, dispatch, router) => {
+export const login = async (user, dispatch, router, toast) => {
   const base_url = process.env.NEXT_PUBLIC_URL;
   dispatch(loginStart());
   try {
     const res = await axios.post(`${base_url}/api/v1/auth/login`, user);
     if (res.data.code == 200) {
-      let c = res.data.data.accessToken.toString()
-      cookies.set("user-server","abc")
-      cookies.set("accessToken", c)
+      let c = res.data.data.accessToken.toString();
+      // Cookies.set("user-server", "abc");
+      Cookies.set("accessToken", c);
       dispatch(loginSuccess(res.data.data));
-
+      toast("Đăng nhập thành công");
       router.push("/");
-
     }
-  } catch {
+  } catch (err) {
+    console.log(err);
     dispatch(loginFailed());
+    if (err?.response?.data?.code) {
+      toast(err.response.data.err.mes);
+    }
   }
 };
 
@@ -46,7 +51,7 @@ export const logOut = async (dispatch, id, router, accessToken, axiosJWT) => {
   dispatch(logOutStart());
   try {
     await axios.post(`${base_url}/api/v1/auth/logout`, id);
-    cookies.remove("accessToken")
+    Cookies.remove("accessToken");
     dispatch(logOutSuccess());
     router.push("/");
   } catch (err) {

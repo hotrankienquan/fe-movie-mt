@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-export const changePwdUser = async (formData, router) => {
+export const changePwdUser = async (formData, router, toast) => {
   // dispatch(getUsersStart());
   const base_url = process.env.NEXT_PUBLIC_URL;
   try {
@@ -19,7 +19,7 @@ export const changePwdUser = async (formData, router) => {
     // dispatch(getUsersFailed());
     console.log(err);
     if (err.response.data.code === 404) {
-      alert(err.response.data.mes);
+      toast(err.response.data.mes);
     }
     // throw new Error(err);
   }

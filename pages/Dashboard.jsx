@@ -1,11 +1,11 @@
 import MainContentFilm from "../components/MainContentFilm";
 import SliderLastetFilm from "../components/SliderLatestFilm";
 
-export default function Dashboard() {
+export default function Dashboard({ movies }) {
   return (
     <>
-      <SliderLastetFilm />
-      <MainContentFilm />
+      <SliderLastetFilm movies={movies} />
+      <MainContentFilm movies={movies} />
     </>
   );
 }

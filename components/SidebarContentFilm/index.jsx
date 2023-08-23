@@ -3,8 +3,8 @@ import { arrDetailInfoFilm, arrTopTrendingFilm } from "./constant";
 import Image from "next/legacy/image";
 import React from "react";
 
-const SidebarContentFilm = ({ arrMovie }) => {
-  console.log(">>> Sidebar Main Content <<<", arrMovie);
+const SidebarContentFilm = ({ movies }) => {
+  // console.log(">>> Sidebar Main Content <<<", movies);
   return (
     <>
       {arrTopTrendingFilm.map((item) => (

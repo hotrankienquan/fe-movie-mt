@@ -17,7 +17,8 @@ body::-webkit-scrollbar,
 .list_top_trend_film::-webkit-scrollbar,
 .detail_film_info::-webkit-scrollbar,
 .sidebar_manage_info::-webkit-scrollbar,
-.srcoll_film_manage_user::-webkit-scrollbar {
+.srcoll_film_manage_user::-webkit-scrollbar,
+.scroll_search_header::-webkit-scrollbar {
   width: 8px;
 }
 .scroll_tab_manage_user::-webkit-scrollbar {
@@ -29,7 +30,8 @@ body::-webkit-scrollbar-thumb,
 .list_top_trend_film::-webkit-scrollbar-thumb,
 .detail_film_info::-webkit-scrollbar-thumb,
 .sidebar_manage_info::-webkit-scrollbar-thumb,
-.srcoll_film_manage_user::-webkit-scrollbar-thumb {
+.srcoll_film_manage_user::-webkit-scrollbar-thumb,
+.scroll_search_header::-webkit-scrollbar-thumb {
   /*thanh scroll*/
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 50px;
@@ -50,7 +52,8 @@ body::-webkit-scrollbar-track,
 .detail_film_info::-webkit-scrollbar-track,
 .sidebar_manage_info::-webkit-scrollbar-track,
 .scroll_tab_manage_user::-webkit-scrollbar-track,
-.srcoll_film_manage_user::-webkit-scrollbar-track {
+.srcoll_film_manage_user::-webkit-scrollbar-track,
+.scroll_search_header::-webkit-scrollbar-track {
   /*thanh contain scroll*/
   background-color: #ccc;
   border-radius: 50px;

@@ -41,7 +41,7 @@ const UserManagePage = ({ nameUser }) => {
           <div className="flex justify-start items-center mb-[25px]">
             <div className="h-[130px] w-[130px] select-none">
               <img
-                className="block w-full rounded-[50%] object-cover hover:border-[1px] transition-all duration-100 cursor-pointer"
+                className="block w-full h-full rounded-[50%] object-cover hover:border-[1px] transition-all duration-100 cursor-pointer"
                 src={user?.avatar || "/unknowAvatar.webp"}
                 alt="pic"
                 onClick={() => {

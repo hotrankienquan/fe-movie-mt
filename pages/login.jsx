@@ -36,7 +36,7 @@ const LoginPage = () => {
 
   const onSubmit = async (data) => {
     console.log(">>> Data LOGIN <<<", data);
-    login(data, dispatch, router);
+    login(data, dispatch, router, toast);
   };
 
   useEffect(() => {

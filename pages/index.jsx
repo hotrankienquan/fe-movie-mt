@@ -7,11 +7,13 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 const inter = Inter({ subsets: ["latin"] });
-import axios from 'axios'
+import axios from "axios";
 const Home = (props) => {
   const router = useRouter();
   const user = useSelector((state) => state.auth.login?.currentUser);
-  console.log("arr movie",props.movie) 
+  console.log("arr movie", props.movies);
+  // console.log("arr category", props.categories);
+
   return (
     <>
       <Head>
@@ -37,23 +39,28 @@ const Home = (props) => {
           nonce="eRCeEIuo"
         ></script> */}
       </Head>
-      <LayoutRoot>
+      <LayoutRoot categories={props.categories}>
         {/* <div id="fb-root"></div> */}
 
-        <Dashboard />
+        <Dashboard movies={props.movies} />
       </LayoutRoot>
     </>
   );
 };
 export default Home;
-export async function getServerSideProps(context){
+
+export async function getServerSideProps(context) {
   // if need accesstoken, get here
   // nếu api nào cần verify token, thì gắn accesstoken này vào rồi call api
   // console.log(context.req.cookies.accessToken) // get cookie accessToken
-  let data = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/v1/movie`)
+  let allMovie = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/v1/movie`);
+  let allCategory = await axios.get(
+    `${process.env.NEXT_PUBLIC_URL}/api/v1/category`
+  );
   return {
-    props:{
-      movie: data.data.data.movie
-    }
-  }
+    props: {
+      movies: allMovie.data.data.movie,
+      categories: allCategory.data.data,
+    },
+  };
 }

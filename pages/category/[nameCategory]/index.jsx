@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import MovieCategory from "./components/Movie";
 import { getAllMovies } from "../../../store/apiRequest";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 const arrFilmCategory = [
   {
@@ -70,7 +71,7 @@ const arrFilmCategory = [
   },
 ];
 
-const CategoryPage = ({ nameCategory }) => {
+const CategoryPage = ({ nameCategory, categories }) => {
   const router = useRouter();
   // console.log(router);
   const searchParams = useSearchParams();
@@ -109,7 +110,7 @@ const CategoryPage = ({ nameCategory }) => {
   }, []);
 
   return (
-    <LayoutRoot>
+    <LayoutRoot categories={categories}>
       <div className="mt-16 ">
         <div className=" mb-8">
           <nav className="flex p-2.5" aria-label="Breadcrumb">
@@ -270,11 +271,15 @@ const CategoryPage = ({ nameCategory }) => {
 
 export default CategoryPage;
 
-export async function getServerSideProps({ params }) {
-  const nameCategory = params.nameCategory;
+export async function getServerSideProps(context) {
+  const nameCategory = context.params.nameCategory;
+  let allCategory = await axios.get(
+    `${process.env.NEXT_PUBLIC_URL}/api/v1/category`
+  );
   return {
     props: {
       nameCategory,
+      categories: allCategory.data.data,
     },
   };
 }

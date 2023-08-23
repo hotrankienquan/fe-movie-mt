@@ -42,7 +42,7 @@ const ForgetPage = () => {
 
   const onSubmit = async (data) => {
     // console.log(">>> Data FORGET <<<", data);
-    changePwdUser(data, router);
+    changePwdUser(data, router, toast);
   };
 
   return (
