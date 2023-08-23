@@ -4,18 +4,24 @@ import Dashboard from "@/pages/Dashboard";
 import Head from "next/head";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 const inter = Inter({ subsets: ["latin"] });
 
 const Home = (props) => {
+  const router = useRouter();
   const user = useSelector((state) => state.auth.login?.currentUser);
   useEffect(() => {
     if (!user) {
-      // navigate("/login");
+      // router.push("/login");
+    }
+    if (user) {
     }
     if (user?.accessToken) {
       // getAllUsers(user?.accessToken, dispatch, axiosJWT);
     }
   }, []);
+
   return (
     <>
       <Head>

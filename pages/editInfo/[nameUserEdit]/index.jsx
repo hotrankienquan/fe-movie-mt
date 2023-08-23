@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import LayoutManageInfo from "../../../components/LayoutManageInfo";
 import Link from "next/link";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateInfoUser } from "../../../store/apiRequest";
 import { createAxios } from "../../../utils/createInstance";
+import Cookies from "js-cookie";
 
 const editInfoUser = ({ nameUserEdit }) => {
+  const schema = yup.object().shape({
+    username: yup.string().min(6).max(20).required(),
+    email: yup.string().email("Invalid email format").required(),
+  });
+
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.login.currentUser);
@@ -15,69 +26,42 @@ const editInfoUser = ({ nameUserEdit }) => {
   let axiosJWT = createAxios(user, null, null);
   const userId = user?._id;
 
-  const [formValue, setFormValue] = useState({
-    username: "",
-    givenName: "",
-    familyName: "",
-    email: "",
-    national: "",
-    avatar: "",
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    reset,
+    setValue,
+  } = useForm({
+    resolver: yupResolver(schema),
   });
-  console.log(formValue);
-  const { username, givenName, familyName, email, national, avatar } =
-    formValue;
 
-  const handleChange = (e) => {
-    // console.log([e.target]);
-    const { name, value } = e.target;
-    setFormValue((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  const onSubmit = async (data) => {
+    console.log(">>> Data EDIT <<<", data);
+    const response = await updateInfoUser(
+      data,
+      accessToken,
+      refreshToken,
+      dispatch,
+      axiosJWT
+    );
+    console.log(response);
 
-  const handleSubmitForm = async (e) => {
-    e.preventDefault();
-    if (
-      !userId ||
-      !username ||
-      !givenName ||
-      !familyName ||
-      !email ||
-      !national
-    ) {
-      alert("Nhập đầy đủ các trường");
-      return;
-    }
-    try {
-      const formData = { ...formValue, userId };
-      console.log("submit", formData);
-      // console.log(formData);
-      const response = await updateInfoUser(
-        formData,
-        accessToken,
-        refreshToken,
-        dispatch,
-        axiosJWT
-      );
-      console.log(response);
-      setFormValue((prev) => ({
-        ...prev,
-        username: "",
-        givenName: "",
-        familyName: "",
-        email: "",
-        national: "",
-        avatar: "",
-      }));
-      alert("Chỉnh sửa thành công!");
-
-      router.push(`user/${response.data.data.username}`);
-    } catch (error) {
-      console.log(error);
-      alert(error || "ADD error");
+    alert("Chỉnh sửa thành công!");
+    if (response) {
+      router.push("/user/" + response?.data?.data?.username);
     }
   };
+
+  useEffect(() => {
+    setValue("username", user.username);
+    setValue("email", user.email);
+    setValue("givenName", user.givenName);
+    setValue("familyName", user.familyName);
+    setValue("national", user.national);
+    setValue("avatar", user.avatar);
+  }, []);
 
   return (
     <LayoutManageInfo>
@@ -86,7 +70,7 @@ const editInfoUser = ({ nameUserEdit }) => {
           <div className="h-[130px] w-[130px]">
             <img
               className="block w-full rounded-[50%] object-cover"
-              src={avatar || `/unknowAvatar.webp`}
+              src={user?.avatar || "/unknowAvatar.webp"}
               alt="pic"
             />
           </div>
@@ -94,7 +78,7 @@ const editInfoUser = ({ nameUserEdit }) => {
           <div className="ml-[15px]">
             <div className="mb-[10px] max-w-[300px]">
               <h1 className="w-full text-xl font-semibold text-white whitespace-nowrap text-ellipsis overflow-hidden">
-                {nameUserEdit}
+                {user?.username || nameUserEdit}
               </h1>
             </div>
             <div>
@@ -113,7 +97,7 @@ const editInfoUser = ({ nameUserEdit }) => {
             <h2 className="mb-[20px] text-xl font-normal text-white">
               Chỉnh sửa thông tin
             </h2>
-            <div className="">
+            <form className="" onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-[20px]">
                 <label className="block mb-[5px] text-base text-white">
                   Username
@@ -122,9 +106,13 @@ const editInfoUser = ({ nameUserEdit }) => {
                   className="block p-[9px] w-full text-[#89a] bg-[#2c3440] shadow-md outline-none rounded focus:bg-white focus:text-black"
                   name="username"
                   type="text"
-                  onChange={handleChange}
-                  value={username}
+                  {...register("username", { required: true })}
                 />
+                {
+                  <span className="text-red-500">
+                    {errors.username?.message}
+                  </span>
+                }
               </div>
 
               <div className="mb-[20px] grid grid-cols-4 gap-4">
@@ -136,8 +124,7 @@ const editInfoUser = ({ nameUserEdit }) => {
                     className="block p-[9px] w-full text-[#89a] bg-[#2c3440] shadow-md outline-none rounded focus:bg-white focus:text-black"
                     name="givenName"
                     type="text"
-                    onChange={handleChange}
-                    value={givenName}
+                    {...register("givenName", { required: false })}
                   />
                 </div>
                 <div className="col-span-2">
@@ -148,8 +135,7 @@ const editInfoUser = ({ nameUserEdit }) => {
                     className="block p-[9px] w-full text-[#89a] bg-[#2c3440] shadow-md outline-none rounded focus:bg-white focus:text-black"
                     name="familyName"
                     type="text"
-                    onChange={handleChange}
-                    value={familyName}
+                    {...register("familyName", { required: false })}
                   />
                 </div>
               </div>
@@ -162,9 +148,9 @@ const editInfoUser = ({ nameUserEdit }) => {
                   className="block p-[9px] w-full text-[#89a] bg-[#2c3440] shadow-md outline-none rounded focus:bg-white focus:text-black"
                   name="email"
                   type="email"
-                  onChange={handleChange}
-                  value={email}
+                  {...register("email", { required: true })}
                 />
+                {<span className="text-red-500">{errors.email?.message}</span>}
               </div>
 
               <div className="mb-[20px]">
@@ -175,19 +161,32 @@ const editInfoUser = ({ nameUserEdit }) => {
                   className="block p-[9px] w-full text-[#89a] bg-[#2c3440] shadow-md outline-none rounded focus:bg-white focus:text-black"
                   name="national"
                   type="text"
-                  onChange={handleChange}
-                  value={national}
+                  {...register("national", { required: false })}
+                />
+              </div>
+
+              <div className="mb-[20px]">
+                <label className="block mb-[5px] text-base text-white">
+                  Ảnh đại diện (Link)
+                </label>
+                <input
+                  className="block p-[9px] w-full text-[#89a] bg-[#2c3440] shadow-md outline-none rounded focus:bg-white focus:text-black"
+                  name="avatar"
+                  type="text"
+                  placeholder="link ảnh bất kỳ"
+                  {...register("avatar", { required: false })}
                 />
               </div>
 
               <div className="flex items-center justify-end">
                 <button
+                  type="submit"
                   className="py-[9px] px-[16px] tracking-[.085em] text-sm font-bold text-[#f4fcf0] bg-[#00b020] rounded select-none cursor-pointer"
-                  onClick={handleSubmitForm}
                 >
                   Lưu
                 </button>
                 <button
+                  type="button"
                   className="ml-[10px] py-[9px] px-[16px] tracking-[.085em] text-sm font-bold text-[#f4fcf0] bg-[#2daaed] rounded select-none cursor-pointer"
                   onClick={() => {
                     router.back();
@@ -196,7 +195,7 @@ const editInfoUser = ({ nameUserEdit }) => {
                   Trở lại
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -206,11 +205,11 @@ const editInfoUser = ({ nameUserEdit }) => {
 
 export default editInfoUser;
 
-export async function getServerSideProps({ params }) {
-  const nameUserEdit = params.nameUserEdit;
+export async function getServerSideProps(context) {
+  // console.log(Cookies.parse(context.req.headers.cookie));
+  // console.log(context.req.headers.cookie);
+  const nameUserEdit = context.params.nameUserEdit;
   return {
-    props: {
-      nameUserEdit,
-    },
+    props: { nameUserEdit },
   };
 }

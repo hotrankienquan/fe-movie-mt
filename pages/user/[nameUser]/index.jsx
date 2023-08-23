@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import FavoriteMovie from "./components/FavoriteMovie";
 import WatchLaterMovie from "./components/WatchLaterMovie";
+import { useSelector } from "react-redux";
 
 const arrTabs = [
   { id: 1, tabName: "Profile", tabPath: "profile" },
@@ -13,13 +14,18 @@ const arrTabs = [
 
 const UserManagePage = ({ nameUser }) => {
   const router = useRouter();
-  console.log(nameUser);
+  // console.log(router);
+  const user = useSelector((state) => state.auth.login.currentUser);
+  console.log(">>> user page <<<", user);
+  // console.log(nameUser);
   console.log(router.asPath == `/user/${nameUser}`);
-  console.log(router);
+
   const [activeTab, setActiveTab] = useState(router?.query?.tab || "profile");
   const handleNavigate = (tabName) => {
     router.push(`/user/${nameUser.replace(/\s+/g, "-")}?tab=${tabName}`);
   };
+
+  const [showBigAvatar, setShowBigAvatar] = useState(false);
 
   // useEffect(() => {
   //   router.push(`/user/${nameUser.replace(/\s+/g, "-")}?tab=${activeTab}`);
@@ -29,24 +35,53 @@ const UserManagePage = ({ nameUser }) => {
     <LayoutManageInfo>
       <div className="mt-20 mb-8 overflow-hidden">
         <div className="flex justify-start items-center mb-[25px]">
-          <div className="h-[130px] w-[130px]">
+          <div className="h-[130px] w-[130px] select-none">
             <img
-              className="block w-full rounded-[50%] object-cover"
-              src="/unknowAvatar.webp"
+              className="block w-full rounded-[50%] object-cover hover:border-[1px] transition-all duration-100 cursor-pointer"
+              src={user?.avatar || "/unknowAvatar.webp"}
               alt="pic"
+              onClick={() => {
+                setShowBigAvatar(true);
+              }}
             />
           </div>
+
+          {/* big overlay img */}
+          {showBigAvatar && (
+            <>
+              <div
+                className="fixed inset-x-0 inset-y-0 bg-black opacity-70 z-[150] cursor-pointer"
+                onClick={() => {
+                  setShowBigAvatar(false);
+                }}
+              ></div>
+
+              <div className="fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 flex items-center justify-center select-none z-[200]">
+                <img
+                  className="block w-[500px] h-[500px] object-cover z-[200]"
+                  src={user?.avatar || "/unknowAvatar.webp"}
+                  alt="big pic"
+                />
+                <i
+                  className="fa-solid fa-xmark flex items-center justify-center w-[30px] h-[30px] absolute top-1 right-1 bg-white opacity-60 rounded-[50%] z-[250] cursor-pointer hover:opacity-100"
+                  onClick={() => {
+                    setShowBigAvatar(false);
+                  }}
+                ></i>
+              </div>
+            </>
+          )}
 
           <div className="ml-[15px]">
             <div className="mb-[10px] max-w-[300px]">
               <h1 className="w-full text-xl font-semibold text-white whitespace-nowrap text-ellipsis overflow-hidden">
-                {nameUser}
+                {user?.username || nameUser}
               </h1>
             </div>
             <div>
               <Link
                 className="py-[6px] px-[10px] bg-[#567] text-[#c8d4e0] text-sm font-normal tracking-[.075em] rounded-[3px] shadow cursor-pointer select-none hover:bg-[#678] hover:text-white"
-                href={`/editInfo/${nameUser}`}
+                href={`/editInfo/${user?.username || nameUser}`}
               >
                 Edit profile
               </Link>

@@ -7,6 +7,7 @@ import {
   logOutStart,
 } from "./authSlice";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 ////////////////////******************** AUTH ********************////////////////////////////
 export const login = async (user, dispatch, router) => {
@@ -16,10 +17,16 @@ export const login = async (user, dispatch, router) => {
     const res = await axios.post(`${base_url}/api/v1/auth/login`, user);
     if (res.data.code == 200) {
       dispatch(loginSuccess(res.data.data));
+      alert(res.data.mes);
+      Cookies.set(
+        "dataUser",
+        JSON.stringify({ accessToken: res?.data?.data?.accessToken })
+      );
       router.push("/");
     }
-  } catch {
+  } catch (err) {
     dispatch(loginFailed());
+    alert(err.response.data.err.mes);
   }
 };
 
@@ -91,6 +98,8 @@ export const updateInfoUser = async (
   } catch (err) {
     // dispatch(getUsersFailed());
     console.log(err);
+    if (err.response.data.codeName === "DuplicateKey")
+      alert(`${Object.keys(err.response.data.keyValue)[0]} đã tồn tại`);
     throw new Error(err);
   }
 };
