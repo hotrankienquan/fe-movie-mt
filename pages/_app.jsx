@@ -6,12 +6,6 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 export default function App({ Component, pageProps }) {
-  // return <Component {...pageProps} />;
-  // const router = useRouter();
-  // console.log(">>> router app <<<", router);
-  // useEffect(() => {
-  //   window.scrollTo({ top: 0, behavior: "smooth" });
-  // }, [router.pathname, router.query.page, router.asPath]);
 
   return (
     <Provider store={store}>
