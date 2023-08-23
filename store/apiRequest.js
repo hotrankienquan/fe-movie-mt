@@ -16,7 +16,10 @@ export const login = async (user, dispatch, router) => {
   try {
     const res = await axios.post(`${base_url}/api/v1/auth/login`, user);
     if (res.data.code == 200) {
+      console.log(res.data.data.accessToken)
+      let c = res.data.data.accessToken.toString()
       cookies.set("user-server","abc")
+      cookies.set("accessToken", c)
       dispatch(loginSuccess(res.data.data));
 
       router.push("/");
@@ -44,6 +47,7 @@ export const logOut = async (dispatch, id, router, accessToken, axiosJWT) => {
   dispatch(logOutStart());
   try {
     await axios.post(`${base_url}/api/v1/auth/logout`, id);
+    cookies.remove("accessToken")
     dispatch(logOutSuccess());
     router.push("/");
   } catch (err) {

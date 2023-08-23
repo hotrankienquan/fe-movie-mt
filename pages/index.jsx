@@ -5,10 +5,10 @@ import Head from "next/head";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 const inter = Inter({ subsets: ["latin"] });
-
+import axios from 'axios'
 const Home = (props) => {
   const user = useSelector((state) => state.auth.login?.currentUser);
-
+  console.log("arr movie",props.movie) 
   return (
     <>
       <Head>
@@ -43,3 +43,14 @@ const Home = (props) => {
   );
 };
 export default Home;
+export async function getServerSideProps(context){
+  // if need accesstoken, get here
+  // nếu api nào cần verify token, thì gắn accesstoken này vào rồi call api
+  // console.log(context.req.cookies.accessToken) // get cookie accessToken
+  let data = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/v1/movie`)
+  return {
+    props:{
+      movie: data.data.data.movie
+    }
+  }
+}
