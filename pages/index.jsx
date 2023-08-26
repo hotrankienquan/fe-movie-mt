@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 const inter = Inter({ subsets: ["latin"] });
 import axios from "axios";
+import { createAxios } from "../utils/createInstance";
 const Home = (props) => {
   const router = useRouter();
   const user = useSelector((state) => state.auth.login?.currentUser);

@@ -13,7 +13,7 @@ const SliderLastetFilm = () => {
   const user = useSelector((state) => state.auth.login.currentUser);
   const accessToken = user?.accessToken;
   let axiosJWT = createAxios(user, null, null);
-  const [arrMovie, setArrMovie] = useState();
+  const [arrMovie, setArrMovie] = useState([]);
   // console.log(">>> Latest Film <<<", arrMovie);
   // console.log(slider);
   // function getAll(data) {

@@ -78,7 +78,7 @@ const CategoryPage = ({ nameCategory, categories }) => {
   const pageNumber = searchParams.get("page");
   // console.log(">>> Pagination <<<", pageNumber);
 
-  const [arrMovie, setArrMovie] = useState();
+  const [arrMovie, setArrMovie] = useState([]);
   const [currentPage, setCurrentPage] = useState(parseInt(pageNumber) || 1);
   const [pageSize, setPageSize] = useState(30);
   const [totalPages, setTotalPages] = useState(0);

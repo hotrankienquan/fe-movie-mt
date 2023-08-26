@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../store/apiRequest";
 import Link from "next/link";
 import Cookies from "js-cookie";
-import { changePwdUser } from "../services/userRequest";
+import { forgotPwdUser } from "../services/userRequest";
 
 const ForgetPage = () => {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const ForgetPage = () => {
 
   const onSubmit = async (data) => {
     // console.log(">>> Data FORGET <<<", data);
-    changePwdUser(data, router, toast);
+    forgotPwdUser(data, router, toast);
   };
 
   return (

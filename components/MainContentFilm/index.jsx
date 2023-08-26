@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import { getAllMovies } from "../../store/apiRequest";
 
 const MainContentFilm = ({ movies }) => {
-  const [arrMovie, setArrMovie] = useState();
+  const [arrMovie, setArrMovie] = useState([]);
 
   useEffect(() => {
     const renderMainContentMovies = async () => {

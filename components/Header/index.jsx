@@ -9,6 +9,7 @@ import { logOut } from "../../store/apiRequest";
 import { useRouter } from "next/router";
 import { arrNameCategory, arrSearchMovie } from "./constHeader";
 import Cookies from "js-cookie";
+import { searchMovies } from "../../services/userRequest";
 
 export default function Header({ categories }) {
   // console.log(categories);
@@ -23,9 +24,21 @@ export default function Header({ categories }) {
   const [showSearchInput, setShowSearchInput] = useState(false);
   const inputRef = useRef();
 
-  const handleSearchInput = (e) => {
+  const handleSearchInput = async (e) => {
     const { name, value } = e.target;
     setSearchInput(value);
+    try {
+      if (value) {
+        const res = await searchMovies(value);
+        console.log(">>> Results Search <<<", res);
+        if (res.data.code === 200) {
+          // console.log(">>> Results Search <<<", res.data.data.movies);
+          // setArrMovie(res.data.data.movies);
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleSubmitSearchInput = (e) => {
@@ -33,10 +46,11 @@ export default function Header({ categories }) {
     setShowSearchInput((prev) => !prev);
     if (searchInput) {
       console.log("submit");
-      router.push(`search/${searchInput.replace(/\s+/g, "+")}`);
+      router.push(`/search/${searchInput.replace(/\s+/g, "+")}`);
       setSearchInput("");
     }
   };
+
   const handleLogout = (e) => {
     e.preventDefault();
     // Cookies.remove("dataUser");
@@ -44,10 +58,13 @@ export default function Header({ categories }) {
   };
 
   useEffect(() => {
-    const handleFocus = () => {
+    const handleFocus = (e) => {
+      e.stopPropagation();
+      console.log(e.target);
       setSearchResults(true);
     };
-    const handleBlur = () => {
+    const handleBlur = (e) => {
+      e.stopPropagation();
       setSearchResults(false);
     };
 
@@ -155,14 +172,17 @@ export default function Header({ categories }) {
               </div>
 
               {searchInput && showSearchResults && (
-                <div className="scroll_search_header  absolute top-[110%] right-[80%] min-h-[100px] max-h-[300px] w-[330px] bg-[rgba(0,0,0,.8)] overflow-y-auto z-50">
+                <div
+                  // ref={resultsRef}
+                  className="scroll_search_header absolute top-[110%] right-[80%] min-h-[100px] max-h-[300px] w-[330px] bg-[rgba(0,0,0,.8)] overflow-y-auto z-[100]"
+                >
                   {arrSearchMovie.map((item, i) => (
                     <div
                       key={item.id}
                       className="mb-[10px] p-2 h-[55px] flex items-center overflow-hidden"
                     >
                       <Link
-                        href="#"
+                        href="/paly"
                         className="flex items-center justify-between w-full h-[55px] group"
                       >
                         <span className="max-w-[40%] w-full h-full mr-[10px] overflow-hidden">

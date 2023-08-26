@@ -135,6 +135,15 @@ body {
 .jw-video {
   /* object-fit: cover !important; */
 }
+
+.players-container > div {
+  width: 100% !important;
+  height: 600px !important;
+}
+.players-container iframe {
+  width: 100% !important;
+  height: 600px !important;
+}
 /* ///////////////////////////////////////////////////////// */
 
 /* SIDEBAR MANAGE INFO USER */

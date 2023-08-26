@@ -11,6 +11,7 @@ import JWPlayer from "@jwplayer/jwplayer-react";
 import ReactStars from "react-stars";
 import React from "react";
 import { useSelector } from "react-redux";
+import ReactPlayer from "react-player";
 
 const arrDetailInfoFilm = [
   { id: 1, name: "Type", text: ["Movie"] },
@@ -148,100 +149,6 @@ const playFilmPage = ({ nameFilm }) => {
             <div className="p-2.5 bg-[#2D2D2D]">
               {/* SECTION INFO FILM */}
               <div className="overflow-hidden">
-                {/* <div className="relative mr-2.5 max-w-[45%] w-full ">
-                  <Link
-                    href={`/playFilm/${nameFilm.replace(/\s+/g, "-")}`}
-                    className="absolute h-full w-full group"
-                  >
-                    <Image
-                      className="h-full block w-full object-cover group-hover:opacity-70 transition-all duration-500"
-                      src={
-                        "https://bluphim.com/Content/Imgs/Movies/thumb-2547.jpg" ||
-                        "/vercel.svg"
-                      }
-                      alt="error"
-                      layout="fill"
-                      // width={213}
-                      // height={340}
-                      // loading="lazy"
-                      priority
-                    />
-                    <span className="opacity-0 group-hover:opacity-100 absolute top-[45%] inset-x-0 text-white text-center transition-all duration-500">
-                      <i className="fa-regular fa-circle-play text-4xl"></i>
-                    </span>
-                    <span className="py-2 px-1 absolute bottom-0 inset-x-0 text-white text-center bg-[#B10032] uppercase font-semibold">
-                      Xem phim
-                    </span>
-                  </Link>
-                </div> */}
-
-                {/* <div className="max-w-[55%] w-full ">
-                  <h1 className="text-3xl font-bold text-[#ff9658] mb-[5px] uppercase">
-                    {nameFilm.replace(/-/g, " ")}
-                  </h1>
-                  <h2 className="text-base font-normal text-[#999] mb-[10px]">
-                    The witcher
-                  </h2>
-
-                  <div className="detail_film_info bg-[#222222] p-2.5 mb-[10px] h-[210px] overflow-y-auto">
-                    <div>
-                      <h6 className="text-xs text-[#bbb] font-bold mb-2.5 ">
-                        Trạng thái:{" "}
-                        <span className="inline-block bg-[#777] text-xs text-white py-[3px] px-[7px]">
-                          Hoàn tất
-                        </span>
-                      </h6>
-                      <h6 className="text-xs text-[#bbb] font-bold mb-2.5 ">
-                        Thể loại:{" "}
-                        {["Kinh di", "Kich tinh"].map((item, i) => (
-                          <Link
-                            key={i}
-                            href="#"
-                            className="text-[#ddd] hover:text-[#ff9601]"
-                          >
-                            {item}
-                            {i !== ["Kinh di", "Kich tinh"].length - 1 && ", "}
-                          </Link>
-                        ))}{" "}
-                      </h6>
-                      <h6 className="text-xs text-[#bbb] font-bold mb-2.5 ">
-                        Đạo diễn:{" "}
-                        {["tan"].map((item, i) => (
-                          <Link
-                            key={i}
-                            href="#"
-                            className="text-[#ddd] font-normal hover:text-[#ff9601]"
-                          >
-                            {item}
-                            {i !== ["tan"].length - 1 && ", "}
-                          </Link>
-                        ))}{" "}
-                      </h6>
-                      <h6 className="text-xs text-[#bbb] font-bold mb-2.5 ">
-                        Diễn viên:{" "}
-                        {["tuan", "kien", "pk", "huyz"].map((item, i) => (
-                          <Link
-                            key={i}
-                            href="#"
-                            className="text-[#ddd] font-normal hover:text-[#ff9601]"
-                          >
-                            {item}
-                            {i !== ["tuan", "kien", "pk", "huyz"].length - 1 &&
-                              ", "}
-                          </Link>
-                        ))}{" "}
-                      </h6>
-                    </div>
-                  </div>
-
-                  <div className="bg-[#222222] h-[90px] text-white text-center">
-                    window + . => icon
-                    <p>Donate cho mình qua NH nhé ❤</p>
-                    <p>Chu TK: Tran Quoc Tuan</p>
-                    <p>1018844306 VCB</p>
-                  </div>
-                </div> */}
-
                 {/* SECTION VIDEO FILM */}
                 {/* <div className="player-loaded overflow-hidden ">
                   <div
@@ -263,51 +170,28 @@ const playFilmPage = ({ nameFilm }) => {
                 </div> */}
 
                 <div className="players-container">
-                  <JWPlayer
+                  {/* <JWPlayer
                     library="https://content.jwplatform.com/libraries/j9BLvpMc.js"
                     //   playlist='https://cdn.jwplayer.com/v2/playlists/B8FTSH9D'
                     // playlist={playlistt}
+                    // playlist={
+                    //   "https://cdn.jwplayer.com/v2/playlists/B8FTSH9D?fbclid=IwAR0j_kzxOGd1oB0pr4Go-MxsNfzI4KYQOlGPYgRKEkt_O5UZvKsK2CY7GM4"
+                    // }
                     playlist={
-                      "https://cdn.jwplayer.com/v2/playlists/B8FTSH9D?fbclid=IwAR0j_kzxOGd1oB0pr4Go-MxsNfzI4KYQOlGPYgRKEkt_O5UZvKsK2CY7GM4"
+                      "https://firebasestorage.googleapis.com/v0/b/movie-the-stone-d9f38.appspot.com/o/files%2FB%C3%A1%C2%BA%C2%A3n%20in%20l%C3%A1%C2%BB%C2%97i.mp4%20%20%20%20%20%20%202023-8-16%2022%3A53%3A35?alt=media&token=f6bd78f4-3f03-40c8-a4f8-5ec41902866d"
                     }
+                  /> */}
+
+                  <ReactPlayer
+                    // url={"https://youtu.be/DWYwmTdXpqw?si=yAfzJl4ilB-Y0fWd"}
+                    url={
+                      "https://firebasestorage.googleapis.com/v0/b/movie-the-stone-d9f38.appspot.com/o/files%2FB%C3%A1%C2%BA%C2%A3n%20in%20l%C3%A1%C2%BB%C2%97i.mp4%20%20%20%20%20%20%202023-8-16%2022%3A53%3A35?alt=media&token=f6bd78f4-3f03-40c8-a4f8-5ec41902866d"
+                    }
+                    controls
+                    className=""
                   />
                 </div>
               </div>
-
-              {/* <div className="mt-[30px] p-2.5 bg-[#222222]">
-                <h3 className="mb-2 text-[#da966e] text-xl font-medium">
-                  Nội dung chi tiết
-                </h3>
-                <div>
-                  <h3 className="text-[#ddd] mb-2.5 font-normal text-2xl">
-                    {nameFilm.replace(/-/g, " ")}
-                  </h3>
-                  <p className="text-base text-[#abb7c4]">
-                    Từ ngôi sao NBA, Kevin Durant, nhà làm phim Reggie Rock
-                    Bythewood và đội ngũ làm phim Friday Night Lights. Bộ phim
-                    kể về một thần đồng bóng rổ phải tìm kiếm lối đi trong mê
-                    cung đầy rẫy những áp lực để tìm được con đường thành công
-                    và học được ý nghĩa thật sự của “ngông nghênh”.
-                  </p>
-                </div>
-              </div> */}
-
-              {/* SECTION TRAILER */}
-              {/* <div className="mt-[30px]">
-                <div className="mb-2">
-                  <h2 className="text-[#da966e] text-xl font-medium">
-                    Official Trailer:
-                  </h2>
-                </div>
-                <iframe
-                  className="w-full h-[450px]"
-                  src="https://www.youtube-nocookie.com/embed/ilB9h1pfjc8"
-                  title="Và Thế Là Hết - Chillies (Original)"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                ></iframe>
-              </div> */}
 
               {/* SECTION COMMENT */}
               <CommentFilm />
@@ -418,4 +302,45 @@ export async function getServerSideProps({ params }) {
       nameFilm,
     },
   };
+}
+
+{
+  /* <div className="mt-[30px] p-2.5 bg-[#222222]">
+                <h3 className="mb-2 text-[#da966e] text-xl font-medium">
+                  Nội dung chi tiết
+                </h3>
+                <div>
+                  <h3 className="text-[#ddd] mb-2.5 font-normal text-2xl">
+                    {nameFilm.replace(/-/g, " ")}
+                  </h3>
+                  <p className="text-base text-[#abb7c4]">
+                    Từ ngôi sao NBA, Kevin Durant, nhà làm phim Reggie Rock
+                    Bythewood và đội ngũ làm phim Friday Night Lights. Bộ phim
+                    kể về một thần đồng bóng rổ phải tìm kiếm lối đi trong mê
+                    cung đầy rẫy những áp lực để tìm được con đường thành công
+                    và học được ý nghĩa thật sự của “ngông nghênh”.
+                  </p>
+                </div>
+              </div> */
+}
+
+{
+  /* SECTION TRAILER */
+}
+{
+  /* <div className="mt-[30px]">
+                <div className="mb-2">
+                  <h2 className="text-[#da966e] text-xl font-medium">
+                    Official Trailer:
+                  </h2>
+                </div>
+                <iframe
+                  className="w-full h-[450px]"
+                  src="https://www.youtube-nocookie.com/embed/ilB9h1pfjc8"
+                  title="Và Thế Là Hết - Chillies (Original)"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+              </div> */
 }

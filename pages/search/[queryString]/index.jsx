@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import MovieSearchResults from "./components/Movie";
+import { useSelector } from "react-redux";
+import { searchMovies } from "../../../services/userRequest";
 
 const arrFilmCategory = [
   {
@@ -69,6 +71,25 @@ const arrFilmCategory = [
 ];
 
 const searchFilmPage = ({ queryString }) => {
+  const user = useSelector((state) => state.auth.login.currentUser);
+  const [arrMovie, setArrMovie] = useState([]);
+
+  useEffect(() => {
+    const renderSearchMovies = async () => {
+      try {
+        const res = await searchMovies(queryString);
+        // console.log(">>> Results Search <<<", res);
+        if (res.data.code === 200) {
+          // console.log(">>> Results Search <<<", res.data.data.movies);
+          setArrMovie(res.data.data.movies);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    renderSearchMovies();
+  }, [queryString]);
+
   return (
     <LayoutRoot>
       <div className="mt-20">

@@ -1,7 +1,10 @@
 import Image from "next/legacy/image";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const CommentFilm = () => {
+  const router = useRouter();
+  console.log(router);
   const [commentInput, setCommentInput] = useState("");
 
   const handleCommentInput = (e) => {
@@ -51,6 +54,7 @@ const CommentFilm = () => {
       <div
         className="fb-comments h-[700px] w-full overflow-y-auto"
         data-href="https://developers.facebook.com/docs/plugins/comments#configurator"
+        // data-href={router.asPath}
         data-width="100%"
         data-numposts="5"
         data-order-by="reverse_time"
