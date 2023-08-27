@@ -84,7 +84,7 @@ const CategoryPage = ({ nameCategory, categories }) => {
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    router.push(`${nameCategory.replace(/\s+/g, "-")}?page=${currentPage}`);
+    router.push(`${nameCategory?.replace(/\s+/g, "-")}?page=${currentPage}`);
   }, [currentPage]);
 
   // useEffect(() => {
@@ -175,7 +175,7 @@ const CategoryPage = ({ nameCategory, categories }) => {
                     />
                   </svg>
                   <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2">
-                    Xem phim {nameCategory.replace(/-/g, " ")}
+                    Xem phim {nameCategory?.replace(/-/g, " ")}
                   </span>
                 </div>
               </li>
@@ -186,7 +186,7 @@ const CategoryPage = ({ nameCategory, categories }) => {
         <div className="overflow-hidden">
           <div className="mb-4">
             <h3 className="text-[#da966e] text-2xl font-normal border-l-4 pl-2.5">
-              {nameCategory.replace(/-/g, " ")}
+              {nameCategory?.replace(/-/g, " ")}
             </h3>
           </div>
 
@@ -271,8 +271,9 @@ const CategoryPage = ({ nameCategory, categories }) => {
 
 export default CategoryPage;
 
-export async function getServerSideProps(context) {
-  const nameCategory = context.params.nameCategory;
+
+export async function getStaticProps(context){
+	  const nameCategory = context.params.nameCategory;
   let allCategory = await axios.get(
     `${process.env.NEXT_PUBLIC_URL}/api/v1/category`
   );
@@ -281,5 +282,16 @@ export async function getServerSideProps(context) {
       nameCategory,
       categories: allCategory.data.data,
     },
+	revalidate: 20
   };
+}
+export async function getStaticPaths(context){
+	let allCategory = await axios.get(
+    `${process.env.NEXT_PUBLIC_URL}/api/v1/category`
+  );
+  const paths = allCategory.data.data.map(item=>{return {params: {nameCategory: `${item.name}`}}})
+  return {
+    paths,
+    fallback: true, // false or "blocking"
+  }
 }
