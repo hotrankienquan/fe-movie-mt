@@ -9,7 +9,7 @@ import ReactJWPlayer from "react-jw-player";
 import JWPlayer from "@jwplayer/jwplayer-react";
 // import { arrDetailInfoFilm } from "./constant";
 import ReactStars from "react-stars";
-import React from "react";
+import React, {useEffect} from "react";
 import { useSelector } from "react-redux";
 import ReactPlayer from "react-player";
 
@@ -21,8 +21,25 @@ const arrDetailInfoFilm = [
   { id: 5, name: "Production", text: ["Disney", "Pixar"] },
   { id: 6, name: "Cast", text: ["Lewis", "Athie", "Carmen"] },
 ];
-
+// const TIME_UPDATE_VIEW = 900000
+const TIME_UPDATE_VIEW = 900000
 const playFilmPage = ({ nameFilm }) => {
+
+	useEffect(()=>{
+		const timerId = setInterval(()=>{
+			fetch(`${process.env.NEXT_PUBLIC_URL}/api/v1/movie/update-views`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ movieId: '64ea009f4eb98d2906f135b2' })
+    })
+			  .then(response => response.json())
+			  .then(json => console.log(json))
+		},TIME_UPDATE_VIEW)
+		// after 15mins -> call api
+		return ()=>{
+			clearInterval(timerId)
+		}
+	},[])
   const user = useSelector((state) => state.auth.login.currentUser);
   // console.log(">>> Header <<<", user);
   // const accessToken = user?.accessToken;
