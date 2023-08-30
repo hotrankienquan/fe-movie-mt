@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import FavoriteMovie from "./components/FavoriteMovie";
 import WatchLaterMovie from "./components/WatchLaterMovie";
 import { useSelector } from "react-redux";
-import ProtectedRoute from "../../../HOCs/ProtectedRoutes";
+import ProtectedRoute from "../../../utils/ProtectedRoutes";
 
 const arrTabs = [
   { id: 1, tabName: "Profile", tabPath: "profile" },

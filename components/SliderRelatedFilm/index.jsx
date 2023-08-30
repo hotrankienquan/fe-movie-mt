@@ -8,21 +8,8 @@ import MovieRalated from "./components/Movie";
 import { useEffect, useState } from "react";
 import { getAllMovies } from "../../store/apiRequest";
 
-const SliderRelatedFilm = () => {
-  const [arrMovie, setArrMovie] = useState([]);
-
-  useEffect(() => {
-    const renderTopRatingOfWeekMovies = async () => {
-      try {
-        const res = await getAllMovies();
-        // console.log(">>> TOP RATING WEEK Film <<<", res.data.data.movie);
-        setArrMovie(res.data.data.movie);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    // renderTopRatingOfWeekMovies();
-  }, []);
+const SliderTopRatingofWeek = ({ movies }) => {
+  // console.log("topRatingofWeek", movies);
 
   return (
     <div className="mt-10 mb-8 -mx-2.5">
@@ -31,7 +18,20 @@ const SliderRelatedFilm = () => {
           PHIM CÓ RATING CAO NHẤT TUẦN
         </h2>
       </div>
-      {/* <Slider {...settings}>
+
+      <Slider {...settings}>
+        {movies?.map((item, index) => {
+          return <MovieRalated key={item._id} item={item} />;
+        })}
+      </Slider>
+    </div>
+  );
+};
+
+export default SliderTopRatingofWeek;
+
+{
+  /* <Slider {...settings}>
         {arrSliderRelatedFilm.map((item, i) => (
           <div key={item.id} className="h-full overflow-hidden">
             <div className="relative h-full mx-2 overflow-hidden group">
@@ -107,15 +107,5 @@ const SliderRelatedFilm = () => {
             </div>
           </div>
         ))}
-      </Slider> */}
-
-      <Slider {...settings}>
-        {arrSliderRelatedFilm.map((item, index) => {
-          return <MovieRalated key={item} item={item} />;
-        })}
-      </Slider>
-    </div>
-  );
-};
-
-export default SliderRelatedFilm;
+      </Slider> */
+}

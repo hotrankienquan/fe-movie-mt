@@ -85,7 +85,7 @@ const CategoryPage = ({ nameCategory, categories }) => {
 
   useEffect(() => {
     router.push(`${nameCategory.replace(/\s+/g, "-")}?page=${currentPage}`);
-  }, [currentPage]);
+  }, [currentPage, nameCategory, router]);
 
   // useEffect(() => {
   //   try {

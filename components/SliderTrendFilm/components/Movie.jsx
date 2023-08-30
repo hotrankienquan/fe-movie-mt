@@ -1,33 +1,23 @@
-import React from "react";
 import Image from "next/legacy/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   toggleBookmarkMovie,
   toggleFavoriteMovie,
 } from "../../../store/apiRequest";
 
-const MovieRalated = ({ item }) => {
+const Movie = ({ item, arrFavoriteMovie, arrWatchLaterMovie }) => {
   let {
     _id,
     title,
-    titleWithoutAccent,
     slug,
-    desc,
-    author,
-    actors,
     photo,
-    video,
     category,
-    rating,
     quality,
     yearPublish,
     timeVideo,
-    country,
     views,
-    updated,
-    image,
   } = item;
 
   const user = useSelector((state) => state.auth.login.currentUser);
@@ -64,36 +54,39 @@ const MovieRalated = ({ item }) => {
     }
   };
 
+  useEffect(() => {
+    const checkActiveFavoriteMovie = arrFavoriteMovie?.some(
+      (movie) => movie._id === _id
+    );
+    const checkActiveWatchLaterMovie = arrWatchLaterMovie?.some(
+      (movie) => movie._id === _id
+    );
+
+    setActiveFavorite(checkActiveFavoriteMovie);
+    setActiveBookmark(checkActiveWatchLaterMovie);
+  }, [arrFavoriteMovie, _id]);
+
   return (
-    <div key={item.id} className="h-full overflow-hidden">
-      <div className="relative h-full mx-2 overflow-hidden group">
-        <Link
-          // href={`/playFilm/${item.title.replace(/\s+/g, "-")}`}
-          href={`/playFilm/${slug}`}
-          className="absolute h-full w-full group overflow-hidden"
-        >
+    <div className="h-full">
+      <div className="relative overflow-hidden h-full mx-2.5 group">
+        <Link href={`/playFilm/${slug}`}>
           <Image
-            className="h-full block w-full object-cover group-hover:opacity-70 transition-all duration-500"
+            className="h-full block w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50"
             src={photo?.[0] || "/vercel.svg"}
-            alt="error"
-            layout="fill"
-            // width={213}
-            // height={340}
+            alt={photo?.[0]}
+            // layout="fill"
+            width={213}
+            height={340}
             // loading="lazy"
             priority
           />
-
-          {/* <img
-        src={item.image || "/vercel.svg"}
-        alt="user profile avatar"
-        className="h-full block w-full object-cover group-hover:opacity-70 transition-all duration-500"
-      /> */}
-
-          <span className="opacity-0 group-hover:opacity-100 absolute top-[40%] inset-x-0 text-white text-center transition-all duration-500">
-            <i className="fa-regular fa-circle-play text-4xl"></i>
+          <span className="flex justify-center absolute top-[43%] inset-x-0">
+            <i className="fa-solid fa-circle-play text-5xl text-white scale-150 opacity-0 group-hover:scale-100 group-hover:opacity-80 duration-500 ease-in-out"></i>
           </span>
+        </Link>
 
-          <span className="absolute top-[40%] left-[20%] opacity-0 group-hover:opacity-100 duration-500 ease-in-out z-50">
+        <div className="absolute top-[45%] inset-x-0 bg-black">
+          <span className="absolute -left-[15%] group-hover:left-[20%] duration-500 ease-in-out">
             <button className="text-white z-50" onClick={handleLove}>
               {activeFavorite ? (
                 <i className="fa-solid fa-heart text-2xl"></i>
@@ -103,7 +96,7 @@ const MovieRalated = ({ item }) => {
             </button>
           </span>
 
-          <span className="absolute top-[40%] right-[20%] opacity-0 group-hover:opacity-100 duration-500 ease-in-out z-50">
+          <span className="absolute -right-[15%] group-hover:right-[20%] duration-500 ease-in-out">
             <button className="text-white z-50" onClick={handleBookmark}>
               {activeBookmark ? (
                 <i className="fa-solid fa-bookmark text-2xl"></i>
@@ -112,19 +105,23 @@ const MovieRalated = ({ item }) => {
               )}
             </button>
           </span>
+        </div>
 
-          <span className="p-2 absolute bottom-0 inset-x-0 text-white bg-black bg-opacity-70">
+        <div className="absolute bottom-0 left-0 right-0 text-center p-2 bg-black bg-opacity-70">
+          <span className=" block text-white">
             <h3 className="whitespace-nowrap text-ellipsis overflow-hidden">
-              {item.title}
+              <Link
+                // href={`/playFilm/${title.replace(/\s+/g, "-")}`}
+                href={`/playFilm/${slug}`}
+                title="film"
+              >
+                {title || "title"}
+              </Link>
             </h3>
-            <p className="text-sm opacity-50 whitespace-nowrap text-ellipsis overflow-hidden">
-              {item.titleWithoutAccent}
-            </p>
           </span>
-        </Link>
+        </div>
       </div>
     </div>
   );
 };
-
-export default MovieRalated;
+export default Movie;

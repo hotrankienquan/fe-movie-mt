@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Link from "next/link";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -9,26 +10,32 @@ import {
 } from "./constant";
 import SidebarContentFilm from "../SidebarContentFilm";
 import MovieMainContent from "./components/Movie";
-import SliderRelatedFilm from "../SliderRelatedFilm";
-import { useEffect, useRef, useState } from "react";
-import { getAllMovies } from "../../store/apiRequest";
+import { useEffect } from "react";
+import SliderTopRatingofWeek from "../SliderRelatedFilm";
 
 const MainContentFilm = ({ movies }) => {
-  const [arrMovie, setArrMovie] = useState([]);
+  const [watchToday, setWatchToday] = useState([]);
+  const [latest, setLatest] = useState([]);
+  const [topRatingofWeek, setTopRatingofWeek] = useState([]);
+
+  const arrSliderCategory = [
+    {
+      id: 1,
+      title: "Xem gì hôm nay",
+      dataFilm: watchToday,
+    },
+    {
+      id: 2,
+      title: "Phim mới nhất",
+      dataFilm: latest,
+    },
+  ];
 
   useEffect(() => {
-    const renderMainContentMovies = async () => {
-      try {
-        const res = await getAllMovies();
-        console.log("check res get all movies", res);
-        // console.log(">>> Main Content Film <<<", res.data.data.movie);
-        setArrMovie(res.data.data.movie);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    // renderMainContentMovies();
-  }, []);
+    setWatchToday(movies.watchToday);
+    setLatest(movies.latest);
+    setTopRatingofWeek(movies.topRatingofWeek);
+  }, [movies]);
 
   return (
     <>
@@ -52,7 +59,32 @@ const MainContentFilm = ({ movies }) => {
                   Xem thêm
                 </Link>
               </div>
-              {/* <Slider {...settings}>
+
+              <Slider {...settings}>
+                {item.dataFilm.map((item, index) => {
+                  if (item !== null)
+                    return <MovieMainContent key={item?._id} item={item} />;
+                })}
+              </Slider>
+            </div>
+          ))}
+        </div>
+
+        {/* RIGHT */}
+        <div className="col-span-2 px-2.5 h-full overflow-hidden">
+          <SidebarContentFilm movies={movies} />
+        </div>
+      </div>
+
+      <SliderTopRatingofWeek movies={topRatingofWeek} />
+    </>
+  );
+};
+
+export default MainContentFilm;
+
+{
+  /* <Slider {...settings}>
                 {item.image.map((item, i) => (
                   <div key={i} className="h-full">
                     <div className="mx-2 relative h-full overflow-hidden group flex flex-col justify-between">
@@ -150,24 +182,11 @@ const MainContentFilm = ({ movies }) => {
                     </div>
                   </div>
                 ))}
-              </Slider> */}
+              </Slider> */
+}
 
-              <Slider {...settings}>
-                {item.image.map((item, index) => {
-                  return <MovieMainContent key={item} item={item} />;
-                })}
-              </Slider>
-            </div>
-          ))}
-        </div>
-
-        {/* RIGHT */}
-        <div className="col-span-2 px-2.5 h-full overflow-hidden">
-          <SidebarContentFilm movies={movies} />
-        </div>
-      </div>
-
-      {/* {arrSliderWatchFilmToday.map((item, i) => (
+{
+  /* {arrSliderWatchFilmToday.map((item, i) => (
         <div key={item.id} className="mt-14">
           <div className="px-2.5 mb-4">
             <h3 className="text-[#da966e] text-2xl font-normal border-l-4 pl-2.5">
@@ -242,11 +261,5 @@ const MainContentFilm = ({ movies }) => {
             ))}
           </Slider>
         </div>
-      ))} */}
-
-      <SliderRelatedFilm movies={movies} />
-    </>
-  );
-};
-
-export default MainContentFilm;
+      ))} */
+}

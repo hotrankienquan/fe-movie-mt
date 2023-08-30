@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import axios from "axios";
 
-const upload = () => {
+const Upload = () => {
   const [form, setFormValue] = useState({
     filename: null,
   });
@@ -71,4 +71,4 @@ const upload = () => {
   );
 };
 
-export default upload;
+export default Upload;

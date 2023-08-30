@@ -21,7 +21,8 @@ body::-webkit-scrollbar,
 .scroll_search_header::-webkit-scrollbar {
   width: 8px;
 }
-.scroll_tab_manage_user::-webkit-scrollbar {
+.scroll_tab_manage_user::-webkit-scrollbar,
+.scroll_desc::-webkit-scrollbar {
   width: 50px;
   height: 6px;
 }
@@ -38,7 +39,8 @@ body::-webkit-scrollbar-thumb,
   max-height: 50%;
   height: 200px;
 }
-.scroll_tab_manage_user::-webkit-scrollbar-thumb {
+.scroll_tab_manage_user::-webkit-scrollbar-thumb,
+.scroll_desc::-webkit-scrollbar-thumb {
   /*thanh scroll*/
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 50px;
@@ -53,7 +55,8 @@ body::-webkit-scrollbar-track,
 .sidebar_manage_info::-webkit-scrollbar-track,
 .scroll_tab_manage_user::-webkit-scrollbar-track,
 .srcoll_film_manage_user::-webkit-scrollbar-track,
-.scroll_search_header::-webkit-scrollbar-track {
+.scroll_search_header::-webkit-scrollbar-track,
+.scroll_desc::-webkit-scrollbar-track {
   /*thanh contain scroll*/
   background-color: #ccc;
   border-radius: 50px;

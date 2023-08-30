@@ -1,28 +1,34 @@
 import LayoutRoot from "@/components/Layout";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import SidebarContentFilm from "../../../components/SidebarContentFilm";
 import Image from "next/legacy/image";
 import CommentFilm from "../../../components/CommentFilm";
-import SliderRelatedFilm from "../../../components/SliderRelatedFilm";
 import ReactJWPlayer from "react-jw-player";
 import JWPlayer from "@jwplayer/jwplayer-react";
 // import { arrDetailInfoFilm } from "./constant";
 import ReactStars from "react-stars";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ReactPlayer from "react-player";
+import SliderTopRatingofWeek from "../../../components/SliderRelatedFilm";
+import axios from "axios";
 
-const arrDetailInfoFilm = [
-  { id: 1, name: "Type", text: ["Movie"] },
-  { id: 2, name: "Genre", text: ["Animation", "Comedy", "Adventure"] },
-  { id: 3, name: "Release", text: "Jun 16, 2023" },
-  { id: 4, name: "Director", text: ["Peter", " John"] },
-  { id: 5, name: "Production", text: ["Disney", "Pixar"] },
-  { id: 6, name: "Cast", text: ["Lewis", "Athie", "Carmen"] },
-];
+// const arrDetailInfoFilm = [
+//   { id: 1, name: "Type", text: ["Movie"] },
+//   { id: 2, name: "Genre", text: ["Animation", "Comedy", "Adventure"] },
+//   { id: 3, name: "Release", text: "Jun 16, 2023" },
+//   { id: 4, name: "Director", text: ["Peter", " John"] },
+//   { id: 5, name: "Production", text: ["Disney", "Pixar"] },
+//   { id: 6, name: "Cast", text: ["Lewis", "Athie", "Carmen"] },
+// ];
 
-const playFilmPage = ({ nameFilm }) => {
+const PlayFilmPage = ({ nameFilm, topRatingofWeek }) => {
+  // console.log(">>> dataMovies <<<", topRatingofWeek);
+  const [videoQuality, setVideoQuality] = useState("720p"); // Chất lượng mặc định
+  const [movie, setMovie] = useState({});
+  // console.log(movie);
+  const handleQualityChange = (quality) => {
+    setVideoQuality(quality);
+  };
   const user = useSelector((state) => state.auth.login.currentUser);
   // console.log(">>> Header <<<", user);
   // const accessToken = user?.accessToken;
@@ -31,6 +37,16 @@ const playFilmPage = ({ nameFilm }) => {
   // const searchParams = useSearchParams();
   // const userName = searchParams.get("test");
   // console.log(userName);
+
+  const category = movie?.category?.map((category) => category.name);
+  const arrDetailInfoFilm = [
+    { id: 1, name: "Thể loại", text: category },
+    { id: 2, name: "Phát hành", text: movie.yearPublish },
+    { id: 3, name: "Đạo diễn", text: movie.author },
+    { id: 4, name: "Diễn viên", text: movie.actors },
+    { id: 5, name: "Quốc gia", text: movie.country },
+    { id: 6, name: "Lượt xem", text: movie.views },
+  ];
 
   const playlist = [
     {
@@ -63,10 +79,34 @@ const playFilmPage = ({ nameFilm }) => {
       ],
     },
   ];
+  const qualityOptions = [
+    { value: "1080p", label: "1080p" },
+    { value: "720p", label: "720p" },
+    { value: "480p", label: "480p" },
+    { value: "360p", label: "360p" },
+  ];
 
   const ratingChanged = (newRating) => {
     console.log(newRating);
   };
+
+  useEffect(() => {
+    const renderSingleMovie = async () => {
+      try {
+        let res = await axios.get(
+          `${process.env.NEXT_PUBLIC_URL}/api/v1/movie/user/${nameFilm}`
+        );
+        // console.log(">>> Results Search <<<", res);
+        if (res.data.code === 200) {
+          // console.log(">>> Results Search <<<", res.data.data.movieSingle[0]);
+          setMovie(res.data.data.movieSingle[0]);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    renderSingleMovie();
+  }, [nameFilm]);
 
   return (
     <LayoutRoot>
@@ -149,26 +189,6 @@ const playFilmPage = ({ nameFilm }) => {
             <div className="p-2.5 bg-[#2D2D2D]">
               {/* SECTION INFO FILM */}
               <div className="overflow-hidden">
-                {/* SECTION VIDEO FILM */}
-                {/* <div className="player-loaded overflow-hidden ">
-                  <div
-                    className="jw-video-container"
-                    data-mediaid="TAITbudl"
-                    style={{ height: "100%", width: "100%" }}
-                  >
-                    <ReactJWPlayer
-                      className=""
-                      playerId="TAITbudl"
-                      playerScript="https://content.jwplatform.com/libraries/j9BLvpMc.js"
-                      // playlist="https://cdn.jwplayer.com/v2/media/TAITbudl"
-                      file="/neudanhmatem.mp4"
-                      // playlist={playlist}
-                      // onReady={onReady}
-                      aspectRatio="16:9"
-                    />
-                  </div>
-                </div> */}
-
                 <div className="players-container">
                   {/* <JWPlayer
                     library="https://content.jwplatform.com/libraries/j9BLvpMc.js"
@@ -183,12 +203,37 @@ const playFilmPage = ({ nameFilm }) => {
                   /> */}
 
                   <ReactPlayer
+                    url={movie?.video?.[0]}
                     // url={"https://youtu.be/DWYwmTdXpqw?si=yAfzJl4ilB-Y0fWd"}
-                    url={
-                      "https://firebasestorage.googleapis.com/v0/b/movie-the-stone-d9f38.appspot.com/o/files%2FB%C3%A1%C2%BA%C2%A3n%20in%20l%C3%A1%C2%BB%C2%97i.mp4%20%20%20%20%20%20%202023-8-16%2022%3A53%3A35?alt=media&token=f6bd78f4-3f03-40c8-a4f8-5ec41902866d"
-                    }
+                    // url={
+                    //   "https://firebasestorage.googleapis.com/v0/b/movie-the-stone-d9f38.appspot.com/o/files%2FB%C3%A1%C2%BA%C2%A3n%20in%20l%C3%A1%C2%BB%C2%97i.mp4%20%20%20%20%20%20%202023-8-16%2022%3A53%3A35?alt=media&token=f6bd78f4-3f03-40c8-a4f8-5ec41902866d"
+                    // }
                     controls
                     className=""
+                    config={{
+                      file: {
+                        attributes: {
+                          controlsList: "nodownload", // Loại bỏ nút tải xuống
+                          preload: "metadata", // Tải metadata trước để lấy thông tin chất lượng
+                        },
+                        tracks: [
+                          {
+                            kind: "subtitles",
+                            src: "/test.vtt",
+                            srcLang: "vn",
+                            default: true,
+                          },
+                        ], // Loại bỏ phụ đề
+                        // forceHLS: true, // Sử dụng HLS cho video
+                        // forceVideo: true, // Sử dụng phần mềm video native
+                        quality: {
+                          defaultQuality: videoQuality, // Chất lượng mặc định
+                          options: qualityOptions, // Các tùy chọn chất lượng
+                          forced: true, // Bắt buộc chọn chất lượng
+                          onChange: handleQualityChange, // Xử lý khi người dùng thay đổi chất lượng
+                        },
+                      },
+                    }}
                   />
                 </div>
               </div>
@@ -201,12 +246,12 @@ const playFilmPage = ({ nameFilm }) => {
           {/* RIGHT */}
           <div className="col-span-2">
             <div className=" py-[10px] rounded-md bg-[#1b2d58]">
-              <div className="h-full px-[15px]">
-                <span className="block w-full">
+              <div className="h-[400px] px-[15px]">
+                <span className="block w-full h-full">
                   <img
-                    className="block w-full h-full"
-                    src="https://static.bunnycdn.ru/i/cache/images/f/fa/fad20ae6e3418f3367ae8d023d9855c2.jpg"
-                    alt=""
+                    className="block w-full h-full object-cover"
+                    src={movie?.photo?.[0] || ""}
+                    alt={movie?.photo?.[0] || ""}
                     // width={55}
                     // height={55}
                     // layout="fill"
@@ -217,21 +262,22 @@ const playFilmPage = ({ nameFilm }) => {
 
               <div>
                 <h1 className="mx-[15px] mt-[22.5px] text-lg font-semibold text-white">
-                  Elemental
+                  {movie?.title}
                 </h1>
                 <div className="flex items-center pt-[7.5px] pb-[15px] px-[15px] mb-[15px] border-[1px] border-[#21376c]">
                   <span className="min-w-[20px] px-[3px] bg-[#c7d2ee] text-xs font-medium text-black border-[1px] border-[#c7d2ee]">
-                    HD
+                    {movie?.quality}
                   </span>
                   <span className="ml-[6px] px-[3px] text-[#c7d2ee] text-xs font-medium border-[1px] border-[#c7d2ee]">
                     PG
                   </span>
-                  <span className="ml-[6px] text-base text-white">109 min</span>
+                  <span className="ml-[6px] text-base text-white">
+                    {movie?.timeVideo}
+                  </span>
                 </div>
                 <div className="px-[15px] pb-[15px] border-b-[1px] border-[#21376c]">
-                  <p className="text-[15px] text-white">
-                    Follows Ember and Wade, in a city where fire-, water-, land-
-                    and air-residents live together.
+                  <p className="scroll_desc max-h-[200px] text-[15px] text-white">
+                    {movie?.desc}
                   </p>
                 </div>
                 <div className="m-[15px] text-[#c7d2ee]">
@@ -287,19 +333,22 @@ const playFilmPage = ({ nameFilm }) => {
         </div>
 
         {/* SECTION RELATED FILM? */}
-        <SliderRelatedFilm />
+        <SliderTopRatingofWeek movies={topRatingofWeek} />
       </div>
     </LayoutRoot>
   );
 };
 
-export default playFilmPage;
+export default PlayFilmPage;
 
 export async function getServerSideProps({ params }) {
   const nameFilm = params.nameFilm;
+  let allMovie = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/v1/movie`);
+
   return {
     props: {
       nameFilm,
+      topRatingofWeek: allMovie.data.data.topRatingofWeek,
     },
   };
 }

@@ -70,7 +70,7 @@ const arrFilmCategory = [
   },
 ];
 
-const searchFilmPage = ({ queryString }) => {
+const SearchFilmPage = ({ queryString }) => {
   const user = useSelector((state) => state.auth.login.currentUser);
   const [arrMovie, setArrMovie] = useState([]);
 
@@ -112,7 +112,7 @@ const searchFilmPage = ({ queryString }) => {
   );
 };
 
-export default searchFilmPage;
+export default SearchFilmPage;
 
 export async function getServerSideProps(context) {
   const queryString = context.params.queryString;

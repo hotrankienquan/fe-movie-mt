@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Navigation } from "react-minimal-side-navigation";
 import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
 
-const test = () => {
+const Test = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   return (
     <React.Fragment>
@@ -102,4 +102,4 @@ const test = () => {
   );
 };
 
-export default test;
+export default Test;

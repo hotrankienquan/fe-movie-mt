@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const CommentFilm = () => {
   const router = useRouter();
-  console.log(router);
+  // console.log(router);
   const [commentInput, setCommentInput] = useState("");
 
   const handleCommentInput = (e) => {

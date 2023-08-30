@@ -9,7 +9,26 @@ import {
 } from "../../../store/apiRequest";
 
 const MovieMainContent = ({ item }) => {
-  //   let { title, views, updated, image } = item;
+  let {
+    _id,
+    title,
+    titleWithoutAccent,
+    slug,
+    desc,
+    author,
+    actors,
+    photo,
+    video,
+    category,
+    rating,
+    quality,
+    yearPublish,
+    timeVideo,
+    country,
+    views,
+    updated,
+    image,
+  } = item;
   const user = useSelector((state) => state.auth.login.currentUser);
   const userId = user?._id;
   const [activeFavorite, setActiveLove] = useState(false);
@@ -34,11 +53,7 @@ const MovieMainContent = ({ item }) => {
     try {
       setActiveLove(!activeFavorite);
 
-      const res = await toggleFavoriteMovie(
-        userId,
-        "64e30de0e2032779af0a65e7",
-        !activeFavorite
-      );
+      const res = await toggleFavoriteMovie(userId, _id, !activeFavorite);
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -52,35 +67,26 @@ const MovieMainContent = ({ item }) => {
     try {
       setActiveBookmark(!activeBookmark);
 
-      const res = await toggleBookmarkMovie(
-        userId,
-        "64e30de0e2032779af0a65e7",
-        !activeBookmark
-      );
+      const res = await toggleBookmarkMovie(userId, _id, !activeBookmark);
       console.log(res);
     } catch (err) {
       console.log(err);
       throw new Error(err);
     }
   };
-  //   useEffect(() => {
-  //     getAll({ ...item, activeFavorite, activeBookmark });
-  //   }, [activeFavorite, activeBookmark]);
 
   return (
     <div className="h-full">
       <div className="mx-2 relative h-full overflow-hidden group flex flex-col justify-between">
         <Link
-          href="#"
+          href={`/playFilm/${slug}`}
           className="flex h-full items-center justify-center z-50 overflow-hidden"
           onClick={(e) => {
-            e.preventDefault();
             e.stopPropagation();
-            console.log(e.target);
           }}
         >
           <img
-            src={item}
+            src={photo?.[0] || ""}
             alt="user profile avatar"
             className="block h-[200px] w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
           />
@@ -107,15 +113,16 @@ const MovieMainContent = ({ item }) => {
 
         <div className="p-2 bg-black bg-opacity-70 text-white">
           <h3 className="whitespace-nowrap text-ellipsis overflow-hidden">
-            <Link href="/cc" title="film">
-              OpenHeimmerccccccccccccccccccccccccccccccccc
+            <Link href={`/playFilm/${slug}`} title={title}>
+              {title}
             </Link>
           </h3>
           <p className="text-sm opacity-50 whitespace-nowrap text-ellipsis overflow-hidden">
-            OpenHeimmerccccccccccccccccccccccccccccccccc
+            {titleWithoutAccent}
           </p>
           <p className="text-[10px] opacity-50 whitespace-nowrap text-ellipsis overflow-hidden">
-            Tài liệu • Môi trường • 10'
+            Tài liệu • Môi trường • {timeVideo}
+            {/* &apos; */}
           </p>
         </div>
       </div>

@@ -23,6 +23,7 @@ const RegisterPage = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  const [verifyOTP, setVerifyOTP] = useState(false);
 
   const {
     register,
@@ -35,31 +36,97 @@ const RegisterPage = () => {
   });
   const [password, confirmPassword] = watch(["password", "confirmPassword"]);
 
-  const onSubmit = async (data) => {
+  // const onSubmit = async (dataForm) => {
+  //   const base_url = process.env.NEXT_PUBLIC_URL;
+  //   // console.log(">>> form register <<<", data);
+  //   if (!verifyOTP) {
+  //     try {
+  //       const response = await axios.post(
+  //         `${base_url}/api/v1/auth/register`,
+  //         dataForm
+  //       );
+  //       console.log(response);
+  //       if (response.status === 200) {
+  //         setVerifyOTP(true);
+  //         console.log(response.data);
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //       if (error.response.data.mes.code === 11000) {
+  //         toast(
+  //           `${Object.keys(error.response.data.mes.keyValue)[0]} đã tồn tại`
+  //         );
+  //       }
+  //       if (error?.response?.data?.code == 404) {
+  //         toast(error?.response?.data?.mes);
+  //         toast(error?.response?.data?.mes?.mes);
+  //       }
+  //     }
+  //   } else {
+  //     try {
+  //       const response = await axios.post(
+  //         `${base_url}/api/v1/auth/register/verify`,
+  //         dataForm
+  //       );
+  //       console.log(">>> Response REGISTER VERIFY <<<", response);
+  //       const data = response.data;
+  //       console.log(data);
+  //       toast(data?.mes);
+  //     } catch (error) {
+  //       console.log(error);
+  //       if (error.response.data.mes.code === 11000) {
+  //         toast(
+  //           `${Object.keys(error.response.data.mes.keyValue)[0]} đã tồn tại`
+  //         );
+  //       }
+  //       if (error?.response?.data?.code == 404) {
+  //         toast(error?.response?.data?.mes);
+  //         toast(error?.response?.data?.mes?.mes);
+  //       }
+  //     }
+  //   }
+  // };
+
+  const onSubmit = async (dataForm) => {
     const base_url = process.env.NEXT_PUBLIC_URL;
-    // console.log(">>> form register <<<", data);
-    await axios
-      .post(`${base_url}/api/v1/auth/register`, data)
-      .then((response) => {
-        console.log(">>> Response REGISTER <<<", response);
-        return response.data;
-      })
-      .then((data) => {
-        if (data.code == 200) {
-          router.push("/login");
+
+    try {
+      let response;
+
+      if (!verifyOTP) {
+        response = await axios.post(
+          `${base_url}/api/v1/auth/register`,
+          dataForm
+        );
+        console.log(">>> Response REGISTER  <<<", response);
+        if (response.status === 200) {
+          setVerifyOTP(true);
+          console.log(response.data);
+          toast(response?.data?.message);
         }
-      })
-      .catch((error) => {
-        console.log(error);
-        if (error.response.data.mes.code === 11000) {
-          toast(
-            `${Object.keys(error.response.data.mes.keyValue)[0]} đã tồn tại`
-          );
-        }
-        if (error?.response?.data?.code == 404) {
-          toast(error?.response?.data?.mes);
-        }
-      });
+      } else {
+        response = await axios.post(
+          `${base_url}/api/v1/auth/register/verify`,
+          dataForm
+        );
+        console.log(">>> Response REGISTER VERIFY <<<", response);
+        const data = response.data;
+        console.log(data);
+        toast(response?.data?.mes);
+        router.push("/login");
+      }
+    } catch (error) {
+      console.log(error);
+
+      if (error.response.data.mes.code === 11000) {
+        toast(`${Object.keys(error.response.data.mes.keyValue)[0]} đã tồn tại`);
+      }
+
+      if (error?.response?.data?.code == 404) {
+        toast(error?.response?.data?.mes);
+        toast(error?.response?.data?.mes?.mes);
+      }
+    }
   };
 
   return (
@@ -157,6 +224,23 @@ const RegisterPage = () => {
                   </span>
                 }
               </div>
+
+              {verifyOTP && (
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Xác nhận OTP từ Gmail
+                  </label>
+
+                  <div className="relative">
+                    <input
+                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="..."
+                      {...register("otp", { required: true })}
+                    />
+                  </div>
+                  {<span className="text-red-500">{errors.otp?.message}</span>}
+                </div>
+              )}
 
               <div className="flex items-start">
                 <div className="flex items-center h-5">

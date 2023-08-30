@@ -29,62 +29,62 @@ export const arrTopTrendingFilm = [
         image:
           "https://occ-0-325-395.1.nflxso.net/dnm/api/v6/6gmvu2hxdfnQ55LZZjyzYR4kzGk/AAAABYPun7MjLoH7dT5ko9Vyixis8oV0qxtMxBsUfNztYZyHUJMIBb-x4xDJHO29MR4I1TbUfX7MMj8UQpVpRN5SB0_zfHA7vW9eOn2NUVS508RCLU_eYCFBJlzs-z_3molK0UZa.jpg?r=8eb",
       },
-      {
-        id: 4,
-        title: "Thợ săn quái vật",
-        views: "42,863",
-        updated: "2023-06-12",
-        image:
-          "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
-      },
-      {
-        id: 5,
-        title: "Thợ săn quái vật",
-        views: "42,863",
-        updated: "2023-06-12",
-        image:
-          "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
-      },
-      {
-        id: 6,
-        title: "Thợ săn quái vật",
-        views: "42,863",
-        updated: "2023-06-12",
-        image:
-          "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
-      },
-      {
-        id: 7,
-        title: "Thợ săn quái vật",
-        views: "42,863",
-        updated: "2023-06-12",
-        image:
-          "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
-      },
-      {
-        id: 8,
-        title: "Thợ săn quái vật",
-        views: "42,863",
-        updated: "2023-06-12",
-        image:
-          "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
-      },
-      {
-        id: 9,
-        title: "Thợ săn quái vật",
-        views: "42,863",
-        updated: "2023-06-12",
-        image:
-          "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
-      },
-      {
-        id: 10,
-        title: "Thợ săn quái vật",
-        views: "42,863",
-        updated: "2023-06-12",
-        image:
-          "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
-      },
+      // {
+      //   id: 4,
+      //   title: "Thợ săn quái vật",
+      //   views: "42,863",
+      //   updated: "2023-06-12",
+      //   image:
+      //     "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
+      // },
+      // {
+      //   id: 5,
+      //   title: "Thợ săn quái vật",
+      //   views: "42,863",
+      //   updated: "2023-06-12",
+      //   image:
+      //     "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
+      // },
+      // {
+      //   id: 6,
+      //   title: "Thợ săn quái vật",
+      //   views: "42,863",
+      //   updated: "2023-06-12",
+      //   image:
+      //     "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
+      // },
+      // {
+      //   id: 7,
+      //   title: "Thợ săn quái vật",
+      //   views: "42,863",
+      //   updated: "2023-06-12",
+      //   image:
+      //     "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
+      // },
+      // {
+      //   id: 8,
+      //   title: "Thợ săn quái vật",
+      //   views: "42,863",
+      //   updated: "2023-06-12",
+      //   image:
+      //     "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
+      // },
+      // {
+      //   id: 9,
+      //   title: "Thợ săn quái vật",
+      //   views: "42,863",
+      //   updated: "2023-06-12",
+      //   image:
+      //     "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
+      // },
+      // {
+      //   id: 10,
+      //   title: "Thợ săn quái vật",
+      //   views: "42,863",
+      //   updated: "2023-06-12",
+      //   image:
+      //     "https://bluphim.com/Content/Imgs/Movies/thumb-2610.jpg?id=1382b45",
+      // },
     ],
   },
 ];

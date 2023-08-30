@@ -9,43 +9,22 @@ import { getAllMovies, getAllUsers } from "../../store/apiRequest";
 import { useSelector } from "react-redux";
 import { createAxios } from "../../utils/createInstance";
 
-const SliderLastetFilm = () => {
+const SliderTrendingFilm = ({
+  movies,
+  arrFavoriteMovie,
+  arrWatchLaterMovie,
+}) => {
   const user = useSelector((state) => state.auth.login.currentUser);
+  // console.log(">>> loveMovie <<<", user?.loveMovie);
+  // console.log(">>> markBookMovie <<<", user?.markBookMovie);
   const accessToken = user?.accessToken;
   let axiosJWT = createAxios(user, null, null);
   const [arrMovie, setArrMovie] = useState([]);
-  // console.log(">>> Latest Film <<<", arrMovie);
-  // console.log(slider);
-  // function getAll(data) {
-  //   // console.log("data get all item",data)
-  //   getAllMovies();
-  // }
+  // console.log(">>> Trending Film <<<", arrMovie);
 
   useEffect(() => {
-    const renderTopTrendingMovies = async () => {
-      try {
-        const res = await getAllMovies();
-        // console.log(">>> Latest Film <<<", res.data.data.movie);
-        setArrMovie(res.data.data.movie);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    // renderTopTrendingMovies();
-  }, []);
-
-  // useEffect(() => {
-  //   const renderAllUsers = async () => {
-  //     try {
-  //       const res = await getAllUsers(accessToken, null, axiosJWT);
-  //       console.log(">>> All Users <<<", res);
-  //       // setArrMovie(res);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   renderAllUsers();
-  // }, []);
+    setArrMovie(movies.trending);
+  }, [movies]);
 
   return (
     <div className="mt-20 mb-8 -mx-2.5">
@@ -64,12 +43,19 @@ const SliderLastetFilm = () => {
       </div>
 
       <Slider {...settings}>
-        {arrSliderLatestFilm.map((item, index) => {
-          return <Movie key={item.id} item={item} />;
+        {arrMovie.map((item, index) => {
+          return (
+            <Movie
+              key={item._id}
+              item={item}
+              arrFavoriteMovie={arrFavoriteMovie}
+              arrWatchLaterMovie={arrWatchLaterMovie}
+            />
+          );
         })}
       </Slider>
     </div>
   );
 };
 
-export default SliderLastetFilm;
+export default SliderTrendingFilm;

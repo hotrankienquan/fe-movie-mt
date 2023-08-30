@@ -11,9 +11,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateInfoUser } from "../../../store/apiRequest";
 import { createAxios } from "../../../utils/createInstance";
 import Cookies from "js-cookie";
-import ProtectedRoute from "../../../HOCs/ProtectedRoutes";
+import ProtectedRoute from "../../../utils/ProtectedRoutes";
 
-const editInfoUser = ({ nameUserEdit }) => {
+const EditInfoUser = ({ nameUserEdit }) => {
   const schema = yup.object().shape({
     username: yup.string().min(6).max(20).required(),
     email: yup.string().email("Invalid email format").required(),
@@ -64,7 +64,7 @@ const editInfoUser = ({ nameUserEdit }) => {
       setValue("national", user.national);
       setValue("avatar", user.avatar);
     }
-  }, []);
+  }, [user]);
 
   return (
     <ProtectedRoute>
@@ -212,7 +212,7 @@ const editInfoUser = ({ nameUserEdit }) => {
   );
 };
 
-export default editInfoUser;
+export default EditInfoUser;
 
 export async function getServerSideProps(context) {
   // console.log(Cookies.parse(context.req.headers.cookie));

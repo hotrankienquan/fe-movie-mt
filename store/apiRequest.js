@@ -60,22 +60,22 @@ export const logOut = async (dispatch, id, router, accessToken, axiosJWT) => {
 };
 
 ////////////////////******************** USERS ********************////////////////////////////
-export const getAllUsers = async (token, dispatch, axiosJWT) => {
-  // dispatch(getUsersStart());
-  const base_url = process.env.NEXT_PUBLIC_URL;
-  try {
-    const res = await axiosJWT.get(`${base_url}/api/v1/user/`, {
-      headers: { token: `Bearer ${token}` },
-    });
-    // dispatch(getUsersSuccess(res.data));
-    // console.log(res);
-    return res;
-  } catch (err) {
-    // dispatch(getUsersFailed());
-    console.log(err);
-    throw new Error(err);
-  }
-};
+// export const getAllUsers = async (token, dispatch, axiosJWT) => {
+//   // dispatch(getUsersStart());
+//   const base_url = process.env.NEXT_PUBLIC_URL;
+//   try {
+//     const res = await axiosJWT.get(`${base_url}/api/v1/user/`, {
+//       headers: { token: `Bearer ${token}` },
+//     });
+//     // dispatch(getUsersSuccess(res.data));
+//     // console.log(res);
+//     return res;
+//   } catch (err) {
+//     // dispatch(getUsersFailed());
+//     console.log(err);
+//     throw new Error(err);
+//   }
+// };
 
 export const updateInfoUser = async (
   formData,
@@ -107,17 +107,17 @@ export const updateInfoUser = async (
   }
 };
 
-export const deleteUser = async (id, dispatch, token) => {
-  dispatch(deleteUsersStart());
-  try {
-    const res = await axios.delete("/v1/user/" + id, {
-      headers: { token: `Bearer ${token}` },
-    });
-    dispatch(deleteUsersSuccess(res.data));
-  } catch (err) {
-    dispatch(deleteUsersFailed(err.response.data));
-  }
-};
+// export const deleteUser = async (id, dispatch, token) => {
+//   dispatch(deleteUsersStart());
+//   try {
+//     const res = await axios.delete("/v1/user/" + id, {
+//       headers: { token: `Bearer ${token}` },
+//     });
+//     dispatch(deleteUsersSuccess(res.data));
+//   } catch (err) {
+//     dispatch(deleteUsersFailed(err.response.data));
+//   }
+// };
 
 ////////////////////******************** MOVIES ********************////////////////////////////
 export const getAllMovies = async () => {

@@ -2,18 +2,54 @@ import { Inter } from "next/font/google";
 import LayoutRoot from "@/components/Layout";
 import Dashboard from "@/pages/Dashboard";
 import Head from "next/head";
-import { useEffect } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 const inter = Inter({ subsets: ["latin"] });
 import axios from "axios";
 import { createAxios } from "../utils/createInstance";
+import { getFavoriteMovies, getWatchLaterMovies } from "../store/apiRequest";
+
 const Home = (props) => {
   const router = useRouter();
   const user = useSelector((state) => state.auth.login?.currentUser);
-  console.log("arr movie", props.movies);
+  // console.log(user);
+  const accessToken = user?.accessToken;
+  const userId = user?._id;
+  let axiosJWT = createAxios(user, null, null);
+  // console.log("arr movie", props.movies);
+  // console.log("dataMovies", props.dataMovies);
   // console.log("arr category", props.categories);
+
+  const [arrFavoriteMovie, setArrFavoriteMovie] = useState([]);
+  const [arrWatchLaterMovie, setArrWatchLaterMovie] = useState([]);
+
+  useLayoutEffect(() => {
+    const renderFavoriteMovies = async () => {
+      try {
+        const res = await getFavoriteMovies(accessToken, null, axiosJWT);
+        // console.log(">>> Favorite Film <<<", res);
+        setArrFavoriteMovie(res.data.loveMovie);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    renderFavoriteMovies();
+  }, []);
+
+  useEffect(() => {
+    const renderWatchLaterMovies = async () => {
+      try {
+        const res = await getWatchLaterMovies(accessToken, null, axiosJWT);
+        // console.log(">>> Watch Later Film <<<", res.data.markBookMovie);
+        setArrWatchLaterMovie(res.data.markBookMovie);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    renderWatchLaterMovies();
+  }, []);
 
   return (
     <>
@@ -43,7 +79,11 @@ const Home = (props) => {
       <LayoutRoot categories={props.categories}>
         {/* <div id="fb-root"></div> */}
 
-        <Dashboard movies={props.movies} />
+        <Dashboard
+          dataMovies={props.dataMovies}
+          arrFavoriteMovie={arrFavoriteMovie}
+          arrWatchLaterMovie={arrWatchLaterMovie}
+        />
       </LayoutRoot>
     </>
   );
@@ -60,7 +100,7 @@ export async function getServerSideProps(context) {
   );
   return {
     props: {
-      movies: allMovie.data.data.movie,
+      dataMovies: allMovie.data.data,
       categories: allCategory.data.data,
     },
   };
