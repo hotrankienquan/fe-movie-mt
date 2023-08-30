@@ -148,7 +148,6 @@ export const getFavoriteMovies = async (token, dispatch, axiosJWT) => {
     // console.log(">>> getFavoriteMovies <<<", res);
     return res;
   } catch (err) {
-    // dispatch(getUsersFailed());
     console.log(err);
     throw new Error(err);
   }
@@ -169,7 +168,6 @@ export const getWatchLaterMovies = async (token, dispatch, axiosJWT) => {
     // console.log(">>> getWatchLaterMovies <<<", res);
     return res;
   } catch (err) {
-    // dispatch(getUsersFailed());
     console.log(err);
     throw new Error(err);
   }

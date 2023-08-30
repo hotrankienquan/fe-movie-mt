@@ -7,27 +7,12 @@ import {
   toggleFavoriteMovie,
 } from "../../../store/apiRequest";
 
-const Movie = ({ item }) => {
-  let {
-    _id,
-    title,
-    slug,
-    photo,
-    category,
-    quality,
-    yearPublish,
-    timeVideo,
-    views,
-  } = item;
-  // nhìn tùm lum vc
+const Movie = ({ item, favoriteFilm, watchLaterFilm }) => {
+  let { _id, title, slug, photo } = item;
+
   const user = useSelector((state) => state.auth.login.currentUser);
   const userId = user?._id;
-  const film = useSelector((state) => state.film);
-  // console.log(">>>chek film", film);
-  const { favoriteFilm, watchLaterFilm } = film; // cái favoriteFilm này tính lam gi, để so UI ĐÓ
-  // console.log("favoriteFilm", favoriteFilm);
-  // console.log("re render");
-  // là nó log ra cái này nhiều à, nó call api nhiu
+
   const [activeFavorite, setActiveFavorite] = useState(false);
   const [activeBookmark, setActiveBookmark] = useState(false);
 
@@ -60,15 +45,16 @@ const Movie = ({ item }) => {
   };
 
   useEffect(() => {
-    const checkActiveFavoriteMovie =
-      favoriteFilm && favoriteFilm?.some((movie) => movie._id === _id);
+    const checkActiveFavoriteMovie = favoriteFilm?.some(
+      (movie) => movie._id === _id
+    );
     console.log("checkActiveFavoriteMovie", checkActiveFavoriteMovie);
     const checkActiveWatchLaterMovie = watchLaterFilm?.some(
       (movie) => movie._id === _id
     );
 
-    // setActiveFavorite(checkActiveFavoriteMovie);
-    // setActiveBookmark(checkActiveWatchLaterMovie);
+    setActiveFavorite(checkActiveFavoriteMovie);
+    setActiveBookmark(checkActiveWatchLaterMovie);
   }, [_id]);
 
   return (

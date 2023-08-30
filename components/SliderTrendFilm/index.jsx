@@ -9,22 +9,14 @@ import { getAllMovies, getAllUsers } from "../../store/apiRequest";
 import { useSelector } from "react-redux";
 import { createAxios } from "../../utils/createInstance";
 // sửa lại redux chưa, nhìn truyền mệt z, sửa r. sửa ròi z đâu phải truyền từ dashboard qua chi, cái movie này khác mà
-const SliderTrendingFilm = ({ movies }) => {
+const SliderTrendingFilm = () => {
   const user = useSelector((state) => state.auth.login.currentUser);
+  const userId = user?._id;
   const accessToken = user?.accessToken;
   let axiosJWT = createAxios(user, null, null);
-  const [arrMovie, setArrMovie] = useState([]);
-  // console.log(">>> Trending Film <<<", arrMovie);
 
   const film = useSelector((state) => state.film);
-  const { favoriteFilm, watchLaterFilm } = film;
-
-  useEffect(() => {
-    // setArrMovie(movies.trending);
-  }, [movies]);
-  const userId = user?._id;
-  // console.log(">>>chek film", film);
-  // console.log("favoriteFilm", favoriteFilm);
+  const { movies, favoriteFilm, watchLaterFilm } = film;
 
   return (
     <div className="mt-20 mb-8 -mx-2.5">
@@ -40,10 +32,17 @@ const SliderTrendingFilm = ({ movies }) => {
           Top Trending
         </h2>
       </div>
-      {/* // cai nay moi lan map qua la no re render lai Movie comp ne, eo', t slice co 1 phim thoi */}
+
       <Slider {...settings}>
-        {arrMovie.map((item, index) => {
-          return <Movie key={item._id} item={item} />;
+        {movies?.trending?.map((item, index) => {
+          return (
+            <Movie
+              key={item._id}
+              item={item}
+              favoriteFilm={favoriteFilm}
+              watchLaterFilm={watchLaterFilm}
+            />
+          );
         })}
       </Slider>
     </div>

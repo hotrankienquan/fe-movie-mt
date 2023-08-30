@@ -16,16 +16,12 @@ const Home = (props) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.login?.currentUser);
-  const film = useSelector((state) => state.film);
-  const { movies, favoriteFilm, watchLaterFilm } = film;
-  // console.log(watchLaterFilm);
   const accessToken = user?.accessToken;
   const userId = user?._id;
   let axiosJWT = createAxios(user, null, null);
   // console.log("dataMovies", props.dataMovies);
 
-  console.log(film);
-  // console.log("render");
+  console.log("render");
 
   useEffect(() => {
     const renderFavoriteMovies = async () => {
@@ -39,7 +35,6 @@ const Home = (props) => {
       }
     };
     renderFavoriteMovies();
-    //cai useeffect empty sao no call 2 lan
   }, []);
 
   useEffect(() => {
@@ -52,7 +47,7 @@ const Home = (props) => {
         console.log(err);
       }
     };
-    // renderWatchLaterMovies();
+    renderWatchLaterMovies();
   }, []);
 
   useEffect(() => {
@@ -79,7 +74,7 @@ const Home = (props) => {
         <meta property="og:title" content="My page title" key="title" />
       </Head>
       <LayoutRoot categories={props.categories}>
-        <Dashboard dataMovies={props.dataMovies} />
+        <Dashboard />
       </LayoutRoot>
     </>
   );
