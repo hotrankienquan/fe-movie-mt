@@ -20,7 +20,8 @@ import axios from "axios";
 //   { id: 5, name: "Production", text: ["Disney", "Pixar"] },
 //   { id: 6, name: "Cast", text: ["Lewis", "Athie", "Carmen"] },
 // ];
-
+// const TIME_UPDATE_VIEW = 900000
+const TIME_UPDATE_VIEW = 900000;
 const PlayFilmPage = ({ nameFilm, topRatingofWeek }) => {
   // console.log(">>> dataMovies <<<", topRatingofWeek);
   const [videoQuality, setVideoQuality] = useState("720p"); // Chất lượng mặc định
@@ -29,6 +30,22 @@ const PlayFilmPage = ({ nameFilm, topRatingofWeek }) => {
   const handleQualityChange = (quality) => {
     setVideoQuality(quality);
   };
+
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      fetch(`${process.env.NEXT_PUBLIC_URL}/api/v1/movie/update-views`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ movieId: "64ea009f4eb98d2906f135b2" }),
+      })
+        .then((response) => response.json())
+        .then((json) => console.log(json));
+    }, TIME_UPDATE_VIEW);
+    // after 15mins -> call api
+    return () => {
+      clearInterval(timerId);
+    };
+  }, []);
   const user = useSelector((state) => state.auth.login.currentUser);
   // console.log(">>> Header <<<", user);
   // const accessToken = user?.accessToken;
