@@ -19,9 +19,14 @@ export default function Header({ categories }) {
   const id = user?._id;
   const dispatch = useDispatch();
   let axiosJWT = createAxios(user, dispatch, logOutSuccess);
+
+  const [arrSearchMovie, setArrSearchMovie] = useState([]);
+  // console.log(arrSearchMovie);
+
   const [searchInput, setSearchInput] = useState("");
   const [showSearchResults, setSearchResults] = useState(false);
   const [showSearchInput, setShowSearchInput] = useState(false);
+
   const inputRef = useRef();
 
   const handleSearchInput = async (e) => {
@@ -30,10 +35,10 @@ export default function Header({ categories }) {
     try {
       if (value) {
         const res = await searchMovies(value);
-        console.log(">>> Results Search <<<", res);
+        // console.log(">>> Results Search <<<", res);
         if (res.data.code === 200) {
           // console.log(">>> Results Search <<<", res.data.data.movies);
-          // setArrMovie(res.data.data.movies);
+          setArrSearchMovie(res.data.data.movies);
         }
       }
     } catch (err) {
@@ -57,24 +62,24 @@ export default function Header({ categories }) {
     logOut(dispatch, id, router, accessToken, axiosJWT);
   };
 
-  useEffect(() => {
-    const handleFocus = (e) => {
-      e.stopPropagation();
-      console.log(e.target);
-      setSearchResults(true);
-    };
-    const handleBlur = (e) => {
-      e.stopPropagation();
-      setSearchResults(false);
-    };
+  // useEffect(() => {
+  //   const handleFocus = (e) => {
+  //     e.stopPropagation();
+  //     // console.log(e.target);
+  //     setSearchResults(true);
+  //   };
+  //   const handleBlur = (e) => {
+  //     e.stopPropagation();
+  //     setSearchResults(false);
+  //   };
 
-    inputRef.current.addEventListener("focus", handleFocus);
-    inputRef.current.addEventListener("blur", handleBlur);
-    // return () => {
-    //   inputRef.current.removeEventListener("focus", handleFocus);
-    //   inputRef.current.removeEventListener("blur", handleBlur);
-    // };
-  }, []);
+  //   inputRef.current.addEventListener("focus", handleFocus);
+  //   inputRef.current.addEventListener("blur", handleBlur);
+  //   // return () => {
+  //   //   inputRef.current.removeEventListener("focus", handleFocus);
+  //   //   inputRef.current.removeEventListener("blur", handleBlur);
+  //   // };
+  // }, []);
 
   return (
     <header className="bg-[#151414] h-20 fixed top-0 left-0 right-0 z-[100] shadow-xl">
@@ -171,23 +176,23 @@ export default function Header({ categories }) {
                 </button>
               </div>
 
-              {searchInput && showSearchResults && (
+              {searchInput && (
                 <div
                   // ref={resultsRef}
                   className="scroll_search_header absolute top-[110%] right-[80%] min-h-[100px] max-h-[300px] w-[330px] bg-[rgba(0,0,0,.8)] overflow-y-auto z-[100]"
                 >
                   {arrSearchMovie.map((item, i) => (
                     <div
-                      key={item.id}
+                      key={item._id}
                       className="mb-[10px] p-2 h-[55px] flex items-center overflow-hidden"
                     >
                       <Link
-                        href="/paly"
+                        href={`/playFilm/${item.slug}`}
                         className="flex items-center justify-between w-full h-[55px] group"
                       >
                         <span className="max-w-[40%] w-full h-full mr-[10px] overflow-hidden">
                           <img
-                            src={item.image}
+                            src={item.photo?.[0]}
                             alt="pic"
                             className="object-cover w-full h-full group-hover:scale-110 transition-all duration-300"
                           />
@@ -197,11 +202,11 @@ export default function Header({ categories }) {
                           <span className="block mb-[3px] text-[14px] text-[#0285b5] font-medium whitespace-nowrap text-ellipsis overflow-hidden">
                             {item.title}
                           </span>
-                          <span className="block text-[11px] text-[#0285b5] font-extralight whitespace-nowrap text-ellipsis overflow-hidden">
-                            {item.updated}
+                          <span className="block text-[12px] text-[#0285b5] font-extralight whitespace-nowrap text-ellipsis overflow-hidden">
+                            {item.yearPublish}
                           </span>
                           <span className="block text-[11px] text-[#fff] font-thin whitespace-nowrap text-ellipsis overflow-hidden">
-                            {item.views}
+                            {item.views} views
                           </span>
                         </span>
                       </Link>
@@ -209,7 +214,10 @@ export default function Header({ categories }) {
                   ))}
 
                   <div className="p-2 text-center border-t-[1px] border-[rgba(255,255,255,.3)]">
-                    <p className="text-xs text-white cursor-pointer italic">
+                    <p
+                      className="text-xs text-white cursor-pointer italic"
+                      onClick={handleSubmitSearchInput}
+                    >
                       Xem tất cả kết quả
                     </p>
                   </div>

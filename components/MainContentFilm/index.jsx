@@ -30,11 +30,11 @@ const MainContentFilm = ({ movies }) => {
       dataFilm: latest,
     },
   ];
-
+  // m set state nhieu qua ne, no call loan xa, cai movies nay no phu thuoc ben ngoai, vo nay no nam trong useeffect vc
   useEffect(() => {
-    setWatchToday(movies.watchToday);
-    setLatest(movies.latest);
-    setTopRatingofWeek(movies.topRatingofWeek);
+    // setWatchToday(movies.watchToday);
+    // setLatest(movies.latest);
+    // setTopRatingofWeek(movies.topRatingofWeek);
   }, [movies]);
 
   return (

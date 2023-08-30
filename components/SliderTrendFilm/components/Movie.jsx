@@ -7,7 +7,7 @@ import {
   toggleFavoriteMovie,
 } from "../../../store/apiRequest";
 
-const Movie = ({ item, arrFavoriteMovie, arrWatchLaterMovie }) => {
+const Movie = ({ item }) => {
   let {
     _id,
     title,
@@ -19,10 +19,15 @@ const Movie = ({ item, arrFavoriteMovie, arrWatchLaterMovie }) => {
     timeVideo,
     views,
   } = item;
-
+  // nhìn tùm lum vc
   const user = useSelector((state) => state.auth.login.currentUser);
   const userId = user?._id;
-
+  const film = useSelector((state) => state.film);
+  // console.log(">>>chek film", film);
+  const { favoriteFilm, watchLaterFilm } = film; // cái favoriteFilm này tính lam gi, để so UI ĐÓ
+  // console.log("favoriteFilm", favoriteFilm);
+  // console.log("re render");
+  // là nó log ra cái này nhiều à, nó call api nhiu
   const [activeFavorite, setActiveFavorite] = useState(false);
   const [activeBookmark, setActiveBookmark] = useState(false);
 
@@ -33,7 +38,7 @@ const Movie = ({ item, arrFavoriteMovie, arrWatchLaterMovie }) => {
       setActiveFavorite(!activeFavorite);
 
       const res = await toggleFavoriteMovie(userId, _id, !activeFavorite);
-      console.log(res);
+      // console.log(res);
     } catch (err) {
       console.log(err);
       throw new Error(err);
@@ -55,16 +60,16 @@ const Movie = ({ item, arrFavoriteMovie, arrWatchLaterMovie }) => {
   };
 
   useEffect(() => {
-    const checkActiveFavoriteMovie = arrFavoriteMovie?.some(
-      (movie) => movie._id === _id
-    );
-    const checkActiveWatchLaterMovie = arrWatchLaterMovie?.some(
+    const checkActiveFavoriteMovie =
+      favoriteFilm && favoriteFilm?.some((movie) => movie._id === _id);
+    console.log("checkActiveFavoriteMovie", checkActiveFavoriteMovie);
+    const checkActiveWatchLaterMovie = watchLaterFilm?.some(
       (movie) => movie._id === _id
     );
 
-    setActiveFavorite(checkActiveFavoriteMovie);
-    setActiveBookmark(checkActiveWatchLaterMovie);
-  }, [arrFavoriteMovie, _id]);
+    // setActiveFavorite(checkActiveFavoriteMovie);
+    // setActiveBookmark(checkActiveWatchLaterMovie);
+  }, [_id]);
 
   return (
     <div className="h-full">

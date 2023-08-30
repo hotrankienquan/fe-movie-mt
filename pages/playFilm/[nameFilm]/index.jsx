@@ -208,15 +208,15 @@ const PlayFilmPage = ({ nameFilm, topRatingofWeek }) => {
               <div className="overflow-hidden">
                 <div className="players-container">
                   {/* <JWPlayer
-                    library="https://content.jwplatform.com/libraries/j9BLvpMc.js"
-                    //   playlist='https://cdn.jwplayer.com/v2/playlists/B8FTSH9D'
-                    // playlist={playlistt}
+                    // library="https://content.jwplatform.com/libraries/j9BLvpMc.js"
+                    // playlist="https://cdn.jwplayer.com/v2/playlists/B8FTSH9D"
+                    // playlist={playlist}
                     // playlist={
                     //   "https://cdn.jwplayer.com/v2/playlists/B8FTSH9D?fbclid=IwAR0j_kzxOGd1oB0pr4Go-MxsNfzI4KYQOlGPYgRKEkt_O5UZvKsK2CY7GM4"
                     // }
-                    playlist={
-                      "https://firebasestorage.googleapis.com/v0/b/movie-the-stone-d9f38.appspot.com/o/files%2FB%C3%A1%C2%BA%C2%A3n%20in%20l%C3%A1%C2%BB%C2%97i.mp4%20%20%20%20%20%20%202023-8-16%2022%3A53%3A35?alt=media&token=f6bd78f4-3f03-40c8-a4f8-5ec41902866d"
-                    }
+                    // playlist={
+                    //   "https://firebasestorage.googleapis.com/v0/b/movie-the-stone-d9f38.appspot.com/o/files%2FB%C3%A1%C2%BA%C2%A3n%20in%20l%C3%A1%C2%BB%C2%97i.mp4%20%20%20%20%20%20%202023-8-16%2022%3A53%3A35?alt=media&token=f6bd78f4-3f03-40c8-a4f8-5ec41902866d"
+                    // }
                   /> */}
 
                   <ReactPlayer
@@ -239,6 +239,11 @@ const PlayFilmPage = ({ nameFilm, topRatingofWeek }) => {
                             src: "/test.vtt",
                             srcLang: "vn",
                             default: true,
+                          },
+                          {
+                            kind: "subtitles",
+                            src: "/test.vtt",
+                            srcLang: "en",
                           },
                         ], // Loại bỏ phụ đề
                         // forceHLS: true, // Sử dụng HLS cho video
@@ -293,7 +298,7 @@ const PlayFilmPage = ({ nameFilm, topRatingofWeek }) => {
                   </span>
                 </div>
                 <div className="px-[15px] pb-[15px] border-b-[1px] border-[#21376c]">
-                  <p className="scroll_desc max-h-[200px] text-[15px] text-white">
+                  <p className="scroll_desc max-h-[200px] text-[15px] text-white overflow-y-auto">
                     {movie?.desc}
                   </p>
                 </div>
@@ -340,7 +345,9 @@ const PlayFilmPage = ({ nameFilm, topRatingofWeek }) => {
                   </span>
                   <div>
                     <span>
-                      <b>7.82</b> of <b>10</b> (<span>2754</span> 2,754 reviews)
+                      {/* <b>7.82</b> of <b>10</b> (<span>2754</span> 2,754 reviews) */}
+                      <b>{movie?.rating}</b> of <b>10</b> ({" "}
+                      {movie?.listUserRating?.length} reviews )
                     </span>
                   </div>
                 </div>

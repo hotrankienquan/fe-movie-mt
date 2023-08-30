@@ -23,7 +23,7 @@ body::-webkit-scrollbar,
 }
 .scroll_tab_manage_user::-webkit-scrollbar,
 .scroll_desc::-webkit-scrollbar {
-  width: 50px;
+  width: 7px;
   height: 6px;
 }
 

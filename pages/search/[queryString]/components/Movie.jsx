@@ -59,7 +59,7 @@ const MovieSearchResults = ({ item }) => {
         >
           <Image
             className="h-full block w-full object-cover group-hover:opacity-70 transition-all duration-500"
-            src={item.image || "/vercel.svg"}
+            src={item.photo?.[0] || "/vercel.svg"}
             alt="error"
             layout="fill"
             // width={213}
@@ -97,7 +97,7 @@ const MovieSearchResults = ({ item }) => {
               {item.title}
             </h3>
             <p className="text-sm opacity-50 whitespace-nowrap text-ellipsis overflow-hidden">
-              {item.title}
+              {item.titleWithoutAccent}
             </p>
           </span>
         </Link>

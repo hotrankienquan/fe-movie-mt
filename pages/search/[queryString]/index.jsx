@@ -102,8 +102,8 @@ const SearchFilmPage = ({ queryString }) => {
           </div>
 
           <div className="grid grid-cols-5 gap-x-3.5 gap-y-[20px]">
-            {arrFilmCategory.map((item, index) => {
-              return <MovieSearchResults key={index} item={item} />;
+            {arrMovie.map((item, index) => {
+              return <MovieSearchResults key={item._id} item={item} />;
             })}
           </div>
         </div>

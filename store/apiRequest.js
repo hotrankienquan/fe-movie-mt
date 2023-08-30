@@ -6,6 +6,7 @@ import {
   logOutFailed,
   logOutStart,
 } from "./authSlice";
+import { addArrFavorite, addArrWatchLater, deleteSuccess } from "./filmSlice";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -143,8 +144,8 @@ export const getFavoriteMovies = async (token, dispatch, axiosJWT) => {
     const res = await axiosJWT.get(`${base_url}/api/v1/user/get-love-movie`, {
       headers: { token: `Bearer ${token}` },
     });
-    // dispatch(getUsersSuccess(res.data));
-    // console.log(res);
+    dispatch(addArrFavorite(res.data.loveMovie));
+    // console.log(">>> getFavoriteMovies <<<", res);
     return res;
   } catch (err) {
     // dispatch(getUsersFailed());
@@ -164,8 +165,8 @@ export const getWatchLaterMovies = async (token, dispatch, axiosJWT) => {
         headers: { token: `Bearer ${token}` },
       }
     );
-    // dispatch(getUsersSuccess(res.data));
-    // console.log(res);
+    dispatch(addArrWatchLater(res.data.markBookMovie));
+    // console.log(">>> getWatchLaterMovies <<<", res);
     return res;
   } catch (err) {
     // dispatch(getUsersFailed());

@@ -44,6 +44,7 @@ import { getWatchLaterMovies } from "../../../../store/apiRequest";
 // ];
 
 const WatchLaterMovie = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.login.currentUser);
   const accessToken = user?.accessToken;
   const userId = user?._id;
@@ -81,7 +82,7 @@ const WatchLaterMovie = () => {
   useEffect(() => {
     const renderWatchLaterMovies = async () => {
       try {
-        const res = await getWatchLaterMovies(accessToken, null, axiosJWT);
+        const res = await getWatchLaterMovies(accessToken, dispatch, axiosJWT);
         console.log(">>> Watch Later Film <<<", res.data.markBookMovie);
         setArrWatchLaterMovie(res.data.markBookMovie);
       } catch (err) {

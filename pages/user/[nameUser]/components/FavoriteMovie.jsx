@@ -6,7 +6,7 @@ import {
   toggleBookmarkMovie,
   toggleFavoriteMovie,
 } from "../../../../store/apiRequest";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // const arrFavoriteFilm = [
 //   {
@@ -48,6 +48,7 @@ import { useSelector } from "react-redux";
 // ];
 
 const FavoriteMovie = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.login.currentUser);
   const accessToken = user?.accessToken;
   const userId = user?._id;
@@ -86,7 +87,7 @@ const FavoriteMovie = () => {
   useEffect(() => {
     const renderFavoriteMovies = async () => {
       try {
-        const res = await getFavoriteMovies(accessToken, null, axiosJWT);
+        const res = await getFavoriteMovies(accessToken, dispatch, axiosJWT);
         console.log(">>> Favorite Film <<<", res);
         setArrFavoriteMovie(res.data.loveMovie);
       } catch (err) {
