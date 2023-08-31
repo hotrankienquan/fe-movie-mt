@@ -28,7 +28,7 @@ const Home = (props) => {
       try {
         const res = await getFavoriteMovies(accessToken, dispatch, axiosJWT);
 
-        // console.log(">>> Favorite Film <<<", res);
+        console.log(">>> Favorite Film <<<", res);
         // setArrFavoriteMovie(res.data.loveMovie);
       } catch (err) {
         console.log(err);

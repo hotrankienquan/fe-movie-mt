@@ -145,7 +145,7 @@ export const getFavoriteMovies = async (token, dispatch, axiosJWT) => {
       headers: { token: `Bearer ${token}` },
     });
     dispatch(addArrFavorite(res.data.loveMovie));
-    // console.log(">>> getFavoriteMovies <<<", res);
+    console.log(">>> getFavoriteMovies <<<", res.data.loveMovie);
     return res;
   } catch (err) {
     console.log(err);

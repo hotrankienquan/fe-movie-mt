@@ -13,7 +13,12 @@ const Movie = ({ item, favoriteFilm, watchLaterFilm }) => {
   const user = useSelector((state) => state.auth.login.currentUser);
   const userId = user?._id;
 
-  const [activeFavorite, setActiveFavorite] = useState(false);
+  // const [activeFavorite, setActiveFavorite] = useState(false);
+  const [activeFavorite, setActiveFavorite] = useState(() => {
+    return favoriteFilm?.some((movie) => movie._id === _id);
+  });
+  // console.log(activeFavorite);
+  // console.log("favoriteFilm", favoriteFilm);
   const [activeBookmark, setActiveBookmark] = useState(false);
 
   const handleLove = async (e) => {
@@ -44,18 +49,18 @@ const Movie = ({ item, favoriteFilm, watchLaterFilm }) => {
     }
   };
 
-  useEffect(() => {
-    const checkActiveFavoriteMovie = favoriteFilm?.some(
-      (movie) => movie._id === _id
-    );
-    console.log("checkActiveFavoriteMovie", checkActiveFavoriteMovie);
-    const checkActiveWatchLaterMovie = watchLaterFilm?.some(
-      (movie) => movie._id === _id
-    );
+  // useEffect(() => {
+  //   const checkActiveFavoriteMovie = favoriteFilm?.some(
+  //     (movie) => movie._id === _id
+  //   );
+  //   // console.log("checkActiveFavoriteMovie", checkActiveFavoriteMovie);
+  //   const checkActiveWatchLaterMovie = watchLaterFilm?.some(
+  //     (movie) => movie._id === _id
+  //   );
 
-    setActiveFavorite(checkActiveFavoriteMovie);
-    setActiveBookmark(checkActiveWatchLaterMovie);
-  }, [_id]);
+  //   // setActiveFavorite(checkActiveFavoriteMovie);
+  //   // setActiveBookmark(checkActiveWatchLaterMovie);
+  // }, [_id]);
 
   return (
     <div className="h-full">
