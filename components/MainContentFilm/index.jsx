@@ -12,30 +12,24 @@ import SidebarContentFilm from "../SidebarContentFilm";
 import MovieMainContent from "./components/Movie";
 import { useEffect } from "react";
 import SliderTopRatingofWeek from "../SliderRelatedFilm";
+import { useSelector } from "react-redux";
 
-const MainContentFilm = ({ movies }) => {
-  const [watchToday, setWatchToday] = useState([]);
-  const [latest, setLatest] = useState([]);
-  const [topRatingofWeek, setTopRatingofWeek] = useState([]);
+const MainContentFilm = () => {
+  const film = useSelector((state) => state.film);
+  const { movies, favoriteFilm, watchLaterFilm } = film;
 
   const arrSliderCategory = [
     {
       id: 1,
       title: "Xem gì hôm nay",
-      dataFilm: watchToday,
+      dataFilm: movies?.watchToday,
     },
     {
       id: 2,
       title: "Phim mới nhất",
-      dataFilm: latest,
+      dataFilm: movies?.latest,
     },
   ];
-
-  useEffect(() => {
-    setWatchToday(movies.watchToday);
-    setLatest(movies.latest);
-    setTopRatingofWeek(movies.topRatingofWeek);
-  }, [movies]);
 
   return (
     <>
@@ -72,11 +66,11 @@ const MainContentFilm = ({ movies }) => {
 
         {/* RIGHT */}
         <div className="col-span-2 px-2.5 h-full overflow-hidden">
-          <SidebarContentFilm movies={movies} />
+          <SidebarContentFilm />
         </div>
       </div>
 
-      <SliderTopRatingofWeek movies={topRatingofWeek} />
+      <SliderTopRatingofWeek movies={movies?.topRatingofWeek} />
     </>
   );
 };

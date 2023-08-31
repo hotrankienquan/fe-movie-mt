@@ -3,7 +3,7 @@ import { arrDetailInfoFilm, arrTopTrendingFilm } from "./constant";
 import Image from "next/legacy/image";
 import React from "react";
 
-const SidebarContentFilm = ({ movies }) => {
+const SidebarContentFilm = () => {
   // console.log(">>> Sidebar Main Content <<<", movies);
   return (
     <>

@@ -2,35 +2,34 @@ import { Inter } from "next/font/google";
 import LayoutRoot from "@/components/Layout";
 import Dashboard from "@/pages/Dashboard";
 import Head from "next/head";
-import { useEffect, useState, useLayoutEffect } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 const inter = Inter({ subsets: ["latin"] });
 import axios from "axios";
 import { createAxios } from "../utils/createInstance";
 import { getFavoriteMovies, getWatchLaterMovies } from "../store/apiRequest";
+import { addArrFavorite, addDataMovies } from "../store/filmSlice";
 
 const Home = (props) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.login?.currentUser);
-  // console.log(user);
   const accessToken = user?.accessToken;
   const userId = user?._id;
   let axiosJWT = createAxios(user, null, null);
-  // console.log("arr movie", props.movies);
   // console.log("dataMovies", props.dataMovies);
-  // console.log("arr category", props.categories);
 
-  const [arrFavoriteMovie, setArrFavoriteMovie] = useState([]);
-  const [arrWatchLaterMovie, setArrWatchLaterMovie] = useState([]);
+  console.log("render");
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const renderFavoriteMovies = async () => {
       try {
-        const res = await getFavoriteMovies(accessToken, null, axiosJWT);
+        const res = await getFavoriteMovies(accessToken, dispatch, axiosJWT);
+
         // console.log(">>> Favorite Film <<<", res);
-        setArrFavoriteMovie(res.data.loveMovie);
+        // setArrFavoriteMovie(res.data.loveMovie);
       } catch (err) {
         console.log(err);
       }
@@ -41,14 +40,20 @@ const Home = (props) => {
   useEffect(() => {
     const renderWatchLaterMovies = async () => {
       try {
-        const res = await getWatchLaterMovies(accessToken, null, axiosJWT);
+        const res = await getWatchLaterMovies(accessToken, dispatch, axiosJWT);
         // console.log(">>> Watch Later Film <<<", res.data.markBookMovie);
-        setArrWatchLaterMovie(res.data.markBookMovie);
+        // setArrWatchLaterMovie(res.data.markBookMovie);
       } catch (err) {
         console.log(err);
       }
     };
     renderWatchLaterMovies();
+  }, []);
+
+  useEffect(() => {
+    if (props.dataMovies) {
+      dispatch(addDataMovies(props.dataMovies));
+    }
   }, []);
 
   return (
@@ -69,11 +74,7 @@ const Home = (props) => {
         <meta property="og:title" content="My page title" key="title" />
       </Head>
       <LayoutRoot categories={props.categories}>
-        <Dashboard
-          dataMovies={props.dataMovies}
-          arrFavoriteMovie={arrFavoriteMovie}
-          arrWatchLaterMovie={arrWatchLaterMovie}
-        />
+        <Dashboard />
       </LayoutRoot>
     </>
   );

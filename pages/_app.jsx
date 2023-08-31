@@ -4,12 +4,11 @@ import { store, persistor } from "../store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-// analytic 
+// analytic
 export function reportWebVitals(metric) {
-  console.log("metric in _app",metric)
+  // console.log("metric in _app",metric)
 }
 export default function App({ Component, pageProps }) {
-
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

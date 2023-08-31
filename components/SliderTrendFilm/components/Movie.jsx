@@ -7,18 +7,8 @@ import {
   toggleFavoriteMovie,
 } from "../../../store/apiRequest";
 
-const Movie = ({ item, arrFavoriteMovie, arrWatchLaterMovie }) => {
-  let {
-    _id,
-    title,
-    slug,
-    photo,
-    category,
-    quality,
-    yearPublish,
-    timeVideo,
-    views,
-  } = item;
+const Movie = ({ item, favoriteFilm, watchLaterFilm }) => {
+  let { _id, title, slug, photo } = item;
 
   const user = useSelector((state) => state.auth.login.currentUser);
   const userId = user?._id;
@@ -33,7 +23,7 @@ const Movie = ({ item, arrFavoriteMovie, arrWatchLaterMovie }) => {
       setActiveFavorite(!activeFavorite);
 
       const res = await toggleFavoriteMovie(userId, _id, !activeFavorite);
-      console.log(res);
+      // console.log(res);
     } catch (err) {
       console.log(err);
       throw new Error(err);
@@ -55,16 +45,17 @@ const Movie = ({ item, arrFavoriteMovie, arrWatchLaterMovie }) => {
   };
 
   useEffect(() => {
-    const checkActiveFavoriteMovie = arrFavoriteMovie?.some(
+    const checkActiveFavoriteMovie = favoriteFilm?.some(
       (movie) => movie._id === _id
     );
-    const checkActiveWatchLaterMovie = arrWatchLaterMovie?.some(
+    console.log("checkActiveFavoriteMovie", checkActiveFavoriteMovie);
+    const checkActiveWatchLaterMovie = watchLaterFilm?.some(
       (movie) => movie._id === _id
     );
 
     setActiveFavorite(checkActiveFavoriteMovie);
     setActiveBookmark(checkActiveWatchLaterMovie);
-  }, [arrFavoriteMovie, _id]);
+  }, [_id]);
 
   return (
     <div className="h-full">

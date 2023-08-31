@@ -34,7 +34,14 @@ const RegisterPage = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const [password, confirmPassword] = watch(["password", "confirmPassword"]);
+  const [username, email, password, confirmPassword] = watch([
+    "username",
+    "email",
+    "password",
+    "confirmPassword",
+  ]);
+
+  console.log(username, email, password);
 
   // const onSubmit = async (dataForm) => {
   //   const base_url = process.env.NEXT_PUBLIC_URL;
@@ -98,7 +105,7 @@ const RegisterPage = () => {
           `${base_url}/api/v1/auth/register`,
           dataForm
         );
-        console.log(">>> Response REGISTER  <<<", response);
+        console.log(">>> Response REGISTER <<<", response);
         if (response.status === 200) {
           setVerifyOTP(true);
           console.log(response.data);
@@ -110,14 +117,41 @@ const RegisterPage = () => {
           dataForm
         );
         console.log(">>> Response REGISTER VERIFY <<<", response);
-        const data = response.data;
-        console.log(data);
         toast(response?.data?.mes);
         router.push("/login");
       }
     } catch (error) {
       console.log(error);
 
+      if (error.response.data.mes.code === 11000) {
+        toast(`${Object.keys(error.response.data.mes.keyValue)[0]} đã tồn tại`);
+      }
+
+      if (error?.response?.data?.code == 404) {
+        toast(error?.response?.data?.mes);
+        toast(error?.response?.data?.mes?.mes);
+      }
+    }
+  };
+
+  const reGeneratorOTP = async () => {
+    const base_url = process.env.NEXT_PUBLIC_URL;
+    const dataForm = { username, email, password };
+    try {
+      if ((username, email, password)) {
+        const response = await axios.post(
+          `${base_url}/api/v1/auth/register`,
+          dataForm
+        );
+        console.log(">>> Response REGISTER <<<", response);
+        if (response.status === 200) {
+          setVerifyOTP(true);
+          console.log(response.data);
+          toast(response?.data?.message);
+        }
+      }
+    } catch (error) {
+      console.log(error);
       if (error.response.data.mes.code === 11000) {
         toast(`${Object.keys(error.response.data.mes.keyValue)[0]} đã tồn tại`);
       }
@@ -230,7 +264,6 @@ const RegisterPage = () => {
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Xác nhận OTP từ Gmail
                   </label>
-
                   <div className="relative">
                     <input
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -239,6 +272,15 @@ const RegisterPage = () => {
                     />
                   </div>
                   {<span className="text-red-500">{errors.otp?.message}</span>}
+                  <p className="mt-2 text-[13px]">
+                    bạn chưa nhận được OTP ?{" "}
+                    <span
+                      className="underline cursor-pointer"
+                      onClick={reGeneratorOTP}
+                    >
+                      gửi lại
+                    </span>
+                  </p>
                 </div>
               )}
 
