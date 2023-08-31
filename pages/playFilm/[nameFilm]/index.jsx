@@ -32,7 +32,7 @@ const PlayFilmPage = ({ nameFilm, topRatingofWeek }) => {
   };
 
   useEffect(() => {
-    const timerId = setInterval(() => {
+    const timerId = setTimeout(() => {
       fetch(`${process.env.NEXT_PUBLIC_URL}/api/v1/movie/update-views`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -43,7 +43,7 @@ const PlayFilmPage = ({ nameFilm, topRatingofWeek }) => {
     }, TIME_UPDATE_VIEW);
     // after 15mins -> call api
     return () => {
-      clearInterval(timerId);
+      clearTimeout(timerId);
     };
   }, []);
   const user = useSelector((state) => state.auth.login.currentUser);
@@ -293,7 +293,7 @@ const PlayFilmPage = ({ nameFilm, topRatingofWeek }) => {
                   </span>
                 </div>
                 <div className="px-[15px] pb-[15px] border-b-[1px] border-[#21376c]">
-                  <p className="scroll_desc max-h-[200px] text-[15px] text-white">
+                  <p className="scroll_desc max-h-[200px] text-[15px] text-white overflow-y-auto">
                     {movie?.desc}
                   </p>
                 </div>
