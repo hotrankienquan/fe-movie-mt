@@ -1,16 +1,12 @@
-import { useState } from "react";
 import Link from "next/link";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {
-  arrSliderCategory,
-  arrSliderWatchFilmToday,
   settings,
 } from "./constant";
 import SidebarContentFilm from "../SidebarContentFilm";
 import MovieMainContent from "./components/Movie";
-import { useEffect } from "react";
 import SliderTopRatingofWeek from "../SliderRelatedFilm";
 import { useSelector } from "react-redux";
 
@@ -55,7 +51,7 @@ const MainContentFilm = () => {
               </div>
 
               <Slider {...settings}>
-                {item.dataFilm.map((item, index) => {
+                { item?.dataFilm?.map((item, index) => {
                   if (item !== null)
                     return <MovieMainContent key={item?._id} item={item} />;
                 })}
@@ -77,183 +73,3 @@ const MainContentFilm = () => {
 
 export default MainContentFilm;
 
-{
-  /* <Slider {...settings}>
-                {item.image.map((item, i) => (
-                  <div key={i} className="h-full">
-                    <div className="mx-2 relative h-full overflow-hidden group flex flex-col justify-between">
-                      <Link
-                        href="#"
-                        className="flex h-full items-center justify-center z-50 overflow-hidden"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          console.log(e.target);
-                        }}
-                      >
-                        <img
-                          src={item}
-                          alt="user profile avatar"
-                          className="block h-[200px] w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
-                        />
-                        <i className="fa-solid fa-circle-play text-4xl absolute text-white scale-150 opacity-0 group-hover:scale-100 group-hover:opacity-80 duration-500 ease-in-out"></i>
-                        <span className="absolute left-[15%] opacity-0 group-hover:opacity-100 duration-500 ease-in-out z-50">
-                          <button
-                            className="text-white z-50"
-                            // onClick={handleLove}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              console.log(e.target);
-                            }}
-                          >
-                            {false ? (
-                              <i className="fa-solid fa-heart text-xl"></i>
-                            ) : (
-                              <i className="fa-regular fa-heart text-xl"></i>
-                            )}
-                          </button>
-                        </span>
-                        <span className="absolute right-[15%] opacity-0 group-hover:opacity-100 duration-500 ease-in-out z-50">
-                          <button
-                            className="text-white z-50"
-                            // onClick={handleBookmark}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              console.log(e.target);
-                            }}
-                          >
-                            {false ? (
-                              <i className="fa-solid fa-bookmark text-xl"></i>
-                            ) : (
-                              <i className="fa-regular fa-bookmark text-xl"></i>
-                            )}
-                          </button>
-                        </span>
-                      </Link>
-
-                      <div className="absolute top-[40%] inset-x-0 bg-black">
-                        <span className="absolute left-[15%] duration-500 ease-in-out z-50">
-                          <button
-                            className="text-white z-50"
-                            // onClick={handleLove}
-                          >
-                            {false ? (
-                              <i className="fa-solid fa-heart text-2xl"></i>
-                            ) : (
-                              <i className="fa-regular fa-heart text-2xl"></i>
-                            )}
-                          </button>
-                        </span>
-
-                        <span className="absolute right-[15%] duration-500 ease-in-out z-50">
-                          <button
-                            className="text-white z-50"
-                            // onClick={handleBookmark}
-                          >
-                            {false ? (
-                              <i className="fa-solid fa-bookmark text-2xl"></i>
-                            ) : (
-                              <i className="fa-regular fa-bookmark text-2xl"></i>
-                            )}
-                          </button>
-                        </span>
-                      </div>
-
-                      <div className="p-2 bg-black bg-opacity-70 text-white">
-                        <h3 className="whitespace-nowrap text-ellipsis overflow-hidden">
-                          <Link href="/cc" title="film">
-                            OpenHeimmerccccccccccccccccccccccccccccccccc
-                          </Link>
-                        </h3>
-                        <p className="text-sm opacity-50 whitespace-nowrap text-ellipsis overflow-hidden">
-                          OpenHeimmerccccccccccccccccccccccccccccccccc
-                        </p>
-                        <p className="text-[10px] opacity-50 whitespace-nowrap text-ellipsis overflow-hidden">
-                          Tài liệu • Môi trường • 10'
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </Slider> */
-}
-
-{
-  /* {arrSliderWatchFilmToday.map((item, i) => (
-        <div key={item.id} className="mt-14">
-          <div className="px-2.5 mb-4">
-            <h3 className="text-[#da966e] text-2xl font-normal border-l-4 pl-2.5">
-              {item.title.toUpperCase()}
-            </h3>
-          </div>
-          <Slider {...settings}>
-            {item.image.map((item, i) => (
-              <div key={i} className="h-full">
-                <div className="mx-2 relative h-full overflow-hidden group flex flex-col justify-between">
-                  <Link
-                    href="#"
-                    className="flex h-full items-center justify-center z-50 overflow-hidden"
-                  >
-                    <img
-                      src={item}
-                      alt="user profile avatar"
-                      className="block h-[280px] w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
-                    />
-                    <i className="fa-solid fa-circle-play text-4xl absolute text-white scale-150 opacity-0 group-hover:scale-100 group-hover:opacity-80 duration-500 ease-in-out"></i>
-                    <span className="absolute left-[25%] opacity-0 group-hover:opacity-100 duration-500 ease-in-out z-50">
-                      <button
-                        className="text-white z-50"
-                        // onClick={handleLove}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          console.log(e.target);
-                        }}
-                      >
-                        {false ? (
-                          <i className="fa-solid fa-heart text-xl"></i>
-                        ) : (
-                          <i className="fa-regular fa-heart text-xl"></i>
-                        )}
-                      </button>
-                    </span>
-                    <span className="absolute right-[25%] opacity-0 group-hover:opacity-100 duration-500 ease-in-out z-50">
-                      <button
-                        className="text-white z-50"
-                        // onClick={handleBookmark}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          console.log(e.target);
-                        }}
-                      >
-                        {false ? (
-                          <i className="fa-solid fa-bookmark text-xl"></i>
-                        ) : (
-                          <i className="fa-regular fa-bookmark text-xl"></i>
-                        )}
-                      </button>
-                    </span>
-                  </Link>
-
-                  <div className="p-2 bg-black bg-opacity-70 text-white">
-                    <h3 className="whitespace-nowrap text-ellipsis overflow-hidden">
-                      <Link href="/cc" title="film">
-                        OpenHeimmerccccccccccccccccccccccccccccccccc
-                      </Link>
-                    </h3>
-                    <p className="text-sm opacity-50 whitespace-nowrap text-ellipsis overflow-hidden">
-                      OpenHeimmerccccccccccccccccccccccccccccccccc
-                    </p>
-                    <p className="text-[10px] opacity-50 whitespace-nowrap text-ellipsis overflow-hidden">
-                      Tài liệu • Môi trường • 10'
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </Slider>
-        </div>
-      ))} */
-}

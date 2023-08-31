@@ -1,29 +1,32 @@
 import Image from "next/legacy/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
+  getFavoriteMovies,
   toggleBookmarkMovie,
   toggleFavoriteMovie,
 } from "../../../store/apiRequest";
+import { createAxios } from "../../../utils/createInstance";
 
 const Movie = ({ item, favoriteFilm, watchLaterFilm }) => {
   let { _id, title, slug, photo } = item;
-
   const user = useSelector((state) => state.auth.login.currentUser);
   const userId = user?._id;
 
-  const [activeFavorite, setActiveFavorite] = useState(false);
+  const [activeFavorite, setActiveFavorite] = useState( favoriteFilm.some(item=>item._id == _id)||false);
   const [activeBookmark, setActiveBookmark] = useState(false);
-
+  const dispatch = useDispatch();
+  const accessToken = user?.accessToken;
+  let axiosJWT = createAxios(user, null, null);
   const handleLove = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     try {
       setActiveFavorite(!activeFavorite);
 
-      const res = await toggleFavoriteMovie(userId, _id, !activeFavorite);
-      // console.log(res);
+      await toggleFavoriteMovie(userId, _id, !activeFavorite);
+       await getFavoriteMovies(accessToken, dispatch, axiosJWT);
     } catch (err) {
       console.log(err);
       throw new Error(err);
@@ -43,19 +46,6 @@ const Movie = ({ item, favoriteFilm, watchLaterFilm }) => {
       throw new Error(err);
     }
   };
-
-  useEffect(() => {
-    const checkActiveFavoriteMovie = favoriteFilm?.some(
-      (movie) => movie._id === _id
-    );
-    console.log("checkActiveFavoriteMovie", checkActiveFavoriteMovie);
-    const checkActiveWatchLaterMovie = watchLaterFilm?.some(
-      (movie) => movie._id === _id
-    );
-
-    setActiveFavorite(checkActiveFavoriteMovie);
-    setActiveBookmark(checkActiveWatchLaterMovie);
-  }, [_id]);
 
   return (
     <div className="h-full">

@@ -2,15 +2,14 @@ import { Inter } from "next/font/google";
 import LayoutRoot from "@/components/Layout";
 import Dashboard from "@/pages/Dashboard";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import Cookies from "js-cookie";
 const inter = Inter({ subsets: ["latin"] });
 import axios from "axios";
 import { createAxios } from "../utils/createInstance";
 import { getFavoriteMovies, getWatchLaterMovies } from "../store/apiRequest";
-import { addArrFavorite, addDataMovies } from "../store/filmSlice";
+import { addDataMovies } from "../store/filmSlice";
 
 const Home = (props) => {
   const router = useRouter();
@@ -26,10 +25,7 @@ const Home = (props) => {
   useEffect(() => {
     const renderFavoriteMovies = async () => {
       try {
-        const res = await getFavoriteMovies(accessToken, dispatch, axiosJWT);
-
-        // console.log(">>> Favorite Film <<<", res);
-        // setArrFavoriteMovie(res.data.loveMovie);
+       await getFavoriteMovies(accessToken, dispatch, axiosJWT);
       } catch (err) {
         console.log(err);
       }
@@ -40,9 +36,7 @@ const Home = (props) => {
   useEffect(() => {
     const renderWatchLaterMovies = async () => {
       try {
-        const res = await getWatchLaterMovies(accessToken, dispatch, axiosJWT);
-        // console.log(">>> Watch Later Film <<<", res.data.markBookMovie);
-        // setArrWatchLaterMovie(res.data.markBookMovie);
+        await getWatchLaterMovies(accessToken, dispatch, axiosJWT);
       } catch (err) {
         console.log(err);
       }

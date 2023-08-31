@@ -137,7 +137,6 @@ export const getAllMovies = async () => {
 };
 
 export const getFavoriteMovies = async (token, dispatch, axiosJWT) => {
-  // dispatch(getUsersStart());
   const base_url = process.env.NEXT_PUBLIC_URL;
 
   try {
@@ -145,7 +144,6 @@ export const getFavoriteMovies = async (token, dispatch, axiosJWT) => {
       headers: { token: `Bearer ${token}` },
     });
     dispatch(addArrFavorite(res.data.loveMovie));
-    // console.log(">>> getFavoriteMovies <<<", res);
     return res;
   } catch (err) {
     console.log(err);
@@ -182,7 +180,6 @@ export const toggleFavoriteMovie = async (userId, movieId, isLove) => {
       `${base_url}/api/v1/movie/add-love-movie`,
       data
     );
-    console.log(res);
     return res;
     // dispatch(getUsersSuccess(res.data));
   } catch (err) {
