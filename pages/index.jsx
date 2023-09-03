@@ -24,8 +24,8 @@ const Home = (props) => {
   console.log("render home");
 
   useEffect(() => {
-    if (props.dataMovies) {
-      dispatch(addDataMovies(props.dataMovies));
+    if (props?.dataMovies) {
+      dispatch(addDataMovies(props?.dataMovies));
     }
   }, []);
 
@@ -46,7 +46,7 @@ const Home = (props) => {
         />
         <meta property="og:title" content="My page title" key="title" />
       </Head>
-      <LayoutRoot categories={props.categories}>
+      <LayoutRoot categories={props?.categories}>
         <Dashboard />
       </LayoutRoot>
     </>
@@ -61,8 +61,8 @@ export async function getStaticProps(context) {
   );
   return {
     props: {
-      dataMovies: allMovie.data.data,
-      categories: allCategory.data.data,
+      dataMovies: allMovie?.data?.data,
+      categories: allCategory?.data?.data,
     },
     revalidate: 20,
   };
