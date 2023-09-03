@@ -1,11 +1,19 @@
+import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ReactStars from "react-stars";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { createAxios } from "../../../../utils/createInstance";
 
 const VideoDetail = ({ movie }) => {
-  console.log(movie);
   const user = useSelector((state) => state.auth.login.currentUser);
+  const userId = user?._id;
+  const accessToken = user?.accessToken;
+  const dispatch = useDispatch();
+  let axiosJWT = createAxios(user, null, null);
+
   const category = movie?.category?.map((category) => category.name);
   const arrDetailInfoFilm = [
     { id: 1, name: "Thể loại", text: category },
@@ -17,8 +25,30 @@ const VideoDetail = ({ movie }) => {
     { id: 7, name: "Lượt xem", text: movie.views },
   ];
 
-  const ratingChanged = (newRating) => {
+  const ratingChanged = async (newRating) => {
     console.log(newRating);
+    const base_url = process.env.NEXT_PUBLIC_URL;
+    const data = {
+      name: user?.username,
+      point: Number(newRating) * 2,
+      movieId: movie._id,
+    };
+
+    try {
+      const response = await axiosJWT.post(
+        `${base_url}/api/v1/movie/rating`,
+        data,
+        {
+          headers: { token: `Bearer ${accessToken}` },
+        }
+      );
+      console.log("ratingChanged", response);
+      if (response.data.code === 200) {
+        toast(response?.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -116,6 +146,7 @@ const VideoDetail = ({ movie }) => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

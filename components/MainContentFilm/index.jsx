@@ -11,8 +11,8 @@ import { useSelector } from "react-redux";
 const MainContentFilm = () => {
   const film = useSelector((state) => state.film);
   const { movies, favoriteFilm, watchLaterFilm } = film;
-  console.log(movies);
-  console.log(movies?.watchToday);
+  // console.log(movies);
+  // console.log(movies?.watchToday);
 
   const arrSliderCategory = [
     {
@@ -32,8 +32,13 @@ const MainContentFilm = () => {
       <div className="grid grid-cols-7 -mx-2.5 gap-6 h-[700px] overflow-hidden">
         {/* LEFT */}
         <div className="col-span-5 h-full flex flex-col justify-between">
-          {arrSliderCategory.map((item) => (
-            <div key={item.id} className="mb-10">
+          {arrSliderCategory.map((item, index) => (
+            <div
+              key={item.id}
+              className={`${
+                index === arrSliderCategory.length - 1 ? "" : "mb-10"
+              }`}
+            >
               <div className="px-2.5 mb-4 flex justify-between items-center">
                 <h3 className="text-[#da966e] text-2xl font-normal border-l-4 pl-2.5">
                   {item.title}
@@ -81,7 +86,7 @@ const MainContentFilm = () => {
 
         {/* RIGHT */}
         <div className="col-span-2 px-2.5 h-full overflow-hidden">
-          <SidebarContentFilm />
+          <SidebarContentFilm movies={movies?.awards} />
         </div>
       </div>
 

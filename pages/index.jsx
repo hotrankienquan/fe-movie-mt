@@ -23,31 +23,6 @@ const Home = (props) => {
 
   console.log("render home");
 
-  // useEffect(() => {
-  //   const renderFavoriteMovies = async () => {
-  //     try {
-  //       const res = await getFavoriteMovies(accessToken, dispatch, axiosJWT);
-
-  //       // console.log(">>> Favorite Film <<<", res);
-  //       // setArrFavoriteMovie(res.data.loveMovie);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   renderFavoriteMovies();
-  // }, []);
-
-  // useEffect(() => {
-  //   const renderWatchLaterMovies = async () => {
-  //     try {
-  //       await getWatchLaterMovies(accessToken, dispatch, axiosJWT);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   renderWatchLaterMovies();
-  // }, []);
-
   useEffect(() => {
     if (props.dataMovies) {
       dispatch(addDataMovies(props.dataMovies));
