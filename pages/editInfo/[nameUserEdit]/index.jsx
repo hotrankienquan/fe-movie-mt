@@ -12,8 +12,9 @@ import { updateInfoUser } from "../../../store/apiRequest";
 import { createAxios } from "../../../utils/createInstance";
 import Cookies from "js-cookie";
 import ProtectedRoute from "../../../utils/ProtectedRoutes";
+import axios from "axios";
 
-const EditInfoUser = ({ nameUserEdit }) => {
+const EditInfoUser = ({ nameUserEdit, categories }) => {
   const schema = yup.object().shape({
     username: yup.string().min(6).max(20).required(),
     email: yup.string().email("Invalid email format").required(),
@@ -68,7 +69,7 @@ const EditInfoUser = ({ nameUserEdit }) => {
 
   return (
     <ProtectedRoute>
-      <LayoutManageInfo>
+      <LayoutManageInfo categories={categories}>
         <div className="mt-20 mb-8 min-h-[400px] overflow-hidden">
           <div className="flex justify-start items-center mb-[25px]">
             <div className="h-[130px] w-[130px]">
@@ -218,7 +219,11 @@ export async function getServerSideProps(context) {
   // console.log(Cookies.parse(context.req.headers.cookie));
   // console.log(context.req.headers.cookie);
   const nameUserEdit = context.params.nameUserEdit;
+  let allCategory = await axios.get(
+    `${process.env.NEXT_PUBLIC_URL}/api/v1/category`
+  );
+
   return {
-    props: { nameUserEdit },
+    props: { nameUserEdit, categories: allCategory.data.data },
   };
 }

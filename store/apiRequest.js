@@ -137,15 +137,17 @@ export const getAllMovies = async () => {
 };
 
 export const getFavoriteMovies = async (token, dispatch, axiosJWT) => {
-  // dispatch(getUsersStart());
   const base_url = process.env.NEXT_PUBLIC_URL;
 
   try {
-    const res = await axiosJWT.get(`${base_url}/api/v1/user/get-love-movie`, {
-      headers: { token: `Bearer ${token}` },
-    });
+    const res = await axiosJWT.get(
+      `${base_url}/api/v1/user/get-favorite-movie`,
+      {
+        headers: { token: `Bearer ${token}` },
+      }
+    );
     dispatch(addArrFavorite(res.data.loveMovie));
-    console.log(">>> getFavoriteMovies <<<", res.data.loveMovie);
+    // console.log(">>> getFavoriteMovies <<<", res);
     return res;
   } catch (err) {
     console.log(err);
@@ -173,13 +175,48 @@ export const getWatchLaterMovies = async (token, dispatch, axiosJWT) => {
   }
 };
 
-export const toggleFavoriteMovie = async (userId, movieId, isLove) => {
+export const addFavoriteMovie = async (userId, movieId, isLove) => {
   const data = { userId, movieId, isLove };
   const base_url = process.env.NEXT_PUBLIC_URL;
   // dispatch(getUsersStart());
   try {
     const res = await axios.post(
-      `${base_url}/api/v1/movie/add-love-movie`,
+      `${base_url}/api/v1/movie/add-favorite-movie`,
+      data
+    );
+    return res;
+    // dispatch(getUsersSuccess(res.data));
+  } catch (err) {
+    // dispatch(getUsersFailed());
+    console.log(err);
+    throw new Error(err);
+  }
+};
+export const deleteFavoriteMovie = async (userId, movieId, isLove) => {
+  const data = { userId, movieId, isLove };
+  const base_url = process.env.NEXT_PUBLIC_URL;
+  // dispatch(getUsersStart());
+  try {
+    const res = await axios.post(
+      `${base_url}/api/v1/movie/delete-favorite-movie`,
+      data
+    );
+    return res;
+    // dispatch(getUsersSuccess(res.data));
+  } catch (err) {
+    // dispatch(getUsersFailed());
+    console.log(err);
+    throw new Error(err);
+  }
+};
+
+export const addBookmarkMovie = async (userId, movieId, isBookmark) => {
+  const data = { userId, movieId, isBookmark };
+  const base_url = process.env.NEXT_PUBLIC_URL;
+  // dispatch(getUsersStart());
+  try {
+    const res = await axios.post(
+      `${base_url}/api/v1/movie/add-bookmark-movie`,
       data
     );
     console.log(res);
@@ -191,14 +228,13 @@ export const toggleFavoriteMovie = async (userId, movieId, isLove) => {
     throw new Error(err);
   }
 };
-
-export const toggleBookmarkMovie = async (userId, movieId, isBookmark) => {
+export const deleteBookmarkMovie = async (userId, movieId, isBookmark) => {
   const data = { userId, movieId, isBookmark };
   const base_url = process.env.NEXT_PUBLIC_URL;
   // dispatch(getUsersStart());
   try {
     const res = await axios.post(
-      `${base_url}/api/v1/movie/add-bookmark-movie`,
+      `${base_url}/api/v1/movie/delete-bookmark-movie`,
       data
     );
     console.log(res);

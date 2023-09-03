@@ -1,17 +1,12 @@
-import Image from "next/legacy/image";
-import Link from "next/link";
-import { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getFavoriteMovies,
-  getWatchLaterMovies,
-  addBookmarkMovie,
-  addFavoriteMovie,
-} from "../../../store/apiRequest";
 import { createAxios } from "../../../utils/createInstance";
+import { useState } from "react";
+import { addBookmarkMovie, addFavoriteMovie } from "../../../store/apiRequest";
+import Link from "next/link";
+import Image from "next/legacy/image";
 
 const Movie = ({ item, toast }) => {
-  let { _id, title, slug, photo } = item;
   const user = useSelector((state) => state.auth.login.currentUser);
   const userId = user?._id;
   const dispatch = useDispatch();
@@ -30,7 +25,7 @@ const Movie = ({ item, toast }) => {
     e.preventDefault();
     e.stopPropagation();
     try {
-      const res = await addFavoriteMovie(userId, _id);
+      const res = await addFavoriteMovie(userId, item._id);
       console.log(">>> addFavoriteMovie <<<", res);
       toast(res?.data?.message);
     } catch (err) {
@@ -43,7 +38,7 @@ const Movie = ({ item, toast }) => {
     e.preventDefault();
     e.stopPropagation();
     try {
-      const res = await addBookmarkMovie(userId, _id);
+      const res = await addBookmarkMovie(userId, item._id);
       console.log(res);
       toast(res?.data?.message);
     } catch (err) {
@@ -53,21 +48,25 @@ const Movie = ({ item, toast }) => {
   };
 
   return (
-    <div className="h-full">
-      <div className="relative overflow-hidden h-full mx-2.5 group">
-        <Link className="block h-full w-full z-20" href={`/playFilm/${slug}`}>
+    <div className="h-[300px] overflow-hidden">
+      <div className="relative h-full overflow-hidden group">
+        <Link
+          href={`/playFilm/${item.slug}`}
+          className="absolute h-full w-full group overflow-hidden"
+        >
           <Image
-            className="h-full block w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50"
-            src={photo?.[0] || "/vercel.svg"}
-            alt={photo?.[0]}
+            className="h-full block w-full object-cover group-hover:opacity-70 transition-all duration-500"
+            src={item.photo?.[0] || "/vercel.svg"}
+            alt="error"
             layout="fill"
             // width={213}
             // height={340}
             // loading="lazy"
             priority
           />
-          <span className="flex justify-center absolute top-[43%] inset-x-0">
-            <i className="fa-solid fa-circle-play text-5xl text-white scale-150 opacity-0 group-hover:scale-100 group-hover:opacity-80 duration-500 ease-in-out"></i>
+
+          <span className="opacity-0 group-hover:opacity-100 absolute top-[40%] inset-x-0 text-white text-center transition-all duration-500">
+            <i className="fa-regular fa-circle-play text-4xl"></i>
           </span>
 
           <span className="h-[20px] w-[20px] absolute top-0 right-0 bg-white cursor-pointer z-30">
@@ -76,7 +75,7 @@ const Movie = ({ item, toast }) => {
               onClick={handleShowMenuMovie}
             ></i>
             {showMenu && (
-              <span className="py-1 absolute top-0 right-[100%] bg-white  min-w-[100px] z-40">
+              <span className="py-1 absolute top-0 right-[100%] bg-white min-w-[100px] z-40">
                 <span
                   className="px-2 flex justify-start items-center hover:bg-[rgba(0,0,0,0.3)] z-50"
                   onClick={handleFavorite}
@@ -94,23 +93,19 @@ const Movie = ({ item, toast }) => {
               </span>
             )}
           </span>
-        </Link>
 
-        <div className="absolute bottom-0 left-0 right-0 text-center p-2 bg-black bg-opacity-70">
-          <span className=" block text-white">
+          <span className="p-2 absolute bottom-0 inset-x-0 text-white bg-black bg-opacity-70">
             <h3 className="whitespace-nowrap text-ellipsis overflow-hidden">
-              <Link
-                // href={`/playFilm/${title.replace(/\s+/g, "-")}`}
-                href={`/playFilm/${slug}`}
-                title="film"
-              >
-                {title || "title"}
-              </Link>
+              {item.title}
             </h3>
+            <p className="text-sm opacity-50 whitespace-nowrap text-ellipsis overflow-hidden">
+              {item.titleWithoutAccent}
+            </p>
           </span>
-        </div>
+        </Link>
       </div>
     </div>
   );
 };
+
 export default Movie;

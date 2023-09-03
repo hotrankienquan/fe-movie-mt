@@ -38,3 +38,16 @@ export const searchMovies = async (query) => {
     throw new Error(err);
   }
 };
+
+export const getMoviesByCate = async (cateId, currentPage, pageSize) => {
+  const base_url = process.env.NEXT_PUBLIC_URL;
+  try {
+    const res = await axios.get(
+      `${base_url}/api/v1/movie/get-category-movie?cateId=${cateId}&page=${currentPage}&pageSize=${pageSize}`
+    );
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
+  }
+};

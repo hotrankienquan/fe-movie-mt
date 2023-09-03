@@ -8,6 +8,8 @@ import Movie from "./components/Movie";
 import { getAllMovies, getAllUsers } from "../../store/apiRequest";
 import { useSelector } from "react-redux";
 import { createAxios } from "../../utils/createInstance";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SliderTrendingFilm = () => {
   const user = useSelector((state) => state.auth.login.currentUser);
@@ -18,7 +20,7 @@ const SliderTrendingFilm = () => {
   const film = useSelector((state) => state.film);
   const { movies, favoriteFilm, watchLaterFilm } = film;
   // console.log(movies?.trending);
-  console.log(favoriteFilm);
+  // console.log(favoriteFilm);
 
   return (
     <div className="mt-20 mb-8 -mx-2.5">
@@ -37,19 +39,10 @@ const SliderTrendingFilm = () => {
 
       <Slider {...settings}>
         {movies?.trending?.map((item, index) => {
-          {
-            /* console.log(item); */
-          }
-          return (
-            <Movie
-              key={item._id}
-              item={item}
-              favoriteFilm={favoriteFilm}
-              watchLaterFilm={watchLaterFilm}
-            />
-          );
+          return <Movie key={item._id} item={item} toast={toast} />;
         })}
       </Slider>
+      <ToastContainer />
     </div>
   );
 };

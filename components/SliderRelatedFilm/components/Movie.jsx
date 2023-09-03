@@ -3,47 +3,40 @@ import Image from "next/legacy/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  toggleBookmarkMovie,
-  toggleFavoriteMovie,
-} from "../../../store/apiRequest";
+import { addBookmarkMovie, addFavoriteMovie } from "../../../store/apiRequest";
 
-const MovieRalated = ({ item }) => {
+const MovieRalated = ({ item, toast }) => {
   let {
     _id,
     title,
     titleWithoutAccent,
     slug,
-    desc,
-    author,
-    actors,
     photo,
-    video,
     category,
-    rating,
     quality,
     yearPublish,
     timeVideo,
-    country,
     views,
-    updated,
-    image,
   } = item;
 
   const user = useSelector((state) => state.auth.login.currentUser);
   const userId = user?._id;
 
-  const [activeFavorite, setActiveFavorite] = useState(false);
-  const [activeBookmark, setActiveBookmark] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  const handleShowMenuMovie = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowMenu(!showMenu);
+    console.log("toggle");
+  };
 
-  const handleLove = async (e) => {
+  const handleFavorite = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     try {
-      setActiveFavorite(!activeFavorite);
-
-      const res = await toggleFavoriteMovie(userId, _id, !activeFavorite);
-      console.log(res);
+      const res = await addFavoriteMovie(userId, _id);
+      console.log(">>> addFavoriteMovie <<<", res);
+      toast(res?.data?.message);
     } catch (err) {
       console.log(err);
       throw new Error(err);
@@ -54,10 +47,9 @@ const MovieRalated = ({ item }) => {
     e.preventDefault();
     e.stopPropagation();
     try {
-      setActiveBookmark(!activeBookmark);
-
-      const res = await toggleBookmarkMovie(userId, _id, !activeBookmark);
+      const res = await addBookmarkMovie(userId, _id);
       console.log(res);
+      toast(res?.data?.message);
     } catch (err) {
       console.log(err);
       throw new Error(err);
@@ -93,24 +85,29 @@ const MovieRalated = ({ item }) => {
             <i className="fa-regular fa-circle-play text-4xl"></i>
           </span>
 
-          <span className="absolute top-[40%] left-[20%] opacity-0 group-hover:opacity-100 duration-500 ease-in-out z-50">
-            <button className="text-white z-50" onClick={handleLove}>
-              {activeFavorite ? (
-                <i className="fa-solid fa-heart text-2xl"></i>
-              ) : (
-                <i className="fa-regular fa-heart text-2xl"></i>
-              )}
-            </button>
-          </span>
-
-          <span className="absolute top-[40%] right-[20%] opacity-0 group-hover:opacity-100 duration-500 ease-in-out z-50">
-            <button className="text-white z-50" onClick={handleBookmark}>
-              {activeBookmark ? (
-                <i className="fa-solid fa-bookmark text-2xl"></i>
-              ) : (
-                <i className="fa-regular fa-bookmark text-2xl"></i>
-              )}
-            </button>
+          <span className="h-[20px] w-[20px] absolute top-0 right-0 bg-white cursor-pointer z-30">
+            <i
+              className="fa-solid fa-ellipsis-vertical flex justify-center items-center flex-1 w-full h-full text-center z-30"
+              onClick={handleShowMenuMovie}
+            ></i>
+            {showMenu && (
+              <span className="py-1 absolute top-0 right-[100%] bg-white min-h-[50px] min-w-[100px] z-40">
+                <span
+                  className="px-2 flex justify-start items-center hover:bg-[rgba(0,0,0,0.3)] z-50"
+                  onClick={handleFavorite}
+                >
+                  <p className="flex-1 w-full whitespace-nowrap">Yêu thích</p>
+                  <i className="fa-regular fa-heart my-auto"></i>
+                </span>
+                <span
+                  className="px-2 flex justify-start items-center mt-1 hover:bg-[rgba(0,0,0,0.3)] z-50"
+                  onClick={handleBookmark}
+                >
+                  <p className="flex-1 w-full whitespace-nowrap">Xem sau</p>
+                  <i className="fa-regular fa-clock my-auto"></i>
+                </span>
+              </span>
+            )}
           </span>
 
           <span className="p-2 absolute bottom-0 inset-x-0 text-white bg-black bg-opacity-70">
