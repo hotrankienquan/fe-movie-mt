@@ -207,6 +207,11 @@ const PlayFilmPage = ({ nameFilm, topRatingofWeek }) => {
               {/* SECTION INFO FILM */}
               <div className="overflow-hidden">
                 <div className="players-container">
+                  <JWPlayer
+                  
+                  file={`/stream/rieng-minh-anh-reddy-_-official-lyrics-video.m3u8`}
+  library='https://content.jwplatform.com/libraries/j9BLvpMc.js'
+/>
                   {/* <JWPlayer
                     // library="https://content.jwplatform.com/libraries/j9BLvpMc.js"
                     // playlist="https://cdn.jwplayer.com/v2/playlists/B8FTSH9D"
@@ -219,8 +224,10 @@ const PlayFilmPage = ({ nameFilm, topRatingofWeek }) => {
                     // }
                   /> */}
 
-                  <ReactPlayer
-                    url={movie?.video?.[0]}
+                  {/* <ReactPlayer
+                  // url={`${process.env.NEXT_PUBLIC_URL}/riengminhanh.mp4`}
+                  // url={`/rieng-minh-anh-reddy-_-official-lyrics-video.m3u8`}
+                    // url={movie?.video?.[0]}
                     // url={"https://youtu.be/DWYwmTdXpqw?si=yAfzJl4ilB-Y0fWd"}
                     // url={
                     //   "https://firebasestorage.googleapis.com/v0/b/movie-the-stone-d9f38.appspot.com/o/files%2FB%C3%A1%C2%BA%C2%A3n%20in%20l%C3%A1%C2%BB%C2%97i.mp4%20%20%20%20%20%20%202023-8-16%2022%3A53%3A35?alt=media&token=f6bd78f4-3f03-40c8-a4f8-5ec41902866d"
@@ -256,7 +263,8 @@ const PlayFilmPage = ({ nameFilm, topRatingofWeek }) => {
                         },
                       },
                     }}
-                  />
+                  /> */}
+                 
                 </div>
               </div>
 
