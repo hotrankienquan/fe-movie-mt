@@ -16,33 +16,37 @@ const Home = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.login?.currentUser);
   const accessToken = user?.accessToken;
+  // console.log(accessToken);
   const userId = user?._id;
   let axiosJWT = createAxios(user, null, null);
   // console.log("dataMovies", props.dataMovies);
 
-  console.log("render");
+  console.log("render home");
 
-  useEffect(() => {
-    const renderFavoriteMovies = async () => {
-      try {
-       await getFavoriteMovies(accessToken, dispatch, axiosJWT);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    renderFavoriteMovies();
-  }, []);
+  // useEffect(() => {
+  //   const renderFavoriteMovies = async () => {
+  //     try {
+  //       const res = await getFavoriteMovies(accessToken, dispatch, axiosJWT);
 
-  useEffect(() => {
-    const renderWatchLaterMovies = async () => {
-      try {
-        await getWatchLaterMovies(accessToken, dispatch, axiosJWT);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    renderWatchLaterMovies();
-  }, []);
+  //       // console.log(">>> Favorite Film <<<", res);
+  //       // setArrFavoriteMovie(res.data.loveMovie);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   renderFavoriteMovies();
+  // }, []);
+
+  // useEffect(() => {
+  //   const renderWatchLaterMovies = async () => {
+  //     try {
+  //       await getWatchLaterMovies(accessToken, dispatch, axiosJWT);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   renderWatchLaterMovies();
+  // }, []);
 
   useEffect(() => {
     if (props.dataMovies) {

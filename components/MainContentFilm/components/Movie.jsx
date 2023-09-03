@@ -2,11 +2,16 @@ import React from "react";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  toggleBookmarkMovie,
-  toggleFavoriteMovie,
+  getFavoriteMovies,
+  getWatchLaterMovies,
+  addBookmarkMovie,
+  addFavoriteMovie,
 } from "../../../store/apiRequest";
+import { createAxios } from "../../../utils/createInstance";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MovieMainContent = ({ item }) => {
   let {
@@ -14,47 +19,37 @@ const MovieMainContent = ({ item }) => {
     title,
     titleWithoutAccent,
     slug,
-    desc,
-    author,
-    actors,
     photo,
-    video,
     category,
-    rating,
     quality,
     yearPublish,
     timeVideo,
-    country,
     views,
-    updated,
-    image,
   } = item;
+
   const user = useSelector((state) => state.auth.login.currentUser);
   const userId = user?._id;
-  const [activeFavorite, setActiveLove] = useState(false);
-  const [activeBookmark, setActiveBookmark] = useState(false);
+  const film = useSelector((state) => state.film);
+  const { favoriteFilm, watchLaterFilm } = film;
+  const dispatch = useDispatch();
+  const accessToken = user?.accessToken;
+  let axiosJWT = createAxios(user, null, null);
 
-  // function handleLove(e) {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   setActive(!activeFavorite);
-  //   console.log(e.target);
-  // }
-  // function handleBookmark(e) {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   setActiveBookmark(!activeBookmark);
-  //   console.log(e.target);
-  // }
+  const [showMenu, setShowMenu] = useState(false);
+  const handleShowMenuMovie = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowMenu(!showMenu);
+    console.log("toggle");
+  };
 
-  const handleLove = async (e) => {
+  const handleFavorite = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     try {
-      setActiveLove(!activeFavorite);
-
-      const res = await toggleFavoriteMovie(userId, _id, !activeFavorite);
+      const res = await addFavoriteMovie(userId, _id);
       console.log(res);
+      toast(res?.data?.message);
     } catch (err) {
       console.log(err);
       throw new Error(err);
@@ -65,10 +60,9 @@ const MovieMainContent = ({ item }) => {
     e.preventDefault();
     e.stopPropagation();
     try {
-      setActiveBookmark(!activeBookmark);
-
-      const res = await toggleBookmarkMovie(userId, _id, !activeBookmark);
+      const res = await addBookmarkMovie(userId, _id);
       console.log(res);
+      toast(res?.data?.message);
     } catch (err) {
       console.log(err);
       throw new Error(err);
@@ -91,23 +85,30 @@ const MovieMainContent = ({ item }) => {
             className="block h-[200px] w-full object-cover group-hover:scale-110 transition-all duration-300 group-hover:opacity-50 "
           />
           <i className="fa-solid fa-circle-play text-4xl absolute text-white scale-150 opacity-0 group-hover:scale-100 group-hover:opacity-80 duration-500 ease-in-out"></i>
-          <span className="absolute left-[15%] opacity-0 group-hover:opacity-100 duration-500 ease-in-out z-50">
-            <button className="text-white z-50" onClick={handleLove}>
-              {activeFavorite ? (
-                <i className="fa-solid fa-heart text-xl"></i>
-              ) : (
-                <i className="fa-regular fa-heart text-xl"></i>
-              )}
-            </button>
-          </span>
-          <span className="absolute right-[15%] opacity-0 group-hover:opacity-100 duration-500 ease-in-out z-50">
-            <button className="text-white z-50" onClick={handleBookmark}>
-              {activeBookmark ? (
-                <i className="fa-solid fa-bookmark text-xl"></i>
-              ) : (
-                <i className="fa-regular fa-bookmark text-xl"></i>
-              )}
-            </button>
+
+          <span className="h-[20px] w-[20px] absolute top-0 right-0 bg-white cursor-pointer z-30">
+            <i
+              className="fa-solid fa-ellipsis-vertical flex justify-center items-center flex-1 w-full h-full text-center z-30"
+              onClick={handleShowMenuMovie}
+            ></i>
+            {showMenu && (
+              <span className="py-1 absolute top-0 right-[100%] bg-white min-h-[50px] min-w-[100px] z-40">
+                <span
+                  className="px-2 flex justify-start items-center hover:bg-[rgba(0,0,0,0.3)] z-50"
+                  onClick={handleFavorite}
+                >
+                  <p className="flex-1 w-full whitespace-nowrap">Yêu thích</p>
+                  <i className="fa-regular fa-heart my-auto"></i>
+                </span>
+                <span
+                  className="px-2 flex justify-start items-center mt-1 hover:bg-[rgba(0,0,0,0.3)] z-50"
+                  onClick={handleBookmark}
+                >
+                  <p className="flex-1 w-full whitespace-nowrap">Xem sau</p>
+                  <i className="fa-regular fa-clock my-auto"></i>
+                </span>
+              </span>
+            )}
           </span>
         </Link>
 
@@ -126,6 +127,7 @@ const MovieMainContent = ({ item }) => {
           </p>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

@@ -2,10 +2,11 @@ import Link from "next/link";
 import LayoutManageInfo from "../../../components/LayoutManageInfo";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import FavoriteMovie from "./components/FavoriteMovie";
-import WatchLaterMovie from "./components/WatchLaterMovie";
+import FavoriteMovie from "./FavoriteMovie";
+import WatchLaterMovie from "./WatchLaterMovie";
 import { useSelector } from "react-redux";
 import ProtectedRoute from "../../../utils/ProtectedRoutes";
+import axios from "axios";
 
 const arrTabs = [
   { id: 1, tabName: "Profile", tabPath: "profile" },
@@ -13,7 +14,7 @@ const arrTabs = [
   { id: 3, tabName: "WatchLater", tabPath: "watchLater" },
 ];
 
-const UserManagePage = ({ nameUser }) => {
+const UserManagePage = ({ nameUser, categories }) => {
   const router = useRouter();
   const user = useSelector((state) => state.auth.login.currentUser);
 
@@ -36,7 +37,7 @@ const UserManagePage = ({ nameUser }) => {
 
   return (
     <ProtectedRoute>
-      <LayoutManageInfo>
+      <LayoutManageInfo categories={categories}>
         <div className="mt-20 mb-8 overflow-hidden">
           <div className="flex justify-start items-center mb-[25px]">
             <div className="h-[130px] w-[130px] select-none">
@@ -144,9 +145,13 @@ export default UserManagePage;
 
 export async function getServerSideProps({ params }) {
   const nameUser = params.nameUser;
+  let allCategory = await axios.get(
+    `${process.env.NEXT_PUBLIC_URL}/api/v1/category`
+  );
   return {
     props: {
       nameUser,
+      categories: allCategory.data.data,
     },
   };
 }

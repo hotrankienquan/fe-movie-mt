@@ -12,6 +12,7 @@ const filmSlice = createSlice({
       state.login.isFetching = true;
     },
     addArrFavorite: (state, action) => {
+      // console.log(action.payload);
       state.favoriteFilm = action.payload;
     },
     addArrWatchLater: (state, action) => {

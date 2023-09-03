@@ -77,7 +77,7 @@ export var settings = {
   slidesToShow: 5,
   slidesToScroll: 1,
   initialSlide: 0,
-  autoplay: true,
+  // autoplay: true,
   speed: 1000,
   autoplaySpeed: 5000,
   swipeToSlide: true,

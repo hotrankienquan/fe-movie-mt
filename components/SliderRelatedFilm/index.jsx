@@ -7,6 +7,8 @@ import Image from "next/legacy/image";
 import MovieRalated from "./components/Movie";
 import { useEffect, useState } from "react";
 import { getAllMovies } from "../../store/apiRequest";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SliderTopRatingofWeek = ({ movies }) => {
   // console.log("topRatingofWeek", movies);
@@ -21,9 +23,10 @@ const SliderTopRatingofWeek = ({ movies }) => {
 
       <Slider {...settings}>
         {movies?.map((item, index) => {
-          return <MovieRalated key={item._id} item={item} />;
+          return <MovieRalated key={item._id} item={item} toast={toast} />;
         })}
       </Slider>
+      <ToastContainer />
     </div>
   );
 };

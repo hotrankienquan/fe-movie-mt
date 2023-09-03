@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { arrNameCategory, arrSearchMovie } from "./constHeader";
 import Cookies from "js-cookie";
 import { searchMovies } from "../../services/userRequest";
+import axios from "axios";
 
 export default function Header({ categories }) {
   // console.log(categories);
@@ -35,10 +36,12 @@ export default function Header({ categories }) {
     try {
       if (value) {
         const res = await searchMovies(value);
-        // console.log(">>> Results Search <<<", res);
+        console.log(">>> Results Search <<<", res);
         if (res.data.code === 200) {
           // console.log(">>> Results Search <<<", res.data.data.movies);
           setArrSearchMovie(res.data.data.movies);
+        } else {
+          setArrSearchMovie([]);
         }
       }
     } catch (err) {
@@ -128,18 +131,24 @@ export default function Header({ categories }) {
                   </span>
                 </Link>
 
-                <ul className="overflow-hidden absolute z-50 top-14 left-0 w-[500px] hidden bg-white text-gray-700 border border-gray-300 rounded-md group-hover:grid grid-cols-3 ">
-                  {arrNameCategory.map((item, i) => (
-                    <li key={i} className="block hover:bg-gray-100">
+                <ul className="overflow-hidden absolute z-50 top-14 w-[450px] hidden bg-white text-gray-700 border border-gray-300 rounded-md group-hover:flex flex-wrap">
+                  {categories?.map((item, i) => (
+                    <li
+                      key={item._id}
+                      className="w-4/12 min-h-[30px] inline-block hover:bg-gray-100"
+                    >
                       <Link
-                        href={`/category/${item.replace(/\s+/g, "-")}`}
-                        className="py-2.5 px-3.5 block w-full text-sm"
-                        title={`${item}`}
+                        href={`/category/${item.slug}?cateId=${item._id}`}
+                        className="py-1 px-3 block w-full text-[12px] overflow-hidden text-ellipsis whitespace-nowrap"
+                        title={`${item.name}`}
                       >
-                        <span className="mr-2">
-                          <i className="fa-solid fa-caret-right"></i>
+                        <span>
+                          {" "}
+                          <span className="mr-2">
+                            <i className="fa-solid fa-caret-right"></i>
+                          </span>
+                          {item.name}
                         </span>
-                        {item}
                       </Link>
                     </li>
                   ))}
@@ -179,39 +188,45 @@ export default function Header({ categories }) {
               {searchInput && (
                 <div
                   // ref={resultsRef}
-                  className="scroll_search_header absolute top-[110%] right-[80%] min-h-[100px] max-h-[300px] w-[330px] bg-[rgba(0,0,0,.8)] overflow-y-auto z-[100]"
+                  className="scroll_search_header absolute top-[110%] right-[80%] min-h-[50px] max-h-[300px] w-[330px] bg-[rgba(0,0,0,.8)] overflow-y-auto z-[100]"
                 >
-                  {arrSearchMovie.map((item, i) => (
-                    <div
-                      key={item._id}
-                      className="mb-[10px] p-2 h-[55px] flex items-center overflow-hidden"
-                    >
-                      <Link
-                        href={`/playFilm/${item.slug}`}
-                        className="flex items-center justify-between w-full h-[55px] group"
+                  {arrSearchMovie.length === 0 ? (
+                    <p className="p-2 text-white text-center">
+                      Không có kết quả tìm kiếm
+                    </p>
+                  ) : (
+                    arrSearchMovie.map((item, i) => (
+                      <div
+                        key={item._id}
+                        className="mb-[10px] p-2 h-[55px] flex items-center overflow-hidden"
                       >
-                        <span className="max-w-[40%] w-full h-full mr-[10px] overflow-hidden">
-                          <img
-                            src={item.photo?.[0]}
-                            alt="pic"
-                            className="object-cover w-full h-full group-hover:scale-110 transition-all duration-300"
-                          />
-                        </span>
+                        <Link
+                          href={`/playFilm/${item.slug}`}
+                          className="flex items-center justify-between w-full h-[55px] group"
+                        >
+                          <span className="max-w-[40%] w-full h-full mr-[10px] overflow-hidden">
+                            <img
+                              src={item.photo?.[0]}
+                              alt="pic"
+                              className="object-cover w-full h-full group-hover:scale-110 transition-all duration-300"
+                            />
+                          </span>
 
-                        <span className="max-w-[60%] w-full h-full overflow-hidden group-hover:opacity-80">
-                          <span className="block mb-[3px] text-[14px] text-[#0285b5] font-medium whitespace-nowrap text-ellipsis overflow-hidden">
-                            {item.title}
+                          <span className="max-w-[60%] w-full h-full overflow-hidden group-hover:opacity-80">
+                            <span className="block mb-[3px] text-[14px] text-[#0285b5] font-medium whitespace-nowrap text-ellipsis overflow-hidden">
+                              {item.title}
+                            </span>
+                            <span className="block text-[12px] text-[#0285b5] font-extralight whitespace-nowrap text-ellipsis overflow-hidden">
+                              {item.yearPublish}
+                            </span>
+                            <span className="block text-[11px] text-[#fff] font-thin whitespace-nowrap text-ellipsis overflow-hidden">
+                              {item.views} views
+                            </span>
                           </span>
-                          <span className="block text-[12px] text-[#0285b5] font-extralight whitespace-nowrap text-ellipsis overflow-hidden">
-                            {item.yearPublish}
-                          </span>
-                          <span className="block text-[11px] text-[#fff] font-thin whitespace-nowrap text-ellipsis overflow-hidden">
-                            {item.views} views
-                          </span>
-                        </span>
-                      </Link>
-                    </div>
-                  ))}
+                        </Link>
+                      </div>
+                    ))
+                  )}
 
                   <div className="p-2 text-center border-t-[1px] border-[rgba(255,255,255,.3)]">
                     <p
