@@ -80,15 +80,22 @@ export async function getStaticProps(context) {
     `${process.env.NEXT_PUBLIC_URL}/api/v1/category`
   );
 
-  const cateName = await allCategory.data.data.find(
-    (item) => item.slug == slugCategory
-  );
-  console.log("cateId", cateName.name);
+  let cateName = null; // Mặc định là null
+  if (slugCategory && allCategory?.data?.data) {
+    const foundCategory = allCategory?.data?.data.find(
+      (item) => item.slug == slugCategory
+    );
+    if (foundCategory) {
+      cateName = foundCategory.name;
+    }
+  }
+
+  // console.log("cateName", cateName);
 
   return {
     props: {
       slugCategory,
-      nameCategory: cateName.name,
+      nameCategory: cateName,
       categories: allCategory.data.data,
     },
     revalidate: 20,
@@ -99,6 +106,7 @@ export async function getStaticPaths(context) {
     `${process.env.NEXT_PUBLIC_URL}/api/v1/category`
   );
   const paths = allCategory.data.data.map((item) => {
+    // console.log("getStaticPaths", item.name);
     return { params: { nameCategory: `${item.name}` } };
   });
   return {
