@@ -28,6 +28,7 @@ const ForgetPage = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  const [verifyOTP, setVerifyOTP] = useState(false);
 
   const {
     register,
@@ -38,11 +39,42 @@ const ForgetPage = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const [password, confirmPassword] = watch(["password", "confirmPassword"]);
+  const [email, password, confirmPassword] = watch([
+    "email",
+    "password",
+    "confirmPassword",
+  ]);
 
   const onSubmit = async (data) => {
     // console.log(">>> Data FORGET <<<", data);
-    forgotPwdUser(data, router, toast);
+    forgotPwdUser(data, router, toast, verifyOTP, setVerifyOTP);
+  };
+
+  const reGeneratorOTP = async () => {
+    const base_url = process.env.NEXT_PUBLIC_URL;
+    const dataForm = { email, password };
+    try {
+      if ((email, password)) {
+        const response = await axios.put(
+          `${base_url}/api/v1/auth/forgot-pwd-user`,
+          dataForm
+        );
+        console.log(">>> Response FORGOT <<<", response);
+        if (response.status === 200) {
+          setVerifyOTP(true);
+          console.log(response.data);
+          toast(response?.data?.message);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      if (error?.response?.data?.code == 400) {
+        toast(error?.response?.data?.mes);
+      }
+      if (error?.response?.data?.code == 404) {
+        toast(error?.response?.data?.mes);
+      }
+    }
   };
 
   return (
@@ -123,6 +155,31 @@ const ForgetPage = () => {
                   </span>
                 }
               </div>
+
+              {verifyOTP && (
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Xác nhận OTP từ Gmail
+                  </label>
+                  <div className="relative">
+                    <input
+                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="..."
+                      {...register("otp", { required: true })}
+                    />
+                  </div>
+                  {<span className="text-red-500">{errors.otp?.message}</span>}
+                  <p className="mt-2 text-[13px]">
+                    bạn chưa nhận được OTP ?{" "}
+                    <span
+                      className="underline cursor-pointer"
+                      onClick={reGeneratorOTP}
+                    >
+                      gửi lại
+                    </span>
+                  </p>
+                </div>
+              )}
 
               <div className="flex items-start justify-between">
                 <div className="flex">

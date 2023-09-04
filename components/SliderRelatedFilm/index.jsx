@@ -9,17 +9,14 @@ import { useEffect, useState } from "react";
 import { getAllMovies } from "../../store/apiRequest";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Heading from "../Heading";
 
 const SliderTopRatingofWeek = ({ movies }) => {
   // console.log("topRatingofWeek", movies);
 
   return (
     <div className="mt-10 mb-8 -mx-2.5">
-      <div className="px-2.5 mb-4">
-        <h2 className="text-[#da966e] text-3xl font-normal border-l-4 pl-2.5">
-          PHIM CÓ RATING CAO NHẤT TUẦN
-        </h2>
-      </div>
+      <Heading content={"Phim có rating cao nhất tuần"} />
 
       <Slider {...settings}>
         {movies?.map((item, index) => {

@@ -1,27 +1,43 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-export const forgotPwdUser = async (formData, router, toast) => {
-  // dispatch(getUsersStart());
+export const forgotPwdUser = async (
+  formData,
+  router,
+  toast,
+  verifyOTP,
+  setVerifyOTP
+) => {
   const base_url = process.env.NEXT_PUBLIC_URL;
   try {
-    const res = await axios.put(
-      `${base_url}/api/v1/auth/forgot-pwd-user`,
-      formData
-    );
-    console.log(res);
-    if (res.data.code === 200) {
-      alert(res.data.mes);
+    let response;
+    if (!verifyOTP) {
+      response = await axios.put(
+        `${base_url}/api/v1/auth/forgot-pwd-user`,
+        formData
+      );
+      console.log(response);
+      if (response.status === 200) {
+        setVerifyOTP(true);
+        toast(response?.data?.message);
+      }
+    } else {
+      response = await axios.put(
+        `${base_url}/api/v1/auth/forgot-pwd-user-verify`,
+        formData
+      );
+      console.log(">>> Response FORGOT VERIFY <<<", response);
+      toast(response?.data?.mes);
+      // router.push("/login");
     }
-    router.push("/login");
-    return res;
-  } catch (err) {
-    // dispatch(getUsersFailed());
-    console.log(err);
-    if (err.response.data.code === 404) {
-      toast(err.response.data.mes);
+  } catch (error) {
+    console.log(error);
+    if (error?.response?.data?.code == 400) {
+      toast(error?.response?.data?.mes);
     }
-    // throw new Error(err);
+    if (error?.response?.data?.code == 404) {
+      toast(error?.response?.data?.mes);
+    }
   }
 };
 
@@ -44,6 +60,19 @@ export const getMoviesByCate = async (cateId, currentPage, pageSize) => {
   try {
     const res = await axios.get(
       `${base_url}/api/v1/movie/get-category-movie?cateId=${cateId}&page=${currentPage}&pageSize=${pageSize}`
+    );
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
+  }
+};
+
+export const getMoreMovies = async (name, currentPage, pageSize) => {
+  const base_url = process.env.NEXT_PUBLIC_URL;
+  try {
+    const res = await axios.get(
+      `${base_url}/api/v1/movie/get-more-movies?moreFilm=${name}&page=${currentPage}&pageSize=${pageSize}`
     );
     return res;
   } catch (err) {
