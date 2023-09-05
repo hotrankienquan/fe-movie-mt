@@ -55,7 +55,7 @@ const VideoDetail = ({ movie }) => {
       console.log(error);
     }
   };
-  console.log(movie.listUserRating?.find(item=>item.name == user.username).point)
+  // console.log(movie.listUserRating?.find(item=>item.name == user.username).point)
   return (
     <div className=" py-[10px] rounded-md bg-[#1b2d58]">
       <div className="h-[400px] px-[15px]">
@@ -135,7 +135,7 @@ const VideoDetail = ({ movie }) => {
             <ReactStars
               count={5}
               half={true}
-              value={movie.listUserRating?.find(item=>item.name == user.username).point || 10}
+              value={movie.listUserRating?.find(item=>item.name == user.username)?.point || 10}
               onChange={ratingChanged}
               size={24}
               color2={"#ffd700"}

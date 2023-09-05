@@ -1,10 +1,15 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import ReactJWPlayer from "react-jw-player";
 import JWPlayer from "@jwplayer/jwplayer-react";
 import ReactPlayer from "react-player";
-
+import {useRouter} from 'next/router'
 const VideoContainer = ({ movie }) => {
+ 
+  const [videoState, setVideoState] = useState({
+    videoId: movie._id || "myvideoid", 
+    currentTime: JSON.parse(localStorage.getItem("videoPlaybackState"))?.currentTime || 0
+  });
   const [videoQuality, setVideoQuality] = useState("720p"); // Chất lượng mặc định
   const handleQualityChange = (quality) => {
     setVideoQuality(quality);
@@ -47,28 +52,70 @@ const VideoContainer = ({ movie }) => {
     { value: "480p", label: "480p" },
     { value: "360p", label: "360p" },
   ];
+  // Khi component được tạo
+  useEffect(() => {
+    const savedVideoState = localStorage.getItem('videoPlaybackState');
+
+    if (savedVideoState) {
+      const parsedState = JSON.parse(savedVideoState);
+      const currentTime = parsedState.currentTime;
+      
+      // Nếu có currentTime, thiết lập nó cho video
+      const videoElement = document.querySelector('.players-container video'); // Thay 'myVideo' bằng ID thật của video
+      if (videoElement) {
+        videoElement.currentTime = currentTime;
+      }
+    }
+    
+  }, []);
+   // Khi video bắt đầu phát
+  const handleVideoPlay = () => {
+    localStorage.setItem('videoPlaybackState', JSON.stringify(videoState));
+  };
+
+const handleVideoTimeUpdate = (event) => {
+  const newVideoState = { ...videoState, currentTime: event.target.currentTime,videoId: movie._id};
+  setVideoState(newVideoState);
+  localStorage.setItem('videoPlaybackState', JSON.stringify(newVideoState));
+};
+
+  // Khi video đã hoàn thành hoặc ngừng xem
+  const handleVideoEnded = () => {
+    // Xóa dữ liệu trạng thái video khỏi Local Storage
+    localStorage.removeItem('videoPlaybackState');
+  };
+// const handleVideoProgress = (state) => {
+//   // Trạng thái state chứa thông tin về thời gian hiện tại của video và nhiều thông tin khác
+//   const currentTime = state.playedSeconds; // Thời gian đã phát tính theo giây
+//   // Sử dụng currentTime theo ý của bạn, ví dụ:
+//   console.log(`Thời gian đã phát: ${currentTime} giây`);
+
+//   const newVideoState = { ...videoState, currentTime,videoId: movie._id};
+//   setVideoState(newVideoState);
+//   localStorage.setItem('videoPlaybackState', JSON.stringify(newVideoState));
+// };
+
   return (
     <div className="players-container">
-      {/* <JWPlayer
-    // library="https://content.jwplatform.com/libraries/j9BLvpMc.js"
-    // playlist="https://cdn.jwplayer.com/v2/playlists/B8FTSH9D"
-    // playlist={playlist}
-    // playlist={
-    //   "https://cdn.jwplayer.com/v2/playlists/B8FTSH9D?fbclid=IwAR0j_kzxOGd1oB0pr4Go-MxsNfzI4KYQOlGPYgRKEkt_O5UZvKsK2CY7GM4"
-    // }
-    // playlist={
-    //   "https://firebasestorage.googleapis.com/v0/b/movie-the-stone-d9f38.appspot.com/o/files%2FB%C3%A1%C2%BA%C2%A3n%20in%20l%C3%A1%C2%BB%C2%97i.mp4%20%20%20%20%20%20%202023-8-16%2022%3A53%3A35?alt=media&token=f6bd78f4-3f03-40c8-a4f8-5ec41902866d"
-    // }
-  /> */}
+      <video
+        id={movie._id || "abc"} // Thay 'myVideo' bằng ID thật của video
+        onPlay={handleVideoPlay}
+        onTimeUpdate={handleVideoTimeUpdate}
+        onEnded={handleVideoEnded}
+        controls
+      >
+        <source src={`${process.env.NEXT_PUBLIC_URL}/video/riengminhanh.mp4`} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
-      <ReactPlayer
+     {/* <ReactPlayer
         // url={movie?.video?.[0]}
         url={`${process.env.NEXT_PUBLIC_URL}/video/riengminhanh.mp4`}
-        // url={"https://youtu.be/DWYwmTdXpqw?si=yAfzJl4ilB-Y0fWd"}
-        // url={
-        //   "https://firebasestorage.googleapis.com/v0/b/movie-the-stone-d9f38.appspot.com/o/files%2FB%C3%A1%C2%BA%C2%A3n%20in%20l%C3%A1%C2%BB%C2%97i.mp4%20%20%20%20%20%20%202023-8-16%2022%3A53%3A35?alt=media&token=f6bd78f4-3f03-40c8-a4f8-5ec41902866d"
-        // }
+        
         controls
+        id={movie._id || "abc"}
+        onStart={handleVideoPlay}
+        onProgress={handleVideoProgress}
         className=""
         config={{
           file: {
@@ -99,7 +146,7 @@ const VideoContainer = ({ movie }) => {
             },
           },
         }}
-      />
+      />*/}
     </div>
   );
 };

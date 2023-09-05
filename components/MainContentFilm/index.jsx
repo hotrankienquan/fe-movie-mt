@@ -53,7 +53,7 @@ const MainContentFilm = () => {
               </div>
 
               <Slider {...settings}>
-                {item?.dataFilm.map((item, index) => {
+                {item?.dataFilm?.map((item, index) => {
                   if (item !== null)
                     return <MovieMainContent key={item?._id} item={item} />;
                 })}
