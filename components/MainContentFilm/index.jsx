@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 const MainContentFilm = () => {
   const film = useSelector((state) => state.film);
   const { movies, favoriteFilm, watchLaterFilm } = film;
-  // console.log(movies);
+  console.log(movies,"movies in MainContentFilm");
   // console.log(movies?.watchToday);
 
   const arrSliderCategory = [
@@ -29,9 +29,9 @@ const MainContentFilm = () => {
 
   return (
     <>
-      <div className="grid grid-cols-7 -mx-2.5 gap-6 h-[700px] overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-7 -mx-2.5 gap-6 overflow-hidden">
         {/* LEFT */}
-        <div className="col-span-5 h-full flex flex-col justify-between">
+        <div className="col-span-1 md:col-span-5 h-full flex flex-col justify-between">
           {arrSliderCategory.map((item, index) => (
             <div
               key={item.id}
@@ -61,32 +61,12 @@ const MainContentFilm = () => {
             </div>
           ))}
 
-          {/* <div className="">
-            <div className="px-2.5 mb-4 flex justify-between items-center">
-              <h3 className="text-[#da966e] text-2xl font-normal border-l-4 pl-2.5">
-                Phim mới nhất
-              </h3>
-
-              <Link
-                href={`/category/${"Phim mới nhất".replace(/\s+/g, "-")}`}
-                className="py-[3px] px-[8px] rounded-[3px] bg-[#408BEA] font-light text-[10px] text-white uppercase select-none"
-              >
-                Xem thêm
-              </Link>
-            </div>
-
-            <Slider {...settings}>
-              {movies?.latest?.map((item, index) => {
-                if (item !== null)
-                  return <MovieMainContent key={item?._id} item={item} />;
-              })}
-            </Slider>
-          </div> */}
         </div>
 
         {/* RIGHT */}
-        <div className="col-span-2 px-2.5 h-full overflow-hidden">
+        <div className="col-span-1 md:col-span-2 px-2.5 h-full">
           <SidebarContentFilm movies={movies?.awards} />
+          abc
         </div>
       </div>
 
